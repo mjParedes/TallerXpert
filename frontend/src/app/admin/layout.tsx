@@ -1,4 +1,4 @@
-import { NavbarAdmin } from "@/components";
+import { Sidebar } from "@/components";
 import type { Metadata } from "next";
 
 // export const metadata: Metadata = {
@@ -12,9 +12,11 @@ export default function RootAuth({
   children: React.ReactNode;
 }>) {
   return (
-    <main>
-      <NavbarAdmin />
-      {children}
+    <main className="flex">
+      <Sidebar />
+      <div className="p-4">
+        {children}
+      </div>
     </main>
 
   );
