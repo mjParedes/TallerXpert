@@ -15,7 +15,9 @@ const config: Config = {
       },
       backgroundColor: {
         "primary": "#B9B8B8",
-        "secondary": "#34495E"
+        "secondary": "#34495E",
+        "tertiary": "#4A4A4A",
+        "quaternary": "#1E1E1E",
       },
       textColor: {
         "primary": "#000000",
