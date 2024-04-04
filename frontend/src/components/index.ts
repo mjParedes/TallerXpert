@@ -8,3 +8,6 @@ export * from './card-servcice/CardService'
 
 // UI
 export * from './ui/Title'
+
+// footer
+export * from './footer/Footer'

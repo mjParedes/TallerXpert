@@ -23,7 +23,7 @@ export const SectionServices = () => {
 
   return (
     <section className="w-full max-w-[1440px] mx-auto flex flex-col items-center justify-center">
-      <Title title="¿Qué te ofrece MiTaller" className='text-xl text-center' />
+      <Title title="¿Qué te ofrece MiTaller" className='text-xl text-center my-6' />
 
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10 mb-10 px-4'>
         {
