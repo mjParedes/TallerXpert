@@ -1,37 +1,37 @@
 'use client'
 
-import { BranchLogo, Company, Dashboard, Orders, Statistics, Suppliers, Technicians } from '@/components'
+import { BranchLogo, Workshop, Dashboard, Orders, Statistics, Suppliers, Technicians } from '@/components'
 import Link from 'next/link'
 
 const sideItems = [
   {
-    path: '/admin',
+    path: '/dashboard',
     icon: <Dashboard />,
     title: 'Dashboard'
   },
   {
-    path: '/admin',
+    path: '/dashboard/technicians',
     icon: <Technicians />,
     title: 'Técnicos'
   },
   {
-    path: '/admin',
+    path: '/dashboard/orders',
     icon: <Orders />,
     title: 'Ordenes'
   },
   {
-    path: '/admin',
+    path: '/dashboard/suppliers',
     icon: <Suppliers />,
     title: 'Proveedores'
   },
   {
-    path: '/admin',
+    path: '/dashboard/statistics',
     icon: <Statistics />,
     title: 'Estadisticas'
   },
   {
-    path: '/admin',
-    icon: <Company />,
+    path: '/dashboard/workshop',
+    icon: <Workshop />,
     title: 'Taller'
   }
 ]
@@ -39,7 +39,6 @@ const sideItems = [
 export const Sidebar = () => {
 
   const tallerName = 'Nombre del Taller'
-
 
   return (
     <nav
@@ -70,7 +69,7 @@ export const Sidebar = () => {
       </ul>
 
       <div className='flex flex-col w-full items-center gap-[27px]'>
-        <Link href="/admin">
+        <Link href="/">
           <BranchLogo />
         </Link>
         <p className='text-white font-semibold uppercase text-center'>soporte</p>

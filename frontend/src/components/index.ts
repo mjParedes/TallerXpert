@@ -15,7 +15,7 @@ export * from './footer/Footer'
 
 // icons
 export { BranchLogo } from './icons/BranchLogo'
-export { Company } from './icons/Company'
+export { Workshop } from './icons/Workshop'
 export { Dashboard } from './icons/Dashboard'
 export { Orders } from './icons/Orders'
 export { Statistics } from './icons/Statistics'
