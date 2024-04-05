@@ -8,7 +8,7 @@ export class User extends Model {
 	@Column({
 		primaryKey: true,
 		type: DataType.UUID,
-		defaultValue: DataType.UUIDV4,
+		defaultValue: DataType.UUIDV4, // esto lo voy a cambiar y hago esto para crear la rama backend
 	})
 	id!: string
 
