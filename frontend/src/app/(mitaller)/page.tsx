@@ -1,13 +1,13 @@
-import { SectionServices } from '@/components'
+import { SectionServices, HeroHome } from '@/components'
 
 export default function Home() {
   return (
     <main>
-
       <h1>Landing page</h1>
 
-      <SectionServices />
+      <HeroHome />
 
+      <SectionServices />
     </main>
-  );
+  )
 }
