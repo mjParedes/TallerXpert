@@ -21,3 +21,6 @@ export { Orders } from './icons/Orders'
 export { Statistics } from './icons/Statistics'
 export { Suppliers } from './icons/Suppliers'
 export { Technicians } from './icons/Technicians'
+
+// form create workshop
+export * from './create-taller/FormCreateWorkshop'

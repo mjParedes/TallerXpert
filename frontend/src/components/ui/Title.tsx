@@ -11,7 +11,7 @@ export const Title = ({ title, subtitle, className }: TitleProps) => {
     <div className={`${className}`}>
       <h1 className={`${titleFont.className} antialiased font-semibold`}>{title}</h1>
       {subtitle && (
-        <h3 className="text-xl mb-5">{subtitle}</h3>
+        <h2 className="text-xl mb-5">{subtitle}</h2>
       )}
     </div>
   )
