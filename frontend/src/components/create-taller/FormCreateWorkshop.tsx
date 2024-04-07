@@ -251,7 +251,7 @@ export const FormCreateWorkshop = () => {
           </div>
           {
             errors.specializedField?.type === 'required' && (
-              <span className='text-red-500'>* EL campo especializado es requerido</span>
+              <span className='text-red-500'>* El campo rubro es requerido</span>
             )
           }
         </div>
@@ -288,8 +288,8 @@ export const FormCreateWorkshop = () => {
           )
         }
 
-        <label className="block w-64 focus:outline-none btn-primary">
-          Cargar Logo
+        <label className="block w-64 focus:outline-none btn-primary text-center p-0">
+          {image ? 'Cambiar logo' : 'Cargar logo'}
           <input
             type="file"
             className="hidden"
