@@ -1,12 +1,13 @@
 export const HeroHome = () => {
   return (
     <section className='bg-white py-14 relative'>
-      <div className='w-full max-w-[1440px] mx-auto px-3 relative z-10'>
-        <div className='grid grid-cols-1 md:grid-cols-12 items-center justify-center gap-4 md:min-h-screen'>
-          <div className='md:col-span-5 md:col-start-2 flex mb-4 md:mb-0 flex-col justify-center items-center'>
+      <div className='container mx-auto px-3 relative z-10'>
+        <div className='grid grid-cols-1 md:grid-cols-2 items-center justify-center gap-4 md:min-h-screen'>
+          <div className='md:col-span-1 flex mb-4 md:mb-0 flex-col justify-center'>
             <div>
               <h1 className='text-4xl mb-2 md:text-6xl inline-block font-extrabold md:mb-4 text-black'>
-                Gestionar tu taller nunca fue tan fácil
+                Gestionar tu <br className='hidden md:block' /> taller nunca fue
+                <br className='hidden md:block' /> tan fácil
               </h1>
               <p className='text-black'>
                 Lorem ipsum dolor sit amet consectetur. Eleifend at arcu felis ultricies. <br />
@@ -14,7 +15,7 @@ export const HeroHome = () => {
               </p>
             </div>
           </div>
-          <div className='md:col-span-5 md:col-start-7 flex flex-col justify-center items-center'>
+          <div className='md:col-span-1 flex flex-col justify-center items-center'>
             <img src='./iStock-1624686457.jpg' alt='' />
           </div>
         </div>
