@@ -10,7 +10,6 @@ app.use(json())
 app.use(morgan('dev'))
 app.use(corsMiddleware())
 app.disable('x-powered-by')
-
 app.use('/api', apiRoute)
 
 app.listen(PORT, async () => {
