@@ -15,6 +15,11 @@ export class User extends Model {
 	@Column({
 		type: DataType.STRING,
 	})
+	fullName!: string
+
+	@Column({
+		type: DataType.STRING,
+	})
 	email!: Date
 
 	@Column({

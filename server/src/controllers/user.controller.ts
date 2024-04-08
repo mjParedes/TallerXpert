@@ -13,7 +13,6 @@ export class UserController {
 			// next(error)
 		}
 	}
-
 	static async create(req: Request, res: Response, next: NextFunction) {
 		try {
 			// userSchema.parse(req.body)
@@ -62,6 +61,23 @@ export class UserController {
 				attributes: { exclude: ['password'] },
 			})
 			res.status(201).json(user?.dataValues)
+		} catch (error: any) {
+			res.status(500).json({
+				message: error.message,
+			})
+		}
+	}
+	static async delete(req: Request, res: Response) {
+		try {
+			const user = await User.destroy({
+				where: {
+					id: req.params.id,
+				},
+			})
+			res.status(201).json({
+				user,
+				delete: true,
+			})
 		} catch (error: any) {
 			res.status(500).json({
 				message: error.message,
