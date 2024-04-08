@@ -1,6 +1,28 @@
 
 import { NextFunction, Request, Response } from 'express'
 import { Reparation } from '../models'
+import { workerData } from 'worker_threads'
+
+export interface ProductReparation {
+    name: string,
+    category: string,
+    brand: string,
+    model: string,
+    serial_number?: string,
+    detail: string,
+    workshopId?: string
+}
+
+export interface ReparationOrder {
+    ot_number: string,
+    products: [ProductReparation],
+    client: string,
+    diagnostic: string,
+    amount?: number,
+    entry_date?: Date,
+    exit_date?: Date,
+    register_by?: string
+}
 
 export class ReparationController {
 	static async getAll(req: Request, res: Response, next: NextFunction) {
@@ -33,11 +55,23 @@ export class ReparationController {
 
 	static async create(req: Request, res: Response, next: NextFunction) {
 		try {
-			const {product, client, ...restData}  = req.body;
-			let productInstance = await Product.findOne( { where :{ id : product } });
+			const {client, ...restData}  = req.body;
+			const products = req.body.products;
 			let clientInstance = await Client.findOne( { where :{ id : client } }) ;
-			if (!productInstance || !clientInstance ) throw new Error('Producto o Cliente no encontrado');
-			const reparation = await Reparation.create({...restData , product: productInstance , client: clientInstance});
+			if(!clientInstance){
+				throw new Error("Cliente inexistente");
+			}
+			const reparation = await Reparation.create({...restData , client: clientInstance});
+			if(products){
+				products.forEach((product: ProductReparation
+				 ) => {
+					let newProduct = Product.create({
+						workshop: reparation.
+					});
+					reparation.$add('products',newProduct);
+				});
+			}
+			reparation.save();
 			res.status(201).json(reparation)
 		} catch (error: any) {
 			res.status(500).json({

@@ -1,5 +1,6 @@
-import { BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasOne, Model, Table, UpdatedAt } from "sequelize-typescript"
+import { BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasMany, HasOne, IsArray, Model, Table, UpdatedAt } from "sequelize-typescript"
 import { User } from "./user.models"
+import { string } from "zod"
 
 @Table({
     timestamps: false,
@@ -20,8 +21,8 @@ export class Reparation extends Model {
     })
     ot_number!: string
 
-    @HasOne( () => Product )
-    product!: Product
+    @HasMany( () => Product )
+    products!: [Product]
 
 	@BelongsTo(() => Client)
     client!: Client
