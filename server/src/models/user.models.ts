@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript'
+import { AllowNull, BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript'
+import { Client } from '.';
 
 @Table({
 	timestamps: false,
@@ -12,13 +13,23 @@ export class User extends Model {
 	})
 	id!: string
 
+  @AllowNull(false)
 	@Column({
 		type: DataType.STRING,
 	})
-	email!: Date
+	email!: string
 
+  @AllowNull(false)
 	@Column({
 		type: DataType.STRING,
 	})
 	password!: string
+
+  @AllowNull(false)
+	@ForeignKey(() => Client)
+	@Column({ type: DataType.UUID })
+	clientId!: string
+
+  @BelongsTo(() => Client)
+  client!: Client
 }
