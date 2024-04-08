@@ -1,52 +1,66 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript'
+import {
+	AllowNull,
+	BelongsTo,
+	Column,
+	DataType,
+	ForeignKey,
+	Model,
+	Table,
+} from 'sequelize-typescript'
+import { User } from './user.models'
 
-export enum workshopCategory{
-    Electronica= 'electronica',
-    Mecanica= 'mecanica',
-    Varios= 'varios'
+export enum workshopCategory {
+	Electronica = 'electronica',
+	Mecanica = 'mecanica',
+	Varios = 'varios',
 }
 
 @Table({
-    timestamps: false,
-    tableName: 'workshop',
+	timestamps: false,
+	tableName: 'workshop',
 })
 
 export class Workshop extends Model {
-    @Column({
-        primaryKey: true,
-        type: DataType.UUID,
-        defaultValue: DataType.UUIDV4,
-    })
-    id!: string
+	@Column({
+		primaryKey: true,
+		type: DataType.UUID,
+		defaultValue: DataType.UUIDV4,
+		allowNull: false,
+	})
+	id!: string
 
-    @Column({
-        type: DataType.STRING,
-    })
-    owner!: string
+	@AllowNull(false)
+	@ForeignKey(() => User)
+	@Column({ type: DataType.UUID })
+	ownerId!: string
 
-    @Column({
-        type: DataType.STRING,
-    })
-    title!: string
+	@BelongsTo(() => User)
+	owner!: User
 
-    @Column({
-        type: DataType.STRING,
-    })
-    photo_url!: string
+	@Column({
+		type: DataType.STRING,
+		allowNull: false,
+	})
+	title!: string
 
-    @Column({
-        type: DataType.STRING,
-    })
-    description!: string
+	@Column({
+		type: DataType.STRING,
+	})
+	photo_url!: string
 
-    @Column({
-        type: DataType.STRING,
-    })
-    location!: string
+	@Column({
+		type: DataType.STRING,
+	})
+	description!: string
 
-    @Column({
-        type: DataType.ENUM(...Object.values(workshopCategory)),
-    })
-    category!: workshopCategory
+	@Column({
+		type: DataType.STRING,
+	})
+	location!: string
+
+	@Column({
+		type: DataType.ENUM(...Object.values(workshopCategory)),
+	})
+	category!: workshopCategory
 
 }
