@@ -10,8 +10,7 @@ export const HeroHome = () => {
                 <br className='hidden md:block' /> tan fácil
               </h1>
               <p className='text-black'>
-                Lorem ipsum dolor sit amet consectetur. Eleifend at arcu felis ultricies. <br />
-                Semper ut eu quisque vel eget in eu ligula.
+                Nuestro sistema de gestión de talleres agiliza cada parte de la operación, hacemos que administrar su taller sea más fácil que nunca. ¡Deja que nuestra plataforma impulse tu negocio y te ayude a destacar en el mercado!
               </p>
             </div>
           </div>
@@ -30,8 +29,8 @@ export const HeroHome = () => {
         className='absolute bottom-0 right-0 w-full z-0'
       >
         <path
-          fill-rule='evenodd'
-          clip-rule='evenodd'
+          fillRule='evenodd'
+          clipRule='evenodd'
           d='M0 272.05L80 245.458C160 218.867 320 166.892 480 114.917C640 62.942 800 10.9671 960 1.29736C1120 -7.16366 1280 27.8892 1360 44.8112L1440 62.942V376H1360C1280 376 1120 376 960 376C800 376 640 376 480 376C320 376 160 376 80 376H0V272.05Z'
           fill='#B9B8B8'
         />
