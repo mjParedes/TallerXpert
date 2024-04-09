@@ -1,8 +1,5 @@
-import { Inter, Montserrat_Alternates } from 'next/font/google'
+import { Inter, Raleway } from 'next/font/google'
 
-export const inter = Inter({ subsets: ['latin'] })
+export const textFont = Raleway({ subsets: ['latin'] })
 
-export const titleFont = Montserrat_Alternates({
-  subsets: ['latin'],
-  weight: ['500', '700']
-})
+export const titleFont = Inter({ subsets: ['latin'] }) 
