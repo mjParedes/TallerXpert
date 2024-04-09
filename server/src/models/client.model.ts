@@ -1,4 +1,4 @@
-import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript'
+import { AllowNull, Column, DataType, HasMany, Model, Table, Unique } from 'sequelize-typescript'
 import { User } from '.'
 
 @Table({
@@ -13,26 +13,45 @@ export class Client extends Model {
 	})
 	id!: string
 
+  @AllowNull(false)
 	@Column({
 		type: DataType.STRING,
 	})
-	name!: string
+	fullName!: string
 
+  @AllowNull(false)
+  @Unique(true)
 	@Column({
-		type: DataType.STRING,
+		type: DataType.INTEGER,
 	})
-	lastName!: string
+	dni!: number
 
-	@Column({
-		type: DataType.STRING,
-	})
-	phone!: string
-
+  @AllowNull(false)
 	@Column({
 		type: DataType.STRING,
 	})
 	address!: string
 
-  @HasMany(() => User)
-  users!: User[];
+  @AllowNull(false)
+	@Column({
+		type: DataType.STRING,
+	})
+	city!: string
+
+  @AllowNull(false)
+	@Column({
+		type: DataType.INTEGER,
+	})
+	phone!: number
+
+  @AllowNull(false)
+  @Unique(true)
+	@Column({
+		type: DataType.STRING,
+	})
+	email!: string
+
+	// falta cambiar la relacion de User por Workshop
+	@HasMany(() => User)
+	users!: User[]
 }

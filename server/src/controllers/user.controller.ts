@@ -1,10 +1,16 @@
 import { NextFunction, Request, Response } from 'express'
-import { User } from '../models'
+import { User, Client } from '../models'
 
 export class UserController {
 	static async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
-			const results = await User.findAll()
+			const results = await User.findAll({
+        include: [
+          {
+            model: Client,
+          },
+        ],
+      })
 			res.status(200).json(results)
 		} catch (error: any) {
 			res.status(500).json({

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
-import { z } from 'zod'
+import { ZodError } from 'zod'
+import { HttpCodes } from '.'
 
 interface ErrorType {
 	name: string
@@ -14,13 +15,16 @@ export const errorHandler = (
 	res: Response,
 	_next: NextFunction,
 ) => {
-	if (error instanceof z.ZodError) {
+	if (error instanceof ZodError) {
 		// Error de validación de Zod
 		const errObj: { [key: string]: string } = {}
 		error.errors.map((error) => {
 			errObj[error.path] = error.message
 		})
-		return res.status(400).json(errObj)
+		return res.status(HttpCodes.BAD_REQUEST).json({
+			message: 'Error de validación',
+			errors: errObj,
+		})
 	}
 
 	if (
@@ -30,10 +34,10 @@ export const errorHandler = (
 		error.message === 'Workshop not found' ||
 		error.message === 'User not found'
 	) {
-		return res.status(404).json({ message: error.message })
+		return res.status(HttpCodes.NOT_FOUND).json({ message: error.message })
 	}
 	if (error.name === 'SequelizeUniqueConstraintError') {
-		return res.status(400).json({
+		return res.status(HttpCodes.BAD_REQUEST).json({
 			message: error?.errors?.[0].message,
 			error: error.parent?.detail,
 		})
@@ -43,28 +47,28 @@ export const errorHandler = (
 		error.errors?.map((er) => {
 			errObj[er.path] = er.message
 		})
-		return res.status(400).json(errObj)
+		return res.status(HttpCodes.BAD_REQUEST).json(errObj)
 	}
 	if (error.name === 'SequelizeEagerLoadingError') {
-		return res.status(400).json({
+		return res.status(HttpCodes.BAD_REQUEST).json({
 			message: error.message,
 			error: error,
 		})
 	}
 	if (error.name === 'SequelizeForeignKeyConstraintError') {
-		return res.status(400).json({
+		return res.status(HttpCodes.BAD_REQUEST).json({
 			message: error.message,
 			error: error.parent?.detail,
 		})
 	}
 	if (error.name === 'SequelizeDatabaseError') {
-		return res.status(400).json({
+		return res.status(HttpCodes.BAD_REQUEST).json({
 			message: error.message,
 			error,
 		})
 	}
 
-	return res.status(500).json({
+	return res.status(HttpCodes.INTERNAL_SERVER_ERROR).json({
 		message: error.message,
 		error,
 	})
