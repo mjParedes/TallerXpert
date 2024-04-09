@@ -1,3 +1,5 @@
+import { AllowNull, BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript'
+import { Client } from '.';
 import { profile } from 'console'
 import { Model, Column, Table, DataType, AllowNull, Unique, HasOne } from 'sequelize-typescript'
 
@@ -25,6 +27,14 @@ export class User extends Model<User> {
 		type: DataType.STRING,
 	})
 	password!: string
+
+  @AllowNull(false)
+	@ForeignKey(() => Client)
+	@Column({ type: DataType.UUID })
+	clientId!: string
+
+  @BelongsTo(() => Client)
+  client!: Client
 
 	@AllowNull(false)
 	@Column({
