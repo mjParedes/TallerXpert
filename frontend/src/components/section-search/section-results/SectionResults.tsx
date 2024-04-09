@@ -28,7 +28,7 @@ export const SectionResults = ({ city, item }: ResultProps) => {
 
                 </>
                 :
-                <h3 className="font-black  text-2xl sm:text-3xl text-center mb-8">Realiza una búsqueda para ver resultados</h3>
+                <h3 className="font-medium  text-base text-center mb-8">Realiza una búsqueda para ver resultados</h3>
             }
         </section>
     )
