@@ -4,19 +4,19 @@ import { Request, Response } from 'express'
 import { User } from '../models'
 
 export class AuthAndSignController {
-	static async register(req: Request, res: Response) {
+	static async auth(req: Request, res: Response) {
 		try {
-			if (!req.body.email || !req.body.rol || !req.body.password) {
+			if (!req.body.email || !req.body.fullName || !req.body.password) {
 				return res.status(400).json({ message: 'Faltan datos' })
 			}
-			const user = await User.create({
-				// where: {
-				// 	email: req.body.email,
-				// },
-				// defaults: {
+			const [user] = await User.findCreateFind({
+				where: {
+					email: req.body.email,
+				},
+				defaults: {
 					...req.body,
 					password: getSHA256ofString(req.body.password),
-				// },
+				},
 			})
 			const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string)
 			res.status(201).json({
@@ -29,7 +29,6 @@ export class AuthAndSignController {
 			})
 		}
 	}
-	
 	static async signin(req: Request, res: Response) {
 		try {
 			const user = await User.findOne({
