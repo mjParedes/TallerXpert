@@ -57,16 +57,21 @@ export class ReparationController {
 		try {
 			const {client, ...restData}  = req.body;
 			const products = req.body.products;
-			let clientInstance = await Client.findOne( { where :{ id : client } }) ;
-			if(!clientInstance){
-				throw new Error("Cliente inexistente");
+			let clientToSave;
+			if( !client ) {
+				throw new Error("No se ingresó un cliente");
 			}
-			const reparation = await Reparation.create({...restData , client: clientInstance});
+			const clientInstance = await Client.findOne( { where :{ dni : client.dni } }) ;
+			if(!clientInstance){
+				clientToSave = await Client.create(client);
+			}
+			const reparation = await Reparation.create({...restData , client: clientToSave});
 			if(products){
 				products.forEach((product: ProductReparation
 				 ) => {
 					let newProduct = Product.create({
-						workshop: reparation.
+						workshop: reparation.id;
+						...product
 					});
 					reparation.$add('products',newProduct);
 				});

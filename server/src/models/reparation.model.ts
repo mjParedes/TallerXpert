@@ -1,6 +1,12 @@
-import { BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasMany, HasOne, IsArray, Model, Table, UpdatedAt } from "sequelize-typescript"
+import { AllowNull, BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasMany, HasOne, IsArray, Model, Table, Unique, UpdatedAt } from "sequelize-typescript"
 import { User } from "./user.models"
-import { string } from "zod"
+
+export enum reparationState{
+    PENDING = 'pendiente',
+    IN_PROGRESS = 'en progreso',
+    REPAIRED = 'reparado',
+    DONE = 'finalizado'
+}
 
 @Table({
     timestamps: false,
@@ -15,9 +21,9 @@ export class Reparation extends Model {
     })
     id!: string
 
+    @Unique(true)
     @Column({
-        type: DataType.STRING,
-        unique: true
+        type: DataType.STRING
     })
     ot_number!: string
 
@@ -27,15 +33,30 @@ export class Reparation extends Model {
 	@BelongsTo(() => Client)
     client!: Client
 
+    @AllowNull(false)
+    @Column({
+        type: DataType.STRING,
+    })
+    issue_detail!: string
+
+    @AllowNull(true)
+    @Column({
+        type: DataType.STRING
+    })
+    note!: string
+
+    @ForeignKey(() => Client)
+    @Column({
+        field:'clientId',
+        type:DataType.UUID
+    })
+    clientId!:string
+
+    @AllowNull(true)
     @Column({
         type: DataType.STRING,
     })
     diagnostic!: string
-
-    @Column({
-        type: DataType.DOUBLE,
-    })
-    amount!: number
 
     @CreatedAt
     @Column
@@ -49,5 +70,51 @@ export class Reparation extends Model {
     @Column({
         type: DataType.STRING,
     })
-    register_by!: User
+    assigned_user!: User
+
+    @Column({
+        type: DataType.STRING,
+        defaultValue: reparationState.PENDING
+    })
+    state!: reparationState
+
+    @Column({
+        type: DataType.BOOLEAN,
+        defaultValue: false
+    })
+    is_paid!: boolean
+
+    @AllowNull(true)
+    @Column({
+        type: DataType.DOUBLE,
+        defaultValue: 0.0
+    })
+    total_cost!: number
+
+    @AllowNull(true)
+    @Column({
+        type: DataType.DOUBLE,
+        defaultValue: 0.0
+    })
+    revision_cost!: number
+
+    @AllowNull(true)
+    @Column({
+        type: DataType.DOUBLE,
+        allowNull: true,
+        defaultValue: 0.0
+    })
+    reparation_cost!: number
+
+    @AllowNull(true)
+    @Column({
+        type: DataType.DATEONLY
+    })
+    warranty_date!: Date
+
+    @AllowNull(true)
+    @Column({
+        type: DataType.STRING
+    })
+    warranty_invoice_number!: string
 }
