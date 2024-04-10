@@ -1,3 +1,4 @@
+import { Search } from "@/components/icons/Search"
 import { CardResult } from "./card-result/CardResult"
 import talleres from "./talleres.json"
 
@@ -23,7 +24,10 @@ export const SectionResults = ({ city, item }: ResultProps) => {
                         ))}
                         </div>
                         :
-                        <p>No se encontraron talleres</p>
+                        <div className="flex flex-row gap-1 justify-center items-center">
+                            <Search width={18}/>
+                            <p>No existen resultados</p>
+                        </div>
                         }
 
                 </>
