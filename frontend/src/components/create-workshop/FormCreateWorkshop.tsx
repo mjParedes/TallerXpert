@@ -1,7 +1,6 @@
 'use client'
 
-import { createWorkshop } from "@/actions/workshop/create-workshop";
-import { sleep } from "@/utils";
+import { createWorkshop } from "@/actions";
 import clsx from "clsx";
 import Image from "next/image"
 import { useRouter } from "next/navigation";
@@ -43,6 +42,7 @@ const specializedFields = [
 ]
 
 export const FormCreateWorkshop = () => {
+  const router = useRouter()
   const [image, setImage] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -63,7 +63,6 @@ export const FormCreateWorkshop = () => {
     }
   };
 
-  const router = useRouter()
 
   const { handleSubmit, register, formState: { isValid }, formState: { errors } } = useForm<WorkshopForm>({
     defaultValues: {}
@@ -91,14 +90,10 @@ export const FormCreateWorkshop = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 pl-20">
-
-      <div className="flex flex-col w-full pl-8 pr-[53px] py-4 gap-4 ">
-
-        <span className='text-red-500 pb-3'>{errorMessage}</span>
-
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col-reverse items-center lg:grid lg:grid-cols-2 lg:pl-20 lg:place-items-start">
+      <div className="flex flex-col w-full px-8 pb-4 gap-4 ">
         <div className="flex flex-col gap-2">
-          <label htmlFor="name" className="text-white">Nombre institucional</label>
+          <label htmlFor="name">Nombre institucional</label>
           <input
             className={
               clsx(
@@ -119,7 +114,7 @@ export const FormCreateWorkshop = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="direction" className="text-white">Dirección fiscal</label>
+          <label htmlFor="direction">Dirección fiscal</label>
           <input
             className={
               clsx(
@@ -140,7 +135,7 @@ export const FormCreateWorkshop = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="city" className="text-white">Ciudad</label>
+          <label htmlFor="city">Ciudad</label>
           <input
             className={
               clsx(
@@ -160,7 +155,7 @@ export const FormCreateWorkshop = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="phone" className="text-white">Teléfono de contacto</label>
+          <label htmlFor="phone">Teléfono de contacto</label>
           <input
             className={
               clsx(
@@ -181,7 +176,7 @@ export const FormCreateWorkshop = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="email" className="text-white">Email</label>
+          <label htmlFor="email">Email</label>
           <input
             className={
               clsx(
@@ -202,7 +197,7 @@ export const FormCreateWorkshop = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="cuit" className="text-white">Número de CUIT</label>
+          <label htmlFor="cuit">Número de CUIT</label>
           <input
             className={
               clsx(
@@ -222,7 +217,7 @@ export const FormCreateWorkshop = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="specializedField" className="text-white">Rubro especializado</label>
+          <label htmlFor="specializedField">Rubro especializado</label>
           <div className="mt-1 relative">
             <select
               className={
@@ -255,8 +250,9 @@ export const FormCreateWorkshop = () => {
             )
           }
         </div>
+        <span className='text-red-500 pb-3'>{errorMessage}</span>
 
-        <div className="mt-[73px] mb-10">
+        <div className="mt-6 lg:mt-[73px] mb-10">
           <button
             disabled={isSubmitting}
             type="submit"
@@ -273,20 +269,16 @@ export const FormCreateWorkshop = () => {
 
       </div>
 
-      <div className="flex flex-col gap-4">
-        <div className="w-64 h-64 relative  bg-primary">
+      <div className="flex flex-col items-center w-full lg:justify-start gap-4 pb-9">
+        <div className="w-64 h-64 relative bg-white border-4 rounded border-dashed border-[#D1D1F2] flex flex-col items-center justify-center">
           {
-            image && (
+            !image ? (
+              <p className="text-black">Ninguna imagen añadida...</p>
+            ) : (
               <Image src={image} alt="Vista previa" width={300} height={300} className="object-cover w-full h-full" />
             )
           }
         </div>
-
-        {
-          !image && (
-            <p className="text-white">Ninguna imagen añadida...</p>
-          )
-        }
 
         <label className="block w-64 focus:outline-none btn-primary text-center p-0">
           {image ? 'Cambiar logo' : 'Cargar logo'}
