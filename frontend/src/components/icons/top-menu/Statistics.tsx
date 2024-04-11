@@ -1,15 +1,15 @@
 import { SVGProps } from "react";
 
-export const Orders = (props: SVGProps<SVGSVGElement>) => (
+export const StatisticsTop = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={32}
-    height={33}
+    width={48}
+    height={48}
     fill="none"
     {...props}
   >
     <path
-      stroke="#F4F4F4"
+      stroke="#B9B8B8"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.5}
