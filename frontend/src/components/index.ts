@@ -34,3 +34,9 @@ export { TechniciansTop } from './icons/top-menu/Technicians'
 // form create workshop
 export * from './create-workshop/FormCreateWorkshop'
 
+// form register
+export * from './register/FormRegister'
+
+// form login
+export *from './login/FormLogin'
+
