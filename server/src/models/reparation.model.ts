@@ -1,11 +1,13 @@
-import { AllowNull, BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasMany, HasOne, IsArray, Model, Table, Unique, UpdatedAt } from "sequelize-typescript"
+import { AllowNull, BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasMany, HasOne, IsArray, IsDate, Model, Table, Unique, UpdatedAt } from "sequelize-typescript"
 import { User } from "./user.models"
+import { Client } from "./client.models"
+import { Product } from "./product.models"
 
 export enum reparationState{
-    PENDING = 'pendiente',
-    IN_PROGRESS = 'en progreso',
-    REPAIRED = 'reparado',
-    DONE = 'finalizado'
+    PENDING = 'Pendiente',
+    IN_PROGRESS = 'En Progreso',
+    REPAIRED = 'Reparado',
+    DONE = 'Finalizado'
 }
 
 @Table({
@@ -106,6 +108,7 @@ export class Reparation extends Model {
     })
     reparation_cost!: number
 
+    @IsDate
     @AllowNull(true)
     @Column({
         type: DataType.DATEONLY
