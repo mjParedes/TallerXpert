@@ -4,28 +4,25 @@ export const SectionServices = () => {
 
   const services = [
     {
-      title: 'Cotiza tu servicio',
-      description: 'Cotiza el servicio que necesitas para tu vehículo y recibe una respuesta en menos de 24 horas.'
+      title: 'Administra tus Clientes y Reparaciones',
+      description: 'Ingresa los datos de tus clientes, crea órdenes de trabajo, informes de reparación y más!'
     },
     {
-      title: 'Agenda tu cita',
-      description: 'Agenda tu cita en el taller más cercano a tu ubicación y recibe un recordatorio el día de tu cita.'
+      title: 'Gestiona tus datos de forma ágil y segura',
+      description: 'Añade datos de tu taller, de tus técnicos y proveedores sin perder información.'
     },
     {
-      title: 'Revisa el estado de tu vehículo',
-      description: 'Recibe notificaciones en tiempo real sobre el estado de tu vehículo y el avance de tu servicio.'
+      title: 'Agiliza la comunicación con tus técnicos',
+      description: 'Mantente informado en todo momento sobre el estado de tus reparaciones.'
     },
-    {
-      title: 'Paga en línea',
-      description: 'Paga tu servicio en línea y recibe tu factura en tu correo electrónico.'
-    }
   ]
 
   return (
-    <section className="w-full max-w-[1440px] mx-auto flex flex-col items-center justify-center">
-      <Title title="¿Qué te ofrece MiTaller" className='text-xl text-center my-6' />
+    <section className="w-full max-w-[1440px] mx-auto flex flex-col items-center justify-center bg-gradient-to-t from-white to-[#DBDCF7] pt-16 pb-36">
+      <Title title="¿Qué te ofrece TallerXpert?" className='text-2xl font-black text-center my-6 mb-16' />
 
-      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10 mb-10 px-4'>
+      {/* <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10 mb-10 px-4'> */}
+      <div className='flex flex-col md:flex-row lg:flex-row justify-center items-center gap-4'>
         {
           services.map((service, index) => (
             <CardService key={index} service={service} />
