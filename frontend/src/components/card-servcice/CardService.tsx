@@ -10,14 +10,14 @@ interface Props {
 
 export const CardService = ({ service }: Props) => {
   return (
-    <div className='flex flex-col items-center justify-center border rounded-lg relative pt-16 mt-16'>
+    <div className='flex flex-col items-center justify-center relative pt-16 mt-16 w-80'>
 
-      <div className="w-32 h-32 bg-gray-400 rounded-full absolute -top-16">
+      <div className="w-32 h-32 bg-white rounded-full absolute -top-16">
         {/* should be a image */}
       </div>
 
-      <h2 className='text-2xl font-semibold pt-2 px-2 text-center'>{service.title}</h2>
-      <p className='p-4'>{service.description}</p>
+      <h2 className='text-xl font-bold pt-4 px-8 text-center'>{service.title}</h2>
+      <p className='py-4 px-8 text-center font-normal text-base'>{service.description}</p>
     </div>
   )
 }

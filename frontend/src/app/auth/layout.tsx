@@ -12,7 +12,7 @@ export default function RootAuth({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="flex flex-col w-full h-screen p-28 items-center justify-center">
+    <main className="flex flex-col w-full items-center justify-center">
       {children}
     </main>
 

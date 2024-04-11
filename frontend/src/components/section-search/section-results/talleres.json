@@ -1,0 +1,72 @@
+[
+  {
+    "nombreTaller": "Taller A",
+    "ciudad": "Ciudad 1",
+    "calificación": 4,
+    "rubro": "Rubro 1",
+    "contacto": 123456789
+  },
+  {
+    "nombreTaller": "Taller B",
+    "ciudad": "Ciudad 2",
+    "calificación": 3,
+    "rubro": "Rubro 2",
+    "contacto": 987654321
+  },
+  {
+    "nombreTaller": "Taller C",
+    "ciudad": "Ciudad 3",
+    "calificación": 5,
+    "rubro": "Rubro 3",
+    "contacto": 555666777
+  },
+  {
+    "nombreTaller": "Taller D",
+    "ciudad": "Ciudad 2",
+    "calificación": 2,
+    "rubro": "Rubro 1",
+    "contacto": 111222333
+  },
+  {
+    "nombreTaller": "Taller E",
+    "ciudad": "Ciudad 2",
+    "calificación": 4,
+    "rubro": "Rubro 2",
+    "contacto": 444555666
+  },
+  {
+    "nombreTaller": "Taller F",
+    "ciudad": "Ciudad 3",
+    "calificación": 1,
+    "rubro": "Rubro 3",
+    "contacto": 777888999
+  },
+  {
+    "nombreTaller": "Taller G",
+    "ciudad": "Ciudad 1",
+    "calificación": 3,
+    "rubro": "Rubro 1",
+    "contacto": 999888777
+  },
+  {
+    "nombreTaller": "Taller H",
+    "ciudad": "Ciudad 1",
+    "calificación": 5,
+    "rubro": "Rubro 2",
+    "contacto": 666555444
+  },
+  {
+    "nombreTaller": "Taller I",
+    "ciudad": "Ciudad 2",
+    "calificación": 4,
+    "rubro": "Rubro 3",
+    "contacto": 333222111
+  },
+  {
+    "nombreTaller": "Taller J",
+    "ciudad": "Ciudad 3",
+    "calificación": 2,
+    "rubro": "Rubro 1",
+    "contacto": 888999000
+  }
+]
