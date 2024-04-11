@@ -5,5 +5,4 @@ const signinRouter = Router()
 
 signinRouter.post('/', AuthAndSignController.signin)
 
-
 export default signinRouter

@@ -31,7 +31,6 @@ export class AuthAndSignController {
 			})
 		}
 	}
-	
 	static async signin(req: Request, res: Response) {
 		try {
 			const user = await User.findOne({
