@@ -11,5 +11,6 @@ export const sequelize = new Sequelize(DATABASE_URL, {
 			rejectUnauthorized: false,
 		},
 	},
-	models: [User, Workshop, Client],
+	// models: [User, Workshop, Client],
+	models: [User, Workshop],
 })

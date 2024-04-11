@@ -5,11 +5,13 @@ import { NODE_ENV, PORT } from './constants'
 import { corsMiddleware } from './middlewares'
 import apiRoute from './routes/api.route'
 import { errorHandler } from './utils'
+import cors from 'cors'
 
 const app = express()
 app.use(json())
 app.use(morgan('dev'))
-app.use(corsMiddleware())
+// app.use(corsMiddleware())
+app.use(cors())
 app.disable('x-powered-by')
 app.use('/api', apiRoute)
 
