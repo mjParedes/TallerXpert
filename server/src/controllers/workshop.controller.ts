@@ -80,4 +80,18 @@ export class WorkshopController {
 			// next(error)
 		}
 	}
+
+	static async deleteAll(req:Request, res:Response, next:NextFunction) {
+		try {
+			const result = await Workshop.destroy({
+				truncate: true
+			})
+			res.status(201).json(result)
+		} catch (error: any) {
+			res.status(500).json({
+				message: error.message,
+			})
+			// next(error)
+		}
+	}
 }
