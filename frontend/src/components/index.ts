@@ -33,3 +33,9 @@ export { TechniciansDark } from './icons/TechniciansDark'
 // form create workshop
 export * from './create-taller/FormCreateWorkshop'
 
+// form register
+export * from './register/FormRegister'
+
+// form login
+export *from './login/FormLogin'
+
