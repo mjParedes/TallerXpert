@@ -1,7 +1,6 @@
-import { AllowNull, BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript'
+import { AllowNull, BelongsTo, Column, DataType, ForeignKey, Model, Table, Unique } from 'sequelize-typescript'
 import { Client } from '.';
-import { profile } from 'console'
-import { Model, Column, Table, DataType, AllowNull, Unique, HasOne } from 'sequelize-typescript'
+import { profile } from 'console';
 
 @Table({
 	timestamps: false,
