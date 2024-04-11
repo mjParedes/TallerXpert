@@ -8,12 +8,13 @@ import { useEffect } from "react";
 export const SectionInterface = () => {
 
     useEffect(() => {
-      const image = document.querySelector('.scroll-image');
+      const image = document.querySelector<HTMLElement>('.scroll-image');
       window.addEventListener('scroll', () => {
         const scrollValue = window.scrollY;
         const newValue = scrollValue + -600;
-        image.style.transform = `translateY(-${newValue}px)`;
-        
+        if (image !== null) {
+          image.style.transform = `translateY(-${newValue}px)`;
+        }
       });
 
     //   return () => {
