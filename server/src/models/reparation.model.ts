@@ -1,7 +1,7 @@
 import { AllowNull, BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasMany, HasOne, IsArray, IsDate, Model, Table, Unique, UpdatedAt } from "sequelize-typescript"
 import { User } from "./user.models"
-import { Client } from "./client.models"
-import { Product } from "./product.models"
+import { Client } from "./client.model"
+import { Product } from "./product.model"
 
 export enum reparationState{
     PENDING = 'Pendiente',

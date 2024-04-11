@@ -2,7 +2,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { Reparation } from '../models'
 import { Client} from '../models'
-import { Product } from '../models'
+import { Product } from '../models/product.model'
 
 export interface ProductReparation {
     name: string,
@@ -12,7 +12,7 @@ export interface ProductReparation {
     detail: string,
     workshopId?: string
 }
-export interface Client {
+export interface ClientOrderReparation {
 	fullName: string,
 	dni: number,
 	address: string,
@@ -75,25 +75,25 @@ export class ReparationController {
 		try {
 			const {...restData}  = req.body;
 			const products = req.body.products as ProductReparation[];
-			const client = req.body.client as Client;
+			const client = req.body.client as ClientOrderReparation;
 			let clientToSave;
 			if( !client ) {
 				throw new Error("No se ingresó un cliente");
 			}
 			const clientInstance = await Client.findOne( { where :{ dni : client.dni } }) ;
 			if(!clientInstance){
-				clientToSave = await Client.create(client);
+				clientToSave = await Client.create({...client});
 			}
 			const reparation = await Reparation.create({...restData , client: clientToSave});
 			if(!products || products.length <= 1){
 				throw new Error("No se registraron artefactos o productos");
 			}
-			products.forEach((product: Product
+			products.forEach(async(product: any
 			) => {
-			   const newProduct = Product.create({
+			   const newProduct = await Product.create({
 				   ...product
 			   });
-			   reparation.$add('products',newProduct);
+			   await reparation.$add('products',newProduct);
 		   });
 			reparation.save();
 			res.status(201).json(reparation)

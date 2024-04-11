@@ -1,6 +1,5 @@
 import { AllowNull, BelongsTo, Column, DataType, ForeignKey, Model, Table, Unique } from 'sequelize-typescript'
 import { Client } from '.';
-import { profile } from 'console'
 
 @Table({
 	timestamps: false,
