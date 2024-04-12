@@ -27,7 +27,7 @@ const sideItems = [
   {
     path: '/dashboard/statistics',
     icon: <Statistics />,
-    title: 'Estadisticas'
+    title: 'Estadísticas'
   },
   {
     path: '/dashboard/workshop',
@@ -42,7 +42,7 @@ export const Sidebar = () => {
 
   return (
     <nav
-      className='w-[248px] h-screen min-h-[1024px] flex flex-col justify-around bg-tertiary shadow-xl px-6 py-[42px] text-white'
+      className='w-[248px] h-screen min-h-[1024px] flex flex-col justify-around bg-primary shadow-xl px-6 py-[42px] text-white'
     >
 
       <div className='flex flex-col items-center gap-3'>
@@ -57,9 +57,9 @@ export const Sidebar = () => {
         {
           sideItems.map((item, index) => (
             <li key={index}
-              className='py-2 hover:bg-quaternary'>
-              <Link href={item.path} className='flex items-center py-[4.5px] gap-6 font-bold text-base'>
-                <span className='ml-2'>{item.icon}</span>
+              className='py-2 hover:bg-white hover:text-primary rounded-lg'>
+              <Link href={item.path} className='flex items-center py-[4.5px] gap-6 font-bold text-base pr-2'>
+                <span className='ml-2 text-current group-hover:text-primary'>{item.icon}</span>
                 {item.title}
               </Link>
             </li>

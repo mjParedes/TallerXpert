@@ -1,9 +1,10 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { DashboardDark, SuppliersDark, Title, TechniciansDark, OrdersDark } from '@/components'
+import { DashboardTop, SuppliersTop, Title, TechniciansTop, OrdersTop, StatisticsTop } from '@/components'
 import { getDateFormatSpanish } from '@/utils'
 import Image from 'next/image'
+import { WorkshopTop } from '@/components/icons/top-menu/Workshop'
 
 export const TopMenu = () => {
   const pathName = usePathname()
@@ -12,27 +13,27 @@ export const TopMenu = () => {
 
   const routeConfig = {
     '/dashboard': {
-      icon: <DashboardDark />,
+      icon: <DashboardTop />,
       title: 'Dashboard'
     },
     '/dashboard/technicians': {
-      icon: <TechniciansDark />,
+      icon: <TechniciansTop />,
       title: 'Técnicos'
     },
     '/dashboard/orders': {
-      icon: <OrdersDark />,
+      icon: <OrdersTop />,
       title: 'Ordenes'
     },
     '/dashboard/suppliers': {
-      icon: <SuppliersDark />,
+      icon: <SuppliersTop />,
       title: 'Proveedores'
     },
     '/dashboard/statistics': {
-      icon: <DashboardDark />,
+      icon: <StatisticsTop />,
       title: 'Estadísticas'
     },
     '/dashboard/workshop': {
-      icon: <DashboardDark />,
+      icon: <WorkshopTop />,
       title: 'Taller'
     }
   }
@@ -49,7 +50,9 @@ export const TopMenu = () => {
 
       {/* left menu */}
       <div className='flex justify-center items-center gap-2'>
-        {icon}
+        <div className='flex items-center justify-center text-center'>
+          {icon}
+        </div>
         <Title title={title} className='text-[32px]' />
       </div>
 

@@ -1,22 +1,22 @@
 import { SVGProps } from "react";
 
-export const Dashboard = (props: SVGProps<SVGSVGElement>) => (
+export const DashboardTop = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={32}
-    height={29}
+    width={48}
+    height={48}
     fill="none"
     {...props}
   >
     <path
-      stroke="#F4F4F4"
+      stroke="#B9B8B8"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
       d="M5 12.094V25c0 .232.105.455.293.619.187.164.442.256.707.256h6v-7.438c0-.348.158-.681.44-.928a1.616 1.616 0 0 1 1.06-.384h5c.398 0 .78.138 1.06.384.282.247.44.58.44.928v7.438h6c.265 0 .52-.092.707-.256A.824.824 0 0 0 27 25V12.094"
     />
     <path
-      stroke="#F4F4F4"
+      stroke="#B9B8B8"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
