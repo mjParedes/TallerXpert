@@ -1,7 +1,5 @@
-import { AllowNull, BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript'
+import { AllowNull, BelongsTo, Column, DataType, ForeignKey, Model, Table, Unique } from 'sequelize-typescript'
 import { Client } from '.';
-import { profile } from 'console'
-import { Model, Column, Table, DataType, AllowNull, Unique, HasOne } from 'sequelize-typescript'
 
 @Table({
 	timestamps: false,
@@ -16,6 +14,12 @@ export class User extends Model<User> {
 	id!: number
 
 	@AllowNull(false)
+	@Column({
+		type: DataType.STRING,
+	})
+	fullName!: string
+
+	@AllowNull(false)
 	@Unique(true)
 	@Column({
 		type: DataType.STRING,
@@ -27,14 +31,6 @@ export class User extends Model<User> {
 		type: DataType.STRING,
 	})
 	password!: string
-
-  @AllowNull(false)
-	@ForeignKey(() => Client)
-	@Column({ type: DataType.UUID })
-	clientId!: string
-
-  @BelongsTo(() => Client)
-  client!: Client
 
 	@AllowNull(false)
 	@Column({

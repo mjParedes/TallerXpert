@@ -6,7 +6,8 @@ import { User } from '../models'
 export class AuthAndSignController {
 	static async register(req: Request, res: Response) {
 		try {
-			if (!req.body.email || !req.body.rol || !req.body.password) {
+			// console.log(req.body);
+			if (!req.body.email || !req.body.password) {
 				return res.status(400).json({ message: 'Faltan datos' })
 			}
 			const user = await User.create({
@@ -15,6 +16,7 @@ export class AuthAndSignController {
 				// },
 				// defaults: {
 					...req.body,
+					rol: "admin",
 					password: getSHA256ofString(req.body.password),
 				// },
 			})
@@ -29,7 +31,6 @@ export class AuthAndSignController {
 			})
 		}
 	}
-	
 	static async signin(req: Request, res: Response) {
 		try {
 			const user = await User.findOne({
