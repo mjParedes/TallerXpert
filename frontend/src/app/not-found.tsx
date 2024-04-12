@@ -1,5 +1,4 @@
 import Link from 'next/link';
-
 export default function NotFound() {
   return (
     <div className='absolute inset-0 z-10 flex justify-center items-center bg-white'>
