@@ -1,19 +1,18 @@
 import { SVGProps } from "react";
 
 export const StatisticsTop = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={48}
-    height={48}
+  <svg xmlns="http://www.w3.org/2000/svg"
     fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5} stroke="currentColor"
+    className="w-12 h-12"
     {...props}
   >
     <path
       stroke="#B9B8B8"
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth={1.5}
-      d="M4 18a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 10 18v9a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 4 27v-9Zm9-6a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 19 12v15a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 13 27V12Zm9-6a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 28 6v21a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 22 27V6Z"
+      d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"
     />
   </svg>
 )
