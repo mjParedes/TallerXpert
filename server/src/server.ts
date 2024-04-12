@@ -25,7 +25,7 @@ app.listen(PORT, async () => {
 	try {
 		await sequelize.sync(
 			// NODE_ENV === 'production' ? { alter: true } : { force: true },
-			{ alter: true },
+			// { alter: true },
 		)
 		console.log('Connection has been established successfully.')
 	} catch (error) {
