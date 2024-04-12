@@ -9,7 +9,7 @@ export class Profile extends Model {
 	@Column({
 		primaryKey: true,
 		type: DataType.UUID,
-		defaultValue: DataType.UUIDV4, // esto lo voy a cambiar y hago esto para crear la rama backend
+		defaultValue: DataType.UUIDV4,
 	})
 	id!: string
 
