@@ -1,7 +1,9 @@
 'use client'
 
-import { BranchLogo, Workshop, Dashboard, Orders, Statistics, Suppliers, Technicians } from '@/components'
+import { Workshop, Dashboard, Orders, Statistics, Suppliers, Technicians } from '@/components'
+import Image from 'next/image'
 import Link from 'next/link'
+import { textLogo } from '@/config/fonts'
 
 const sideItems = [
   {
@@ -38,7 +40,8 @@ const sideItems = [
 
 export const Sidebar = () => {
 
-  const tallerName = 'Nombre del Taller'
+  const logoSidebar = '/logoSidebar.png'
+  const tallerName = 'TechRepair'
 
   return (
     <nav
@@ -46,10 +49,8 @@ export const Sidebar = () => {
     >
 
       <div className='flex flex-col items-center gap-3'>
-        <div className="rounded-full h-16 w-16 bg-white">
-          {/* should be an image */}
-        </div>
-        <h1 className='font-black text-xl text-center uppercase'>{tallerName}</h1>
+        <Image src={logoSidebar} alt='logo sidebar' width={80} height={80} className='rounded-full' />
+        <h1 className='font-black text-xl text-center capitalize'>{tallerName}</h1>
       </div>
 
       {/* menu */}
@@ -69,10 +70,10 @@ export const Sidebar = () => {
       </ul>
 
       <div className='flex flex-col w-full items-center gap-[27px]'>
-        <Link href="/">
-          <BranchLogo />
+        <p className='text-white font-bold uppercase text-center text-base'>soporte</p>
+        <Link href="/" className={`${textLogo.className} text-2xl`}>
+          TallerXpert
         </Link>
-        <p className='text-white font-semibold uppercase text-center'>soporte</p>
       </div>
     </nav >
   )
