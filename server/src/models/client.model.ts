@@ -1,4 +1,12 @@
-import { AllowNull, Column, DataType, HasMany, Model, Table, Unique } from 'sequelize-typescript'
+import {
+	AllowNull,
+	Column,
+	DataType,
+	HasMany,
+	Model,
+	Table,
+	Unique,
+} from 'sequelize-typescript'
 import { User } from '.'
 
 @Table({
@@ -13,39 +21,39 @@ export class Client extends Model {
 	})
 	id!: string
 
-  @AllowNull(false)
+	@AllowNull(false)
 	@Column({
 		type: DataType.STRING,
 	})
 	fullName!: string
 
-  @AllowNull(false)
-  @Unique(true)
+	@AllowNull(false)
+	@Unique(true)
 	@Column({
 		type: DataType.INTEGER,
 	})
 	dni!: number
 
-  @AllowNull(false)
+	@AllowNull(false)
 	@Column({
 		type: DataType.STRING,
 	})
 	address!: string
 
-  @AllowNull(false)
+	@AllowNull(false)
 	@Column({
 		type: DataType.STRING,
 	})
 	city!: string
 
-  @AllowNull(false)
+	@AllowNull(false)
 	@Column({
 		type: DataType.INTEGER,
 	})
 	phone!: number
 
-  @AllowNull(false)
-  @Unique(true)
+	@AllowNull(false)
+	@Unique(true)
 	@Column({
 		type: DataType.STRING,
 	})
