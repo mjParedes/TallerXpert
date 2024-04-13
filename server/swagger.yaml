@@ -2,7 +2,8 @@ openapi: 3.0.0
 info:
   title: TallerXpert API
   version: 1.0.0
-  components:
+
+components:
   schemas:
     User:
       type: object
@@ -26,13 +27,14 @@ info:
           type: string
           format: uuid
         role:
-          type: enum
-          example:
+          type: string
+          enum:
             - admin
             - worker
           default: worker
         is_active:
           type: boolean
+
     Workshop:
       type: object
       required:
@@ -56,11 +58,12 @@ info:
         location:
           type: string
         category:
-          type: enum
-          example:
+          type: string
+          enum:
             - Electronica
             - Mecanica
             - Varios
+
     Client:
       type: object
       required:
@@ -77,18 +80,19 @@ info:
         fullName:
           type: string
         dni:
-          type: number
+          type: integer
           x-swagger-unique: true
         address:
           type: string
         city:
           type: string
         phone:
-          type: number
+          type: integer
         email:
           type: string
           format: email
           x-swagger-unique: true
+
     Reparation:
       type: object
       required:
@@ -104,17 +108,17 @@ info:
           format: uuid
         register_by:
           type: string
-          $ref: "#/components/schemas/User"
+          format: uuid
         ot_number:
-          type: number
+          type: integer
         product:
           type: string
-          $ref: "#/components/schemas/Product"
+          format: uuid
         diagnostic:
           type: string
         client:
           type: string
-          $ref: "#/components/schemas/Client"
+          format: uuid
         amount:
           type: number
           format: double
@@ -124,7 +128,8 @@ info:
         exit_date:
           type: string
           format: date-time
-    Products:
+
+    Product:
       type: object
       required:
         - ot_number
@@ -137,7 +142,7 @@ info:
           type: string
           format: uuid
         ot_number:
-          type: number
+          type: integer
         product_name:
           type: string
         product_category:
@@ -152,6 +157,8 @@ info:
           type: string
         workshop:
           type: string
+          format: uuid
+
     Profile:
       type: object
       required:
@@ -169,8 +176,9 @@ info:
         lastName:
           type: string
         phone:
-          type: number
-    Reviews:
+          type: integer
+
+    Review:
       type: object
       required:
         - workshop_id
@@ -182,14 +190,22 @@ info:
           format: uuid
         workshop_id:
           type: string
-          $ref: "#/components/schemas/Workshop"
+          format: uuid
         user:
           type: string
-          $ref: "#/components/schemas/User"
+          format: uuid
         comment:
           type: string
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
 security:
   - BearerAuth: []
+
 paths:
   /api/user:
     get:
