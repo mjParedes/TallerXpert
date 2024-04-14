@@ -1,6 +1,5 @@
 // navbar
 export * from './navbar/Navbar'
-export * from './navbar-admin/NavbarAdmin'
 
 // Hero Home
 export * from './hero-home/HeroHome'
@@ -18,7 +17,9 @@ export * from './sidebar/Sidebar'
 export * from './footer/Footer'
 
 // icons
-export { BranchLogo } from './icons/BranchLogo'
+export { Supplier } from './icons/dashboard/Supplier'
+export { Report } from './icons/dashboard/Report'
+export { Order } from './icons/dashboard/Order'
 export { Workshop } from './icons/sidebar/Workshop'
 export { Dashboard } from './icons/sidebar/Dashboard'
 export { DashboardTop } from './icons/top-menu/Dashboard'
@@ -30,6 +31,9 @@ export { Suppliers } from './icons/sidebar/Suppliers'
 export { SuppliersTop } from './icons/top-menu/Suppliers'
 export { Technicians } from './icons/sidebar/Technicians'
 export { TechniciansTop } from './icons/top-menu/Technicians'
+export { AvatarTechnician } from './icons/dashboard/avatar'
+export { AvatarTechnician2 } from './icons/dashboard/avatar2'
+export { AvatarTechnician3 } from './icons/dashboard/avatar3'
 
 // form create workshop
 export * from './create-workshop/FormCreateWorkshop'
@@ -38,5 +42,7 @@ export * from './create-workshop/FormCreateWorkshop'
 export * from './register/FormRegister'
 
 // form login
-export *from './login/FormLogin'
+export * from './login/FormLogin'
 
+// dashboard
+export * from './dashboard/card-item/CardItem'
