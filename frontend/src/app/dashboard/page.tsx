@@ -107,7 +107,7 @@ export default function DashboardPage() {
         <div className="p-4 ml-4 border rounded-lg flex-grow flex-col gap-4">
           <h1 className={`${titleFont.className} font-bold text-2xl text-black antialiased`}>Tecnicos en línea</h1>
 
-          <div className="mt-4 flex flex-col gap-8">
+          <div className="mt-4 flex flex-col gap-4">
             {
               technicians.map((technician, index) => (
                 <div key={index} className="flex items-center gap-8 p-3 rounded bg-secondary">
