@@ -38,7 +38,7 @@ export class UserController {
 		try {
 			const user = await User.update(
 				{
-					rol:req.body.rol,
+					rol: req.body.rol,
 				},
 				{
 					where: {
