@@ -1,5 +1,5 @@
-import { AllowNull, BelongsTo, Column, DataType, ForeignKey, Model, Table, Unique } from 'sequelize-typescript'
-import { Client } from '.';
+import { AllowNull, BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasOne, IsEmail, Model, Table, Unique } from 'sequelize-typescript'
+import { Client, Profile, Reparation } from '.';
 
 @Table({
 	timestamps: false,
@@ -20,6 +20,7 @@ export class User extends Model<User> {
 	fullName!: string
 
 	@AllowNull(false)
+	@IsEmail
 	@Unique(true)
 	@Column({
 		type: DataType.STRING,
@@ -46,6 +47,7 @@ export class User extends Model<User> {
 	is_active!: boolean
 
 	// Relacion con la tabla Profile, falta terminarlo
-	// @HasOne(() => Profile)
-	// profile: Profile
+	@HasOne(() => Profile)
+	profile!: Profile
+
 }

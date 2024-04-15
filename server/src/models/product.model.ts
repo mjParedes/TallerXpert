@@ -1,9 +1,11 @@
 import { BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasOne, Model, Table, UpdatedAt } from "sequelize-typescript"
 import { User } from '../models/user.models'
+import { Client } from "./client.model"
+import { Reparation } from "./reparation.model"
 
 @Table({
     timestamps: false,
-    tableName: 'products', // nombre de la tabla en la base de datos
+    tableName: 'product', // nombre de la tabla en la base de datos
 })
 
 export class Product extends Model {
@@ -63,12 +65,21 @@ export class Product extends Model {
     @Column
     exit_date!: Date
 
-    @ForeignKey(() => User)
+    /*@ForeignKey(() => User)
     @Column({
         type: DataType.STRING,
     })
-    register_by!: string
+    register_by!: string*/
 
-    @BelongsTo(() => User)
-    user!: User
+    @ForeignKey(() => Client)
+    client_id!: Client
+
+    @BelongsTo(() => Client)
+    client!: Client
+
+    @ForeignKey(() => Reparation)
+    reparation_id!: string
+
+    @BelongsTo( ()=> Reparation)
+    reparation!: Reparation
 }
