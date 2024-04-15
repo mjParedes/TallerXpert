@@ -77,15 +77,18 @@ export class ReparationController {
 			const products = req.body.products as ProductReparation[];
 			const client = req.body.client as ClientOrderReparation;
 			let clientToSave;
+			let clientId;
 			if( !client ) {
 				throw new Error("No se ingresó un cliente");
 			}
 			const clientInstance = await Client.findOne( { where :{ dni : client.dni } }) ;
 			if(!clientInstance){
 				clientToSave = await Client.create({...client});
+				clientId = clientToSave.id;
 			}
-			const reparation = await Reparation.create({...restData , client: clientToSave});
-			if(!products || products.length <= 1){
+			clientId = clientInstance?.id;
+			const reparation = await Reparation.create({...restData , client_id: clientId});
+			if(!products){
 				throw new Error("No se registraron artefactos o productos");
 			}
 			products.forEach(async(product: any

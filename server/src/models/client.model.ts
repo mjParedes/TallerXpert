@@ -60,6 +60,6 @@ export class Client extends Model {
 	email!: string
 
 	// falta cambiar la relacion de User por Workshop
-	@HasMany(() => User)
-	users!: User[]
+	//@HasMany(() => User)
+	//users!: User[]
 }

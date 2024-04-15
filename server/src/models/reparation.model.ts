@@ -1,9 +1,9 @@
-import { AllowNull, BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasMany, HasOne, IsArray, IsDate, Model, Table, Unique, UpdatedAt } from "sequelize-typescript"
+import { AllowNull, BeforeValidate, BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasMany, HasOne, IsArray, IsDate, IsUUID, Model, Table, Unique, UpdatedAt } from "sequelize-typescript"
 import { User } from "./user.models"
 import { Client } from "./client.model"
 import { Product } from "./product.model"
 
-export enum reparationState{
+export enum reparationState {
     PENDING = 'Pendiente',
     IN_PROGRESS = 'En Progreso',
     REPAIRED = 'Reparado',
@@ -14,7 +14,6 @@ export enum reparationState{
     timestamps: false,
     tableName: 'reparation',
 })
-
 export class Reparation extends Model {
     @Column({
         primaryKey: true,
@@ -29,10 +28,15 @@ export class Reparation extends Model {
     })
     ot_number!: string
 
-    @HasMany( () => Product )
-    products!: [Product]
+    @HasMany(() => Product)
+    products!: Product[]
 
-	@BelongsTo(() => Client)
+    @AllowNull(false)
+    @ForeignKey(() => Client)
+    @Column({ type: DataType.STRING })
+    client_id!: string
+
+    @BelongsTo(() => Client)
     client!: Client
 
     @AllowNull(false)
@@ -46,13 +50,6 @@ export class Reparation extends Model {
         type: DataType.STRING
     })
     note!: string
-
-    @ForeignKey(() => Client)
-    @Column({
-        field:'clientId',
-        type:DataType.UUID
-    })
-    clientId!:string
 
     @AllowNull(true)
     @Column({
@@ -68,11 +65,11 @@ export class Reparation extends Model {
     @Column
     exit_date!: Date
 
-	//@HasOne (() => User)
+    @IsUUID('4')
     @Column({
         type: DataType.STRING,
     })
-    assigned_user!: User
+    assigned_user!: string
 
     @Column({
         type: DataType.STRING,
@@ -120,4 +117,26 @@ export class Reparation extends Model {
         type: DataType.STRING
     })
     warranty_invoice_number!: string
+
+    @BeforeValidate
+    static async setCustomId(instance: Reparation) {
+        if (!instance.ot_number) {
+            instance.ot_number = await generateCustomId();
+        }
+    }
 }
+
+// Define a function to generate the custom ID based on the count of records
+async function generateCustomId(): Promise<string> {
+    // Count the number of records in the model
+    const count = await Reparation.count();
+
+    // Increment the count by 1 to get the next available ID
+    const nextId = count + 1;
+
+    // Format the ID with leading zeros
+    const formattedId = nextId.toString().padStart(8, '0');
+
+    return formattedId;
+}
+
