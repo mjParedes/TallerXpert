@@ -1,38 +1,36 @@
 import { AvatarTechnician, AvatarTechnician2, AvatarTechnician3, CardItem, Order, Report, Supplier, Title } from "@/components"
 import { titleFont } from "@/config/fonts";
 import { getDateFormatSpanish } from "@/utils";
+import { CardDashboardProps } from "@/interfaces";
 
-interface Card {
-  icon: JSX.Element;
-  title: string;
-  total: number;
-  className?: string;
-}
-
-const cards: Card[] = [
+const cards: CardDashboardProps[] = [
   {
     icon: <Order />,
     title: 'nueva orden de trabajo',
     total: 60123,
-    className: 'bg-[#F1CC5B]'
+    className: 'bg-[#F1CC5B]',
+    link: '/dashboard/orders'
   },
   {
     icon: <Report />,
     title: 'nuevo informe de trabajo',
     total: 5,
-    className: 'bg-[#8A7CC9]'
+    className: 'bg-[#8A7CC9]',
+    link: '',
   },
   {
     icon: < Supplier />,
     title: 'agregar proveedor',
     total: 10,
-    className: 'bg-[#EB6196]'
+    className: 'bg-[#EB6196]',
+    link: '/dashboard/suppliers'
   },
   {
     icon: <Report />,
     title: 'consultar reparación',
     total: 50148,
-    className: 'bg-[#34A853]'
+    className: 'bg-[#34A853]',
+    link: '',
   },
 ]
 
