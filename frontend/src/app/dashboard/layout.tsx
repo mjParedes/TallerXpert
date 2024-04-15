@@ -10,7 +10,7 @@ export default function RootAuth({
       <Sidebar />
       <div className="w-full">
         <TopMenu />
-        <div className="p-[32px]">
+        <div className="p-8 pl-[17px]">
           {children}
         </div>
       </div>
