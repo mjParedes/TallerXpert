@@ -57,19 +57,23 @@ export class Reparation extends Model {
     })
     diagnostic!: string
 
-    @CreatedAt
-    @Column
+    @Column({
+        type: DataType.DATE,
+        defaultValue: new Date(Date.now())
+    })
     entry_date!: Date
 
-    @UpdatedAt
-    @Column
+    @Column({
+        type: DataType.DATE,
+    })
     exit_date!: Date
 
-    @IsUUID('4')
-    @Column({
-        type: DataType.STRING,
-    })
+    @ForeignKey(() => User)
+    @Column({ type: DataType.STRING })
     assigned_user!: string
+
+    @BelongsTo(() => User)
+    user!: User
 
     @Column({
         type: DataType.STRING,

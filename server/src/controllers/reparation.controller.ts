@@ -1,6 +1,6 @@
 
 import { NextFunction, Request, Response } from 'express'
-import { Reparation } from '../models'
+import { Reparation, User } from '../models'
 import { Client} from '../models'
 import { Product } from '../models/product.model'
 
@@ -44,7 +44,7 @@ export interface ReparationOrder {
 export class ReparationController {
 	static async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
-			const results = await Reparation.findAll({include: [Client,Product]})
+			const results = await Reparation.findAll({include: [Client,Product, User]})
 			res.status(200).json(results)
 		} catch (error: any) {
 			res.status(500).json({
@@ -60,7 +60,7 @@ export class ReparationController {
 				where: {
 					id: req.params.id,
 				},
-				include: [Client,Product]
+				include: [Client,Product,User],
 			})
 			res.status(201).json(result)
 		} catch (error: any) {
@@ -87,6 +87,7 @@ export class ReparationController {
 				clientId = clientToSave.id;
 			}
 			clientId = clientInstance?.id;
+			console.log(clientId);
 			const reparation = await Reparation.create({...restData , client_id: clientId});
 			if(!products){
 				throw new Error("No se registraron artefactos o productos");
@@ -101,6 +102,7 @@ export class ReparationController {
 			reparation.save();
 			res.status(201).json(reparation)
 		} catch (error: any) {
+			console.log(error);
 			res.status(500).json({
 				message: error.message,
 			})
