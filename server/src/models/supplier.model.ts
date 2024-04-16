@@ -1,4 +1,11 @@
-import { AllowNull, Column, DataType, Model, Table, Unique } from "sequelize-typescript"
+import {
+	AllowNull,
+	Column,
+	DataType,
+	Model,
+	Table,
+	Unique,
+} from 'sequelize-typescript'
 
 @Table({
 	timestamps: false,
@@ -50,26 +57,24 @@ export class Supplier extends Model {
 	})
 	email!: string
 
-    @AllowNull(false)
+	@AllowNull(false)
 	@Unique(true)
 	@Column({
 		type: DataType.STRING,
 	})
 	seller_name!: string
 
-    @AllowNull(false)
-	@Unique(true)
+	@AllowNull(false)
 	@Column({
 		type: DataType.JSON,
 		defaultValue: [],
 		get() {
-			const rawValue = this.getDataValue('categories');
-			return rawValue ? JSON.parse(rawValue) : [];
-		  },
-		  set(value: string[]) {
-			this.setDataValue('categories', JSON.stringify(value));
-		  },
+			const rawValue = this.getDataValue('categories')
+			return rawValue ? JSON.parse(rawValue) : []
+		},
+		set(value: string[]) {
+			this.setDataValue('categories', JSON.stringify(value))
+		},
 	})
 	categories!: JSON
-	
 }

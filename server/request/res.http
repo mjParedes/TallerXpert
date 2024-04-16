@@ -1,8 +1,8 @@
 ### GET
-GET http://localhost:3000/api/user
+GET http://localhost:8080/api/user
 
 ### POST
-POST http://localhost:3000/api/user
+POST http://localhost:8080/api/user
 Content-Type: application/json
 
 {
@@ -14,13 +14,13 @@ Content-Type: application/json
 ############# CLIENT
 
 ### GET ALL
-GET http://localhost:3000/api/client/
+GET http://localhost:8080/api/client/
 
 ### GET BY ID
-GET http://localhost:3000/api/client/08c0b65e-afdb-4bc6-b6a1-b1808e404cd0
+GET http://localhost:8080/api/client/08c0b65e-afdb-4bc6-b6a1-b1808e404cd0
 
 ### POST
-POST http://localhost:3000/api/client
+POST http://localhost:8080/api/client
 Content-Type: application/json
 
 {
@@ -33,7 +33,7 @@ Content-Type: application/json
 }
 
 ### UPDATE BY ID
-PATCH http://localhost:3000/api/client/08c0b65e-afdb-4bc6-b6a1-b1808e404cd0
+PATCH http://localhost:8080/api/client/08c0b65e-afdb-4bc6-b6a1-b1808e404cd0
 Content-Type: application/json
 
 {
@@ -42,4 +42,25 @@ Content-Type: application/json
 }
 
 ### DELETE BY ID
-DELETE http://localhost:3000/api/client/08c0b65e-afdb-4bc6-b6a1-b1808e404cd0
+DELETE http://localhost:8080/api/client/08c0b65e-afdb-4bc6-b6a1-b1808e404cd0
+
+
+########### SUPPLIER
+
+### GET ALL
+GET http://localhost:8080/api/supplier/
+
+### POST
+POST http://localhost:8080/api/supplier
+Content-Type: application/json
+
+{
+  "name": "Honda",
+  "cuit": 10786,
+  "address": "Asturias 916",
+  "city": "Buenos Aires",
+  "phone": "+51789876557",
+  "email": "hondaselect@gmail.com",
+  "seller_name": "Luana Especi",
+  "categories": {"hola":"hola"}
+}
