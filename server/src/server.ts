@@ -5,7 +5,6 @@ import { NODE_ENV, PORT } from './constants'
 import { corsMiddleware } from './middlewares'
 import apiRoute from './routes/api.route'
 import { errorHandler } from './utils'
-import { Supplier } from './models/supplier.model'
 
 const app = express()
 app.use(json())
@@ -21,8 +20,8 @@ app.listen(PORT, async () => {
 	console.log(`Server on port ${PORT}`)
 	try {
 		await sequelize.sync(
-			NODE_ENV === 'production' ? { alter: true } : { force: true },
-			//{ alter: true },
+			//NODE_ENV === 'production' ? { alter: true } : { force: true },
+			{ alter: true },
 		)
 		console.log('Connection has been established successfully.')
 	} catch (error) {

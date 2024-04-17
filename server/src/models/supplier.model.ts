@@ -28,9 +28,9 @@ export class Supplier extends Model {
 	@AllowNull(false)
 	@Unique(true)
 	@Column({
-		type: DataType.INTEGER,
+		type: DataType.STRING,
 	})
-	cuit!: number
+	cuit!: string
 
 	@AllowNull(false)
 	@Column({

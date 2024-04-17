@@ -37,6 +37,7 @@ export class SupplierController {
 			})
 			res.status(201).json(result)
 		} catch (error: any) {
+			console.log(error)
 			res.status(500).json({
 				message: error.message,
 			})
@@ -46,22 +47,15 @@ export class SupplierController {
 
 	static async update(req: Request, res: Response, next: NextFunction) {
 		try {
-			const result = await Supplier.update(
-				{
-					...req.body,
-				},
-				{
-					where: {
-						id: req.params.id,
-					},
-				},
-			)
-			res.status(201).json(result)
+			const supplier: Supplier | null = await Supplier.findByPk(req.params.id);
+			if(!supplier){
+				return res.status(404).json({message: "Proveedor no encontrado"});
+			}
+			await supplier.save();
+			res.status(201).json(supplier)
 		} catch (error: any) {
-			res.status(500).json({
-				message: error.message,
-			})
-			// next(error)
+			//
+			next(error)
 		}
 	}
 
