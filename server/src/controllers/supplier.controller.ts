@@ -1,16 +1,15 @@
 import { Supplier } from '../models'
 import { NextFunction, Request, Response } from 'express'
+import { SupplierSchema } from '../schemas'
+import { HttpCodes } from '../utils'
 
 export class SupplierController {
 	static async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
 			const results = await Supplier.findAll()
-			res.status(200).json(results)
+			res.status(HttpCodes.SUCCESS).json(results)
 		} catch (error: any) {
-			res.status(500).json({
-				message: error.message,
-			})
-			// next(error)
+			next(error)
 		}
 	}
 
@@ -21,27 +20,20 @@ export class SupplierController {
 					id: req.params.id,
 				},
 			})
-			res.status(201).json(result)
+			res.status(HttpCodes.SUCCESS).json(result)
 		} catch (error: any) {
-			res.status(500).json({
-				message: error.message,
-			})
-			// next(error)
+			next(error)
 		}
 	}
 
 	static async create(req: Request, res: Response, next: NextFunction) {
 		try {
-			const result = await Supplier.create({
-				...req.body,
-			})
-			res.status(201).json(result)
+			const supplierDataParse = SupplierSchema.parse(req.body)
+			const supplier = await Supplier.create(supplierDataParse)
+
+			res.status(HttpCodes.SUCCESS_CREATED).json(supplier)
 		} catch (error: any) {
-			console.log(error)
-			res.status(500).json({
-				message: error.message,
-			})
-			// next(error)
+			next(error)
 		}
 	}
 
@@ -52,9 +44,8 @@ export class SupplierController {
 				return res.status(404).json({message: "Proveedor no encontrado"});
 			}
 			await supplier.save();
-			res.status(201).json(supplier)
+			res.status(HttpCodes.SUCCESS).json(supplier)
 		} catch (error: any) {
-			//
 			next(error)
 		}
 	}
@@ -66,26 +57,9 @@ export class SupplierController {
 					id: req.params.id,
 				},
 			})
-			res.status(201).json(result)
+			res.status(HttpCodes.SUCCESS_DELETED).json(result)
 		} catch (error: any) {
-			res.status(500).json({
-				message: error.message,
-			})
-			// next(error)
-		}
-	}
-
-	static async deleteAll(req:Request, res:Response, next:NextFunction) {
-		try {
-			const result = await Supplier.destroy({
-				truncate: true
-			})
-			res.status(201).json(result)
-		} catch (error: any) {
-			res.status(500).json({
-				message: error.message,
-			})
-			// next(error)
+			next(error)
 		}
 	}
 }

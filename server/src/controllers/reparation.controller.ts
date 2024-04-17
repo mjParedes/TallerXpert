@@ -87,7 +87,6 @@ export class ReparationController {
 				clientId = clientToSave.id;
 			}
 			clientId = clientInstance?.id;
-			console.log(clientId);
 			const reparation = await Reparation.create({...restData , client_id: clientId});
 			if(!products){
 				throw new Error("No se registraron artefactos o productos");
@@ -102,11 +101,7 @@ export class ReparationController {
 			reparation.save();
 			res.status(201).json(reparation)
 		} catch (error: any) {
-			console.log(error);
-			res.status(500).json({
-				message: error.message,
-			})
-			// next(error)
+			next(error)
 		}
 	}
 

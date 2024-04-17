@@ -1,13 +1,13 @@
 import { Router } from 'express'
 import { SupplierController } from '../controllers/supplier.controller'
-import { authMiddelware } from '../middlewares/auth.middleware'
+import { authMiddleware } from '../middlewares/auth.middleware'
 
 const supplierRouter = Router()
 
 supplierRouter.get('/', SupplierController.getAll)
-supplierRouter.post('/', SupplierController.create)
+supplierRouter.post('/', authMiddleware,SupplierController.create)
 supplierRouter.get('/:id', SupplierController.getOne)
-supplierRouter.patch('/:id', authMiddelware, SupplierController.update)
-supplierRouter.delete('/:id', SupplierController.delete)
+supplierRouter.patch('/:id', authMiddleware, SupplierController.update)
+supplierRouter.delete('/:id', authMiddleware,SupplierController.delete)
 
 export default supplierRouter
