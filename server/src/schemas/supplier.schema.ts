@@ -15,14 +15,14 @@ export const SupplierSchema = z.object({
 		}),
 	cuit: z
 		.number({
-			invalid_type_error: 'El dni del cliente debe ser un number',
-			required_error: 'El dni del cliente es requerido',
+			invalid_type_error: 'El CUIT debe ser un number',
+			required_error: 'El CUIT es requerido',
 		})
-		.gte(10000000, {
-			message: 'El dni del cliente debe tener como 8 digitos',
+		.gte(1000000000, {
+			message: 'El dni del cliente debe tener como mínimo 10 digitos',
 		})
-		.lte(99999999, {
-			message: 'El dni del cliente debe tener como 8 digitos',
+		.lte(99999999000, {
+			message: 'El dni del cliente debe tener como máximo 11 digitos',
 		}),
 	address: z
 		.string({
@@ -32,7 +32,7 @@ export const SupplierSchema = z.object({
 			message: 'La direccion debe tener al menos 3 caracteres',
 		})
 		.max(30, {
-			message: 'La direccion debe tener como maximo 30 caracteres',
+			message: 'La direccion debe tener como maximo 50 caracteres',
 		}),
 	city: z
 		.string({
@@ -70,8 +70,8 @@ export const SupplierSchema = z.object({
 		.min(3, {
 			message: 'El nombre del proveedor debe tener al menos 3 caracteres',
 		})
-		.max(30, {
-			message: 'El nombre del proveedor debe tener como maximo 30 caracteres',
+		.max(50, {
+			message: 'El nombre del proveedor debe tener como maximo 50 caracteres',
 		}),
 	categories: z.array(z.string()).or(z.string().optional()),
 })

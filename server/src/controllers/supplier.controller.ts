@@ -43,8 +43,17 @@ export class SupplierController {
 			if(!supplier){
 				return res.status(404).json({message: "Proveedor no encontrado"});
 			}
-			await supplier.save();
-			res.status(HttpCodes.SUCCESS).json(supplier)
+			const updatedSupplier = await Supplier.update(
+				{
+					...req.body,
+				},
+				{
+					where: {
+						id: req.params.id,
+					},
+				},
+			)
+			res.status(HttpCodes.SUCCESS).json(updatedSupplier)
 		} catch (error: any) {
 			next(error)
 		}

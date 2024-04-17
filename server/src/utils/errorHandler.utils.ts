@@ -24,7 +24,7 @@ export const errorHandler = (
 		return res.status(HttpCodes.BAD_REQUEST).json({
 			message: 'Error de validación',
 			errors: (error.errors).map(e => `
-			${e.path[0]}: ${e.message.trim()}`.trim()),
+			${e.message.trim()}`.trim()),
 		})
 	}
 
