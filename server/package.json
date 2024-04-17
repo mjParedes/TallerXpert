@@ -16,11 +16,13 @@
   "license": "ISC",
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.6",
+    "@types/mercadopago": "^1.5.11",
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
+    "mercadopago": "^2.0.8",
     "morgan": "^1.10.0",
     "mysql2": "^3.9.3",
     "reflect-metadata": "^0.2.2",
