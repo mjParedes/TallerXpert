@@ -11,7 +11,7 @@ export class User extends Model<User> {
 		type: DataType.UUID,
 		defaultValue: DataType.UUIDV4,
 	})
-	id!: number
+	id!: string
 
 	@AllowNull(false)
 	@Column({
@@ -50,4 +50,6 @@ export class User extends Model<User> {
 	@HasOne(() => Profile)
 	profile!: Profile
 
+  @HasOne(() => Reparation)
+	reparation!: Reparation
 }

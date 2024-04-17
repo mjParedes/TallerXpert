@@ -33,7 +33,7 @@ export class Reparation extends Model {
 
     @AllowNull(false)
     @ForeignKey(() => Client)
-    @Column({ type: DataType.STRING })
+    @Column({ type: DataType.UUID })
     client_id!: string
 
     @BelongsTo(() => Client)
@@ -69,7 +69,7 @@ export class Reparation extends Model {
     exit_date!: Date
 
     @ForeignKey(() => User)
-    @Column({ type: DataType.STRING })
+    @Column({ type: DataType.UUID })
     assigned_user!: string
 
     @BelongsTo(() => User)
