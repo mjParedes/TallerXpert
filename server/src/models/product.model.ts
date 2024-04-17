@@ -7,69 +7,115 @@ import { Reparation } from "./reparation.model"
     timestamps: false,
     tableName: 'product', // nombre de la tabla en la base de datos
 })
-
 export class Product extends Model {
     @Column({
         primaryKey: true,
         type: DataType.UUID,
         defaultValue: DataType.UUIDV4,
     })
-    id!: string
-
-    @Column({
-        type: DataType.STRING,
-        unique: true
-    })
-    ot_number!: string
+    id!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    product_name!: string
+    product_name!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    product_category!: string
+    product_category!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    brand!: string
+    brand!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    model!: string
+    model!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    serial_number!: string
+    serial_number!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    detail!: string
+    detail!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    workshop!: string
+    workshop!: string;
+
+    @Column({
+        type: DataType.STRING,
+    })
+    issue_detail!: string;
+
+    @Column({
+        type: DataType.STRING,
+    })
+    note!: string;
+
+    @Column({
+        type: DataType.STRING,
+    })
+    diagnostic!: string;
+
+    @Column({
+        type: DataType.STRING,
+    })
+    state!: string;
+
+    @Column({
+        type: DataType.BOOLEAN,
+    })
+    is_paid!: boolean;
+
+    @Column({
+        type: DataType.DECIMAL(10, 2),
+    })
+    total_cost!: number;
+
+    @Column({
+        type: DataType.DECIMAL(10, 2),
+    })
+    revision_cost!: number;
+
+    @Column({
+        type: DataType.DECIMAL(10, 2),
+    })
+    reparation_cost!: number;
+
+    @Column({
+        type: DataType.DATE,
+    })
+    warranty_date!: Date;
+
+    @Column({
+        type: DataType.STRING,
+    })
+    warranty_invoice_number!: string;
 
     @CreatedAt
     @Column
-    entry_date!: Date
+    entry_date!: Date;
 
     @UpdatedAt
     @Column
-    exit_date!: Date
+    exit_date!: Date;
 
     /*@ForeignKey(() => User)
     @Column({
         type: DataType.STRING,
     })
-    register_by!: string*/
+    register_by!: string;
+
+    @BelongsTo(() => User)
+    user!: User;*/
 
     @ForeignKey(() => Client)
     client_id!: Client
