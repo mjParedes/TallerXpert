@@ -3,8 +3,16 @@ import { User } from '../models/user.models'
 import { Client } from "./client.model"
 import { Reparation } from "./reparation.model"
 
+export enum productState {
+    PENDING = 'Pendiente',
+    IN_PROGRESS = 'En Progreso',
+    REPAIRED = 'Reparado',
+    DONE = 'Finalizado',
+    PAID = 'Pagado'
+}
+
 @Table({
-    timestamps: false,
+    timestamps: true,
     tableName: 'product', // nombre de la tabla en la base de datos
 })
 export class Product extends Model {
@@ -66,9 +74,9 @@ export class Product extends Model {
     diagnostic!: string;
 
     @Column({
-        type: DataType.STRING,
+        type: DataType.ENUM(...Object.values(productState)),
     })
-    state!: string;
+    state!: productState;
 
     @Column({
         type: DataType.BOOLEAN,
