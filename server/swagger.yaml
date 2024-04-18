@@ -11,8 +11,6 @@ components:
         - fullName
         - email
         - password
-        - role
-        - is_active
       properties:
         id:
           type: string
@@ -31,7 +29,7 @@ components:
           type: string
           enum:
             - admin
-            - worker
+            - trabajador
           default: admin
         is_active:
           type: boolean
@@ -94,16 +92,7 @@ components:
     Reparation:
       type: object
       required:
-        - ot_number
-        - issue_detail
-        - note
-        - diagnostic
-        - assigned_user
-        - total_cost
-        - reparation_cost
-        - revision_cost
-        - warranty_date
-        - warranty_invoice_number
+        - client_id
       properties:
         id:
           type: string
@@ -111,62 +100,25 @@ components:
         ot_number:
           type: integer
           unique: true
-        products:
+        client_id:
           type: string
-          format: uuid
-        client:
-          type: string
-        issue_detail:
-          type: string
-        note:
-          type: string
-        clientId:
-          type: string
-          format: uuid
-        diagnostic:
-          type: string
-        entry_date:
-          type: string
-          format: date-time
-        exit_date:
-          type: string
-          format: date-time
-        assigned-user:
-          type: string
-        state:
-          type: string
-          enum:
-            - PENDING
-            - IN_PROGRESS
-            - REPAIRED
-            - DONE
-        is_paid:
-          type: boolean
-        total_cost:
-          type: number
-        revision_cost:
-          type: number
-        reparation_cost:
-          type: number
-        warranty_date:
-          type: string
-          format: date-time
-        warranty_invoice_number:
+        assigned_user:
           type: string
     Product:
       type: object
       required:
-        - ot_number
         - product_name
-        - product_category
         - brand
+        - model
+        - serial_number
         - workshop
+        - issue_detail
+        - client_id
+        - reparation_id
       properties:
         id:
           type: string
           format: uuid
-        ot_number:
-          type: integer
         product_name:
           type: string
         product_category:
@@ -181,33 +133,96 @@ components:
           type: string
         workshop:
           type: string
-        entry_date:
+        issue_detail:
           type: string
+        note:
+          type: string
+        diagnostic:
+          type: string
+        state:
+          type: string
+          enum:
+            - PENDING
+            - IN_PROGRESS
+            - REPAIRED
+            - DONE
+            - PAID
+        is_paid:
+          type: boolean
+        total_cost:
+          type: number
+        revision_cost:
+          type: number
+        reparation_cost:
+          type: number
+        warranty_date:
+          type: Date
+        warranty_invoice_number:
+          type: string
+        entry_date:
+          type: Date
           format: date-time
         exit_date:
-          type: string
+          type: Date
           format: date-time
         register_by:
+          type: string
+          format: uuid
+        client_id:
+          type: string
+          format: uuid
+        reparation_id:
           type: string
           format: uuid
     Profile:
       type: object
       required:
-        - name
-        - lastName
-        - phone
+        - user_id
       properties:
         id:
           type: string
           format: uuid
         user_id:
           type: string
+          format: uuid
         fullName:
           type: string
         phone:
-          type: integer
+          type: string
         photo_url:
           type: string
+    Supplier:
+      type: object
+      required:
+        - name
+        - cuit
+        - address
+        - city
+        - phone
+        - email
+        - seller_name
+        - categories
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        cuit:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+          format: email
+        seller_name:
+          type: string
+        categories:
+          type: array
     Review:
       type: object
       required:
@@ -273,8 +288,6 @@ paths:
               fullName: John Doe
               email: example@gmail.com
               password: password1234
-              role: worker
-              is_active: true
       responses:
         '201':
           description: User created successfully
@@ -341,7 +354,7 @@ paths:
                 properties:
                   error:
                     type: string
-    put:
+    patch:
       summary: Update user by ID
       tags:
         - Users
@@ -471,7 +484,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Workshop'
             example:
-              ownerId: jfjdfjks453545j4h548
+              ownerId: debd6f5c-b309-4846-b82f-fec716a2616f
               title: Average Workshop
               photo_url: https://example.com/workshop.jpg
               description: Workshop description
@@ -543,7 +556,7 @@ paths:
                 properties:
                   error:
                     type: string
-    put:
+    patch:
       summary: Update Workshops by ID
       tags:
         - Workshops
@@ -745,7 +758,7 @@ paths:
                 properties:
                   error:
                     type: string
-    put:
+    patch:
       summary: Update Client by ID
       tags:
         - Clients
@@ -876,16 +889,43 @@ paths:
             schema:
               $ref: '#/components/schemas/Reparation'
             example:
-              ot_number: 45123
-              issue_detail: My issue
-              note: Here is product note about my issue
-              diagnostic: Here is my diagnostic
-              assigned_user: 123
-              total_cost: 120598
-              reparation_cost: 100000
-              revision_cost: 20598
-              warranty_date: 2022-12-12
-              warranty_invoice_number: 123
+              client: {
+                fullName: Marcos Poed,
+                dni: 45874545,
+                address:  Rambla 33,
+                city:  Barcelona,
+                phone: 6969696889,
+                email: marcospoed@gmail.com
+              }
+              products: [
+                {
+                  product_name: TV,
+                  product_category: Electrodométicos,
+                  brand: LG,
+                  model: LGA484754,
+                  serial_number:  AZERTYUIOPLKJH,
+                  detail:  No mira el televisor por favor,
+                  issue_detail:  El tv no tiene volumen,
+                  revision_cost: 50,
+                  warranty_date: 20/04/2024,
+                  warranty_invoice_number: R01-458454,
+                  client_id: debd6f5c-b309-4846-b82f-fec716a2616f
+                },
+                {
+                  product_name: Radio,
+                  product_category: Electrodométicos,
+                  brand: SONY,
+                  model: SNY484754,
+                  serial_number:  AZEFTYUIOPLKJH,
+                  detail:  No mira el televisor por favor,
+                  issue_detail: Sin sonido,
+                  revision_cost: 40,
+                  warranty_date: 20/04/2024,
+                  warranty_invoice_number: R02-458454,
+                  client_id: debd6f5c-b309-4846-b82f-fec716a2616f
+                }
+              ]
+              assigned_user: debd6f5c-b309-4846-b82f-fec716a2616f
       responses:
         '201':
           description: Reparation created successfully
@@ -952,65 +992,6 @@ paths:
               properties:
                 error:
                   type: string
-    put:
-      summary: Update reparation by ID
-      tags:
-        - Reparations
-      security:
-        - BearerAuth: []
-      parameters:
-        - in: path
-          name: id
-          description: ID of the Reparation to update
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Reparation'
-            example:
-              ot_number: 45123
-              issue_detail: Another issue updated
-              note: Here is another product note about my issue
-              diagnostic: Here is my diagnostic updated
-              assigned_user: 123
-              total_cost: 120598
-              reparation_cost: 100000
-              revision_cost: 20598
-              warranty_date: 2022-12-12
-              warranty_invoice_number: 123
-      responses:
-        '200':
-          description: Reparation updated successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Reparation'
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-        '401':
-          description: Unauthorized
-        '404':
-          description: Reparation not found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-        '500':
-          description: An unexpected
     delete:
       summary: Delete a specific Reparation
       tags:
@@ -1181,14 +1162,17 @@ paths:
             schema:
               $ref: '#/components/schemas/Product'
             example:
-              ot_number: OT Number
-              product_name: Product Name
-              product_category: Product Category
-              brand: Brand
-              model: Model
-              serial_number: Serial Number
-              detail: Detail
-              workshop: Workshop
+              product_name: TV,
+              product_category: Electrodométicos,
+              brand: LG,
+              model: LGA484754,
+              serial_number:  AZERTYUIOPLKJH,
+              detail:  No mira el televisor por favor,
+              issue_detail:  El tv no tiene volumen,
+              revision_cost: 50,
+              warranty_date: 20/04/2024,
+              warranty_invoice_number: R01-458454,
+              client_id: debd6f5c-b309-4846-b82f-fec716a2616f
       responses:
         '200':
           description: Product updated successfully
@@ -1294,10 +1278,10 @@ paths:
             schema:
               $ref: '#/components/schemas/Profile'
             example:
-              username: Username
-              name: Name
-              lastName: Last Name
-              phone: Phone
+              user_id: e1c395d8-cc9d-4fd9-9c51-ce183551fd65
+              fullName: Luis Pino Cedi
+              phone: 84745454454,
+              photo_url: https://example.com/photo.jpg
       responses:
         '201':
           description: Profile created successfully
@@ -1364,7 +1348,7 @@ paths:
                 properties:
                   error:
                     type: string
-    put:
+    patch:
       summary: Update a specific profile
       tags:
         - Profiles
@@ -1384,10 +1368,8 @@ paths:
             schema:
               $ref: '#/components/schemas/Profile'
             example:
-              username: Username
-              name: Name
-              lastName: Last Name
-              phone: Phone
+              phone: 84745454464,
+              photo_url: https://example.com/photo2.jpg
       responses:
         '200':
           description: Profile updated successfully
@@ -1491,9 +1473,9 @@ paths:
             schema:
               $ref: '#/components/schemas/Review'
             example:
-              workshop_id: Workshop ID
-              mechanic_id: Mechanic ID
-              comment: Comment about the workshop
+              workshop_id: 64a6935a-f9ad-4592-8790-6ed28942ef36
+              mechanic_id: 8461c147-6358-4c2f-801d-0dc3dfe7e976
+              comment: Good vibes
       responses:
         '200':
           description: Review created successfully
@@ -1558,7 +1540,7 @@ paths:
                 properties:
                   error:
                     type: string
-    put:
+    patch:
       summary: Update review by ID
       tags:
         - Reviews

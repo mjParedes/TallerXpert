@@ -11,7 +11,7 @@ export enum reparationState {
 }
 
 @Table({
-    timestamps: false,
+    timestamps: true,
     tableName: 'reparation',
 })
 export class Reparation extends Model {
@@ -36,37 +36,16 @@ export class Reparation extends Model {
     @Column({ type: DataType.UUID })
     client_id!: string
 
+    @CreatedAt
+    @Column
+    created_at!: Date;
+
+    @UpdatedAt
+    @Column
+    updated_at!: Date;
+
     @BelongsTo(() => Client)
     client!: Client
-
-    @AllowNull(false)
-    @Column({
-        type: DataType.STRING,
-    })
-    issue_detail!: string
-
-    @AllowNull(true)
-    @Column({
-        type: DataType.STRING
-    })
-    note!: string
-
-    @AllowNull(true)
-    @Column({
-        type: DataType.STRING,
-    })
-    diagnostic!: string
-
-    @Column({
-        type: DataType.DATE,
-        defaultValue: new Date(Date.now())
-    })
-    entry_date!: Date
-
-    @Column({
-        type: DataType.DATE,
-    })
-    exit_date!: Date
 
     @ForeignKey(() => User)
     @Column({ type: DataType.UUID })
@@ -74,53 +53,6 @@ export class Reparation extends Model {
 
     @BelongsTo(() => User)
     user!: User
-
-    @Column({
-        type: DataType.STRING,
-        defaultValue: reparationState.PENDING
-    })
-    state!: reparationState
-
-    @Column({
-        type: DataType.BOOLEAN,
-        defaultValue: false
-    })
-    is_paid!: boolean
-
-    @AllowNull(true)
-    @Column({
-        type: DataType.DOUBLE,
-        defaultValue: 0.0
-    })
-    total_cost!: number
-
-    @AllowNull(true)
-    @Column({
-        type: DataType.DOUBLE,
-        defaultValue: 0.0
-    })
-    revision_cost!: number
-
-    @AllowNull(true)
-    @Column({
-        type: DataType.DOUBLE,
-        allowNull: true,
-        defaultValue: 0.0
-    })
-    reparation_cost!: number
-
-    @IsDate
-    @AllowNull(true)
-    @Column({
-        type: DataType.DATEONLY
-    })
-    warranty_date!: Date
-
-    @AllowNull(true)
-    @Column({
-        type: DataType.STRING
-    })
-    warranty_invoice_number!: string
 
     @BeforeValidate
     static async setCustomId(instance: Reparation) {
