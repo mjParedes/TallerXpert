@@ -1,5 +1,6 @@
 import swaggerJSDoc from 'swagger-jsdoc'
 import path from 'path'
+import { PORT } from '../constants'
 
 const swaggerYaml = path.resolve(__dirname, '../../swagger.yaml')
 
@@ -14,7 +15,8 @@ const swaggerOptions: swaggerJSDoc.Options = {
     },
     servers: [
         {
-            url: 'http://localhost:8080',
+            url: `http://localhost:${PORT}`,
+            description: 'Local server',
         },
     ],
     apis: [swaggerYaml]
