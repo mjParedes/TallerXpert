@@ -33,7 +33,7 @@ export default function OrdersPage() {
             </div>
             <div className="flex flex-row justify-center gap-4">
                 <div className="flex flex-col gap-4">
-                    <NewClient />
+                    {/* <NewClient /> */}
                     <p className="text-base font-bold mt-7 mb-4">Articulos agregados</p>
                     <div className="flex flex-col gap-4 h-40">
                         <CardItem />
