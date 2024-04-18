@@ -2,18 +2,16 @@ import {
 	AllowNull,
 	Column,
 	DataType,
-	HasMany,
 	Model,
 	Table,
 	Unique,
 } from 'sequelize-typescript'
-import { Reparation } from '.'
 
 @Table({
 	timestamps: false,
-	tableName: 'client',
+	tableName: 'supplier',
 })
-export class Client extends Model {
+export class Supplier extends Model {
 	@Column({
 		primaryKey: true,
 		type: DataType.UUID,
@@ -25,14 +23,14 @@ export class Client extends Model {
 	@Column({
 		type: DataType.STRING,
 	})
-	fullName!: string
+	name!: string
 
 	@AllowNull(false)
 	@Unique(true)
 	@Column({
-		type: DataType.INTEGER,
+		type: DataType.STRING,
 	})
-	dni!: number
+	cuit!: string
 
 	@AllowNull(false)
 	@Column({
@@ -48,9 +46,9 @@ export class Client extends Model {
 
 	@AllowNull(false)
 	@Column({
-		type: DataType.INTEGER,
+		type: DataType.STRING,
 	})
-	phone!: number
+	phone!: string
 
 	@AllowNull(false)
 	@Unique(true)
@@ -59,7 +57,24 @@ export class Client extends Model {
 	})
 	email!: string
 
-	// falta cambiar la relacion de User por Workshop
-	@HasMany(() => Reparation)
-	reparations!: Reparation[]
+	@AllowNull(false)
+	@Unique(true)
+	@Column({
+		type: DataType.STRING,
+	})
+	seller_name!: string
+
+	@AllowNull(false)
+	@Column({
+		type: DataType.JSON,
+		defaultValue: [],
+		get() {
+			const rawValue = this.getDataValue('categories')
+			return rawValue ? JSON.parse(rawValue) : []
+		},
+		set(value: string[]) {
+			this.setDataValue('categories', JSON.stringify(value))
+		},
+	})
+	categories!: JSON
 }

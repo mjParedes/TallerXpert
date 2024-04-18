@@ -4,6 +4,7 @@ import {
 	Column,
 	DataType,
 	ForeignKey,
+	IsUrl,
 	Model,
 	Table,
 } from 'sequelize-typescript'
@@ -43,6 +44,7 @@ export class Workshop extends Model {
 	})
 	title!: string
 
+	@IsUrl
 	@Column({
 		type: DataType.STRING,
 	})
