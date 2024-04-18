@@ -5,6 +5,8 @@ import { NODE_ENV, PORT } from './constants'
 import { corsMiddleware } from './middlewares'
 import apiRoute from './routes/api.route'
 import { errorHandler } from './utils'
+import swaggerUI from 'swagger-ui-express'
+import swaggerSpec from './config/swagger.config'
 import cors from 'cors'
 
 const app = express()
@@ -14,6 +16,7 @@ app.use(morgan('dev'))
 app.use(cors())
 app.disable('x-powered-by')
 app.use('/api', apiRoute)
+app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
 
 // revisar si es necesario
 app.use(errorHandler)
