@@ -25,11 +25,11 @@ export default function OrdersPage() {
     <div>
       <div className='flex flex-row justify-between mb-7'>
         <div className='flex flex-row justify-center items-center gap-2'>
-          <Orders />
-          <Title title='Nueva Orden' />
+          {/* <Orders /> */}
+          {/* <Title title='Nueva Orden' /> */}
         </div>
         <p>
-          {/* Fecha de Ingreso: {day}/{month}/{year} */}
+          Fecha de Ingreso: {day}/{month}/{year}
         </p>
       </div>
       <div className='flex flex-row justify-center gap-4'>
