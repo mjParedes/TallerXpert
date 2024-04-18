@@ -1,4 +1,5 @@
 import { Sidebar, TopMenu } from "@/components";
+import SessionAuthProvider from "@/context/SessionAuthProvider";
 
 export default function RootAuth({
   children,
@@ -6,15 +7,18 @@ export default function RootAuth({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="flex">
-      <Sidebar />
-      <div className="w-full">
-        <TopMenu />
-        <div className="p-8 pl-[17px]">
-          {children}
+    <SessionAuthProvider>
+      <main className="flex">
+        <Sidebar />
+        <div className="w-full">
+          <TopMenu />
+          <div className="p-8 pl-[17px]">
+            {children}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+
+    </SessionAuthProvider>
 
   );
 }
