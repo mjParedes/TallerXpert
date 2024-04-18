@@ -1,4 +1,4 @@
-import { AvatarTechnician, AvatarTechnician2, AvatarTechnician3, CardItem, Order, Report, Supplier, Title } from "@/components"
+import { AvatarTechnician, AvatarTechnician2, AvatarTechnician3, CardItem, Order, Report, Supplier } from "@/components"
 import { titleFont } from "@/config/fonts";
 import { getDateFormatSpanish } from "@/utils";
 import { CardDashboardProps } from "@/interfaces";
