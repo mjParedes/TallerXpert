@@ -2,8 +2,5 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "no-use-before-define": ["error", { "functions": true, "classes": true, "variables": true }]
-  },
-  "scripts": {
-    "lint": "next lint"
   }
 }
