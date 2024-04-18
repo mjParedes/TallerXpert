@@ -1,5 +1,38 @@
 import Link from 'next/link';
 
+function TemplateOrdersArticles({
+  name,
+  mark,
+  model,
+  warranty,
+  state,
+  id,
+  idReparate,
+}: {
+  name: string;
+  mark: string;
+  model: string;
+  warranty: string;
+  state: string;
+  id: string;
+  idReparate: string;
+}) {
+  return (
+    <div className='flex justify-between bg-[#DBDCF7] rounded-lg p-4 shadow-[0px_4px_4px_0px_#00000040] max-lg:flex-col max-lg:items-center max-lg:justify-center'>
+      <p>{name}</p>
+      <p>{mark}</p>
+      <p>{model}</p>
+      <p>{warranty}</p>
+      <p>{state}</p>
+      <Link
+        href={'/dashboard/orders/' + id + '/' + idReparate}
+        className='hover:opacity-70'>
+        <img src='/llaveOrders.svg' alt='llaveOrders' />
+      </Link>
+    </div>
+  );
+}
+
 const example = [
   {
     id: '1564655',
@@ -90,39 +123,6 @@ export default function OrderId({params}: {params: {id: string}}) {
           Volver
         </Link>
       </div>
-    </div>
-  );
-}
-
-function TemplateOrdersArticles({
-  name,
-  mark,
-  model,
-  warranty,
-  state,
-  id,
-  idReparate,
-}: {
-  name: string;
-  mark: string;
-  model: string;
-  warranty: string;
-  state: string;
-  id: string;
-  idReparate: string;
-}) {
-  return (
-    <div className='flex justify-between bg-[#DBDCF7] rounded-lg p-4 shadow-[0px_4px_4px_0px_#00000040] max-lg:flex-col max-lg:items-center max-lg:justify-center'>
-      <p>{name}</p>
-      <p>{mark}</p>
-      <p>{model}</p>
-      <p>{warranty}</p>
-      <p>{state}</p>
-      <Link
-        href={'/dashboard/orders/' + id + '/' + idReparate}
-        className='hover:opacity-70'>
-        <img src='/llaveOrders.svg' alt='llaveOrders' />
-      </Link>
     </div>
   );
 }
