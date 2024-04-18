@@ -1,6 +1,3 @@
-// eslint-disable-next-line no-use-before-define
-'use client'
-
 import { Orders, Title } from '@/components'
 import { Button } from '@/components/button/Button'
 import { CardItem } from '@/components/dashboard-orders/cardItem'
@@ -25,7 +22,7 @@ export default function OrdersPage() {
   return (
     <div>
       <div className='flex flex-row justify-between mb-7'>
-        <div className='flex flex-row justify-center items-center gap-2'>
+        <div className='flex flex-row items-center justify-center gap-2'>
           <Orders />
           <Title title='Nueva Orden' />
         </div>
@@ -36,8 +33,8 @@ export default function OrdersPage() {
       <div className='flex flex-row justify-center gap-4'>
         <div className='flex flex-col gap-4'>
           <NewClient />
-          <p className='text-base font-bold mt-7 mb-4'>Articulos agregados</p>
-          <div className='flex flex-col gap-4 h-40'>
+          <p className='mb-4 text-base font-bold mt-7'>Articulos agregados</p>
+          <div className='flex flex-col h-40 gap-4'>
             <CardItem />
             <CardItem />
           </div>
