@@ -36,15 +36,15 @@ export default function OrdersPage() {
                     {/* <NewClient /> */}
                     <p className="text-base font-bold mt-7 mb-4">Articulos agregados</p>
                     <div className="flex flex-col gap-4 h-40">
-                        <CardItem />
-                        <CardItem />
+                        {/* <CardItem /> */}
+                        {/* <CardItem /> */}
                     </div>
                     <div className="flex flex-row gap-2">
                         <Button title="Guardar" onClick={guardarOrden} />
                         <Button title="Cancelar" onClick={cancelarOrden} />
                     </div>
                 </div>
-                <NewItem />
+                {/* <NewItem /> */}
             </div>
         </div>
     );
