@@ -34,9 +34,13 @@ export { TechniciansTop } from './icons/top-menu/Technicians'
 export { AvatarTechnician } from './icons/dashboard/avatar'
 export { AvatarTechnician2 } from './icons/dashboard/avatar2'
 export { AvatarTechnician3 } from './icons/dashboard/avatar3'
+export { Pencil, Trash } from './icons/technicians/ui-icons'
 
 // form create workshop
 export * from './create-workshop/FormCreateWorkshop'
+
+// form create technician
+export * from './technicians/create-technician/FormCreateTechnician'
 
 // form register
 export * from './register/FormRegister'

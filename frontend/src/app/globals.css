@@ -6,6 +6,10 @@
   @apply bg-primary hover:opacity-85 text-white py-2 px-14 rounded transition-all;
 }
 
+.btn-secondary {
+  @apply bg-violet hover:opacity-85 text-white py-2 px-14 rounded transition-all;
+}
+
 .btn-disable {
-  @apply bg-gray-600 text-white py-2 px-14 rounded transition-all;
+  @apply bg-gray text-white py-2 px-14 rounded transition-all;
 }

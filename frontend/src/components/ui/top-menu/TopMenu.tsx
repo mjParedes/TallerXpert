@@ -46,7 +46,7 @@ export const TopMenu = () => {
   const userImage = '/avatar.png'
 
   return (
-    <nav className="flex p-8 pl-[17px] justify-between items-center w-full">
+    <nav className="flex p-8 pl-[17px] justify-between items-center w-full bg-white">
 
       {/* left menu */}
       <div className='flex justify-center items-center gap-2'>

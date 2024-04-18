@@ -6,11 +6,11 @@ export default function RootAuth({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="flex">
+    <main className="flex bg-white">
       <Sidebar />
       <div className="w-full">
         <TopMenu />
-        <div className="p-8 pl-[17px]">
+        <div className="pr-8 pl-[17px]">
           {children}
         </div>
       </div>
