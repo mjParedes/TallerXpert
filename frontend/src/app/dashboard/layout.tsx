@@ -8,7 +8,7 @@ export default function RootAuth({
 }>) {
   return (
     <SessionAuthProvider>
-      <main className="flex">
+      <main className="flex bg-white">
         <Sidebar />
         <div className="w-full">
           <TopMenu />

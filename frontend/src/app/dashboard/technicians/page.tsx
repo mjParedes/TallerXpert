@@ -1,9 +1,17 @@
-import { Title } from "@/components"
+import { getTechnicians } from "@/actions"
+import { TechnicianGrid } from "@/components/technicians/technician-grid/TechnicianGrid"
+import { titleFont } from "@/config/fonts"
+import Link from "next/link"
 
-export default function TechniciansPage() {
+export default async function TechniciansPage() {
+  const { technicians } = await getTechnicians()
+
   return (
-    <div>
-      <Title title="Página Tecnicos" />
+    <div className={`flex flex-col gap-12 justify-between ${titleFont.className}`}>
+
+      <TechnicianGrid technicians={technicians} />
+
+      <Link href={'/dashboard'} className="bg-violet hover:opacity-85 text-white py-2 text-center rounded transition-all capitalize h-[51px] w-[174px] flex items-center justify-center">Volver</Link>
     </div>
-  );
+  )
 }

@@ -38,7 +38,7 @@ export const TopMenu = () => {
   }
 
   return (
-    <nav className="flex p-8 pl-[17px] justify-between items-center w-full">
+    <nav className="flex p-8 pl-[17px] justify-between items-center w-full bg-white">
       {/* left menu */}
       <div className="flex justify-center items-center gap-2">
         <div className="flex items-center justify-center text-center">
