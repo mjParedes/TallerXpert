@@ -1,3 +1,5 @@
+import SessionAuthProvider from "@/context/SessionAuthProvider";
+
 export default function RootAuth({
   children,
 }: Readonly<{
@@ -5,8 +7,7 @@ export default function RootAuth({
 }>) {
   return (
     <main className="flex flex-col w-full items-center justify-center">
-      {children}
+      <SessionAuthProvider>{children}</SessionAuthProvider>
     </main>
-
   );
 }

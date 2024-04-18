@@ -1,10 +1,12 @@
-'use client';
+"use client";
 
-import {useState, useEffect} from 'react';
-import {useForm, useWatch} from 'react-hook-form';
-import clsx from 'clsx';
-import {useRouter} from 'next/navigation';
-import Link from 'next/link';
+import { useState, useEffect } from "react";
+import { useForm, useWatch } from "react-hook-form";
+import clsx from "clsx";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { signIn } from "next-auth/react";
+
 interface RegistrationForm {
   fullName: string;
   email: string;
@@ -13,7 +15,9 @@ interface RegistrationForm {
 }
 
 export const RegistrationForm = () => {
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState<{ [key: string]: string }>(
+    {}
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const router = useRouter();
@@ -21,8 +25,8 @@ export const RegistrationForm = () => {
   const {
     handleSubmit,
     register,
-    formState: {isValid},
-    formState: {errors},
+    formState: { isValid },
+    formState: { errors },
     control,
   } = useForm<RegistrationForm>({
     defaultValues: {},
@@ -30,34 +34,49 @@ export const RegistrationForm = () => {
 
   const password = useWatch({
     control,
-    name: 'password',
-    defaultValue: '',
+    name: "password",
+    defaultValue: "",
   });
 
   const onSubmit = async (data: RegistrationForm) => {
-    setErrorMessage('');
+    setErrorMessage({});
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('http://localhost:8080/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      const responseAPI = await res.json();
+
+      if (!res.ok) {
+        setErrorMessage({
+          general: responseAPI.message || "Error al registrarse",
+        });
+        return;
+      }
+
+      const responseNextAuth = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
       });
 
-      if (response.ok) {
-        // Registro exitoso
-        const result = await response.json();
-        console.log(result);
-        setShowSuccessModal(true); // Mostrar el modal de éxito
-      } else {
-        const error = await response.json();
-        setErrorMessage(error.message || 'Error al registrarse');
+      if (responseNextAuth?.error) {
+        setErrorMessage({ general: responseNextAuth.error });
+        return;
       }
+
+      setShowSuccessModal(true); // Mostrar el modal de éxito
     } catch (error) {
-      setErrorMessage('Error al registrarse');
+      setErrorMessage({ general: "Error al registrarse" });
     } finally {
       setIsSubmitting(false);
     }
@@ -72,87 +91,76 @@ export const RegistrationForm = () => {
     if (showSuccessModal) {
       const timer = setTimeout(() => {
         setShowSuccessModal(false); // Cierra el modal después de 5 segundos
-        router.push('login'); // Redirige al usuario al inicio de sesión
+        router.push("login"); // Redirige al usuario al inicio de sesión
       }, 2000);
 
       return () => clearTimeout(timer); // Limpia el temporizador al desmontar el componente
     }
   }, [showSuccessModal, router]);
 
+  // Función para renderizar los mensajes de error
+  const renderErrorMessage = (field: keyof RegistrationForm | "general") => {
+    if (errorMessage[field]) {
+      return <span className="text-red-500">{errorMessage[field]}</span>;
+    }
+    return null;
+  };
+
   return (
-    <div className='bg-white rounded-lg shadow-lg p-8 max-md:p-4 max-w-md mx-auto'>
+    <div className="bg-white rounded-lg shadow-lg p-8 max-md:p-4 max-w-md mx-auto">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className='grid grid-cols-1 gap-4'>
+        className="grid grid-cols-1 gap-4"
+      >
         <div>
-          <label htmlFor='name'>Nombre y Apellido</label>
+          <label htmlFor="name">Nombre y Apellido</label>
           <input
-            id='name'
+            id="name"
             className={clsx(
-              'w-full h-12 p-3 rounded-lg border border-solid focus:outline-none',
+              "w-full h-12 p-3 rounded-lg border border-solid focus:outline-none",
               {
-                'border-red-500': errors.fullName,
+                "border-red-500": errorMessage.fullName,
               }
             )}
-            type='text'
-            placeholder='TallerXpert'
-            {...register('fullName', {required: true})}
+            type="text"
+            placeholder="TallerXpert"
+            {...register("fullName", { required: true })}
           />
-          {errors.fullName?.type === 'required' && (
-            <span className='text-red-500'>
-              * El nombre completo es requerido
-            </span>
-          )}
+          {renderErrorMessage("fullName")}
         </div>
 
         <div>
-          <label htmlFor='email'>E-mail</label>
+          <label htmlFor="email">E-mail</label>
           <input
-            id='email'
+            id="email"
             className={clsx(
-              'w-full h-12 p-3 rounded-lg border border-solid focus:outline-none',
+              "w-full h-12 p-3 rounded-lg border border-solid focus:outline-none",
               {
-                'border-red-500': errors.email,
+                "border-red-500": errorMessage.email,
               }
             )}
-            type='email'
-            placeholder='TallerXpert@gmail.com'
-            {...register('email', {required: true, pattern: /^\S+@\S+$/i})}
+            type="email"
+            placeholder="TallerXpert@gmail.com"
+            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
           />
-          {errors.email?.type === 'required' && (
-            <span className='text-red-500'>
-              * El correo electrónico es requerido
-            </span>
-          )}
-          {errors.email?.type === 'pattern' && (
-            <span className='text-red-500'>
-              * Ingrese un correo electrónico válido
-            </span>
-          )}
+          {renderErrorMessage("email")}
         </div>
 
         <div>
-          <label htmlFor='password'>Contraseña</label>
+          <label htmlFor="password">Contraseña</label>
           <input
-            id='password'
+            id="password"
             className={clsx(
-              'w-full h-12 p-3 rounded-lg border border-solid focus:outline-none',
+              "w-full h-12 p-3 rounded-lg border border-solid focus:outline-none",
               {
-                'border-red-500': errors.password,
+                "border-red-500": errorMessage.password,
               }
             )}
-            type='password'
-            placeholder='********'
-            {...register('password', {required: true, minLength: 8})}
+            type="password"
+            placeholder="********"
+            {...register("password", { required: true, minLength: 8 })}
           />
-          {errors.password?.type === 'required' && (
-            <span className='text-red-500'>* La contraseña es requerida</span>
-          )}
-          {errors.password?.type === 'minLength' && (
-            <span className='text-red-500'>
-              * La contraseña debe tener al menos 8 caracteres
-            </span>
-          )}
+          {renderErrorMessage("password")}
         </div>
 
         {/* <div>
@@ -160,51 +168,53 @@ export const RegistrationForm = () => {
             className={clsx(
               "w-full h-12 p-3 rounded-lg border border-solid focus:outline-none",
               {
-                "border-red-500": errors.rol,
+                "border-red-500": errorMessage.rol,
               }
             )}
             type="text"
             placeholder="Rol"
             {...register("rol", { required: true })}
           />
-          {errors.password?.type === "required" && (
-            <span className="text-red-500">* El rol es requerido</span>
-          )}
+          {renderErrorMessage('rol')}
         </div> */}
 
         <div>
-          <button className=' w-full h-12 rounded-lg border-[1px] border-[#6264D5] hover:opacity-70 flex justify-center items-center bg-[#fff] gap-4'>
-            Iniciar sesión con Google <img src='/google.svg' alt='google' />
+          <button className=" w-full h-12 rounded-lg border-[1px] border-[#6264D5] hover:opacity-70 flex justify-center items-center bg-[#fff] gap-4">
+            Iniciar sesión con Google <img src="/google.svg" alt="google" />
           </button>
         </div>
 
         <div>
           <button
             disabled={isSubmitting}
-            type='submit'
+            type="submit"
             className={clsx({
-              'btn-primary  w-full ': !isValid || !isSubmitting,
-              'btn-disable': isSubmitting,
-            })}>
-            {isSubmitting ? 'Registrando...' : 'Crear Cuenta'}
+              "btn-primary  w-full ": !isValid || !isSubmitting,
+              "btn-disable": isSubmitting,
+            })}
+          >
+            {isSubmitting ? "Registrando..." : "Crear Cuenta"}
           </button>
         </div>
 
-        <div className='text-center'>
-          ¿Ya tienes una cuenta?{' '}
+        <div className="text-center">
+          ¿Ya tienes una cuenta?{" "}
           <Link
-            href={'/auth/login'}
-            className='text-blue-500 border-b-[1px] border-b-blue-500'>
+            href={"/auth/login"}
+            className="text-blue-500 border-b-[1px] border-b-blue-500"
+          >
             Inicia sesión
           </Link>
         </div>
       </form>
 
+      {renderErrorMessage("general")}
+
       {/* Modal de éxito */}
       {showSuccessModal && (
-        <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-          <div className='bg-white p-8 rounded-lg'>
-            <h2 className='text-lg font-bold mb-4'>¡Registro exitoso!</h2>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded-lg">
+            <h2 className="text-lg font-bold mb-4">¡Registro exitoso!</h2>
             <p>Has sido registrado correctamente.</p>
           </div>
         </div>
@@ -212,3 +222,218 @@ export const RegistrationForm = () => {
     </div>
   );
 };
+
+// 'use client';
+
+// import {useState, useEffect} from 'react';
+// import {useForm, useWatch} from 'react-hook-form';
+// import clsx from 'clsx';
+// import {useRouter} from 'next/navigation';
+// import Link from 'next/link';
+// interface RegistrationForm {
+//   fullName: string;
+//   email: string;
+//   password: string;
+//   rol: string;
+// }
+
+// export const RegistrationForm = () => {
+//   const [errorMessage, setErrorMessage] = useState('');
+//   const [isSubmitting, setIsSubmitting] = useState(false);
+//   const [showSuccessModal, setShowSuccessModal] = useState(false);
+//   const router = useRouter();
+
+//   const {
+//     handleSubmit,
+//     register,
+//     formState: {isValid},
+//     formState: {errors},
+//     control,
+//   } = useForm<RegistrationForm>({
+//     defaultValues: {},
+//   });
+
+//   const password = useWatch({
+//     control,
+//     name: 'password',
+//     defaultValue: '',
+//   });
+
+//   const onSubmit = async (data: RegistrationForm) => {
+//     setErrorMessage('');
+//     setIsSubmitting(true);
+
+//     try {
+//       const response = await fetch('http://localhost:8080/api/register', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(data),
+//       });
+
+//       if (response.ok) {
+//         // Registro exitoso
+//         const result = await response.json();
+//         console.log(result);
+//         setShowSuccessModal(true); // Mostrar el modal de éxito
+//       } else {
+//         const error = await response.json();
+//         setErrorMessage(error.message || 'Error al registrarse');
+//       }
+//     } catch (error) {
+//       setErrorMessage('Error al registrarse');
+//     } finally {
+//       setIsSubmitting(false);
+//     }
+//   };
+
+//   // const handleCloseModal = () => {
+//   //   setShowSuccessModal(false);
+//   //   router.push("/login"); // Redirigir a la página de inicio de sesión
+//   // };
+
+//   useEffect(() => {
+//     if (showSuccessModal) {
+//       const timer = setTimeout(() => {
+//         setShowSuccessModal(false); // Cierra el modal después de 5 segundos
+//         router.push('login'); // Redirige al usuario al inicio de sesión
+//       }, 2000);
+
+//       return () => clearTimeout(timer); // Limpia el temporizador al desmontar el componente
+//     }
+//   }, [showSuccessModal, router]);
+
+//   return (
+//     <div className='bg-white rounded-lg shadow-lg p-8 max-md:p-4 max-w-md mx-auto'>
+//       <form
+//         onSubmit={handleSubmit(onSubmit)}
+//         className='grid grid-cols-1 gap-4'>
+//         <div>
+//           <label htmlFor='name'>Nombre y Apellido</label>
+//           <input
+//             id='name'
+//             className={clsx(
+//               'w-full h-12 p-3 rounded-lg border border-solid focus:outline-none',
+//               {
+//                 'border-red-500': errors.fullName,
+//               }
+//             )}
+//             type='text'
+//             placeholder='TallerXpert'
+//             {...register('fullName', {required: true})}
+//           />
+//           {errors.fullName?.type === 'required' && (
+//             <span className='text-red-500'>
+//               * El nombre completo es requerido
+//             </span>
+//           )}
+//         </div>
+
+//         <div>
+//           <label htmlFor='email'>E-mail</label>
+//           <input
+//             id='email'
+//             className={clsx(
+//               'w-full h-12 p-3 rounded-lg border border-solid focus:outline-none',
+//               {
+//                 'border-red-500': errors.email,
+//               }
+//             )}
+//             type='email'
+//             placeholder='TallerXpert@gmail.com'
+//             {...register('email', {required: true, pattern: /^\S+@\S+$/i})}
+//           />
+//           {errors.email?.type === 'required' && (
+//             <span className='text-red-500'>
+//               * El correo electrónico es requerido
+//             </span>
+//           )}
+//           {errors.email?.type === 'pattern' && (
+//             <span className='text-red-500'>
+//               * Ingrese un correo electrónico válido
+//             </span>
+//           )}
+//         </div>
+
+//         <div>
+//           <label htmlFor='password'>Contraseña</label>
+//           <input
+//             id='password'
+//             className={clsx(
+//               'w-full h-12 p-3 rounded-lg border border-solid focus:outline-none',
+//               {
+//                 'border-red-500': errors.password,
+//               }
+//             )}
+//             type='password'
+//             placeholder='********'
+//             {...register('password', {required: true, minLength: 8})}
+//           />
+//           {errors.password?.type === 'required' && (
+//             <span className='text-red-500'>* La contraseña es requerida</span>
+//           )}
+//           {errors.password?.type === 'minLength' && (
+//             <span className='text-red-500'>
+//               * La contraseña debe tener al menos 8 caracteres
+//             </span>
+//           )}
+//         </div>
+
+//         {/* <div>
+//           <input
+//             className={clsx(
+//               "w-full h-12 p-3 rounded-lg border border-solid focus:outline-none",
+//               {
+//                 "border-red-500": errors.rol,
+//               }
+//             )}
+//             type="text"
+//             placeholder="Rol"
+//             {...register("rol", { required: true })}
+//           />
+//           {errors.password?.type === "required" && (
+//             <span className="text-red-500">* El rol es requerido</span>
+//           )}
+//         </div> */}
+
+//         <div>
+//           <button className=' w-full h-12 rounded-lg border-[1px] border-[#6264D5] hover:opacity-70 flex justify-center items-center bg-[#fff] gap-4'>
+//             Iniciar sesión con Google <img src='/google.svg' alt='google' />
+//           </button>
+//         </div>
+
+//         <div>
+//           <button
+//             disabled={isSubmitting}
+//             type='submit'
+//             className={clsx({
+//               'btn-primary  w-full ': !isValid || !isSubmitting,
+//               'btn-disable': isSubmitting,
+//             })}>
+//             {isSubmitting ? 'Registrando...' : 'Crear Cuenta'}
+//           </button>
+//         </div>
+
+//         <div className='text-center'>
+//           ¿Ya tienes una cuenta?{' '}
+//           <Link
+//             href={'/auth/login'}
+//             className='text-blue-500 border-b-[1px] border-b-blue-500'>
+//             Inicia sesión
+//           </Link>
+//         </div>
+//       </form>
+
+//       {/* Modal de éxito */}
+//       {showSuccessModal && (
+//         <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+//           <div className='bg-white p-8 rounded-lg'>
+//             <h2 className='text-lg font-bold mb-4'>¡Registro exitoso!</h2>
+//             <p>Has sido registrado correctamente.</p>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
