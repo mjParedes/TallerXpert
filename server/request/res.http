@@ -1,16 +1,3 @@
-### GET
-GET http://localhost:8080/api/user
-
-### POST
-POST http://localhost:8080/api/user
-Content-Type: application/json
-
-{
-  "email": "usuario1",
-  "password": "password usuario1",
-  "clientId": "08c0b65e-afdb-4bc6-b6a1-b1808e404cd0"
-}
-
 ############# CLIENT
 
 ### GET ALL
@@ -19,8 +6,11 @@ GET http://localhost:8080/api/client/
 ### GET BY ID
 GET http://localhost:8080/api/client/08c0b65e-afdb-4bc6-b6a1-b1808e404cd0
 
+### GET USER
+GET http://localhost:8080/api/user
+
 ### POST
-POST http://localhost:8080/api/client
+POST http://localhost:8080/api/users
 Content-Type: application/json
 
 {
@@ -64,3 +54,19 @@ Content-Type: application/json
   "seller_name": "Luana Especi",
   "categories": {"hola":"hola"}
 }
+
+################ TRANSACTION MERCADO PAGO
+POST https://4255-190-12-97-93.ngrok-free.app/api/order
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRkN2Y0OTNlLWUwYTAtNDQ1MS1iMGZlLTEwMWU3MTYzN2RiMCIsImlhdCI6MTcxMzQ4MjEyNH0.-v9jANGgLleznCCxR_-ivTATE9eJLZaNeedOhi90fmY
+
+{
+    "unit_price": 15000,
+    "product_name": "Prueba",
+    "user_id": "dd7f493e-e0a0-4451-b0fe-101e71637db0",
+    "product_id":"f24bcc15-8552-62cd2ec3f0034242342"
+}
+
+####### pdf
+### GET
+GET http://localhost:8080/api/pdf

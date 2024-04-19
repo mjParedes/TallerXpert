@@ -1,6 +1,10 @@
 import { createPreference, getMerchantOrder } from '../utils/mercadopago.utils'
 import { Order } from '../models/order.model'
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
+import Pdfmake from 'pdfmake'
+import { fontsPdf, pdfCreate } from '../utils'
+import { dataHarcodeada } from '../constants'
+
 type TypeProductPreference = {
 	user_id: string
 	product_name: string
@@ -99,6 +103,29 @@ export class OrderController {
 			res.status(500).json({
 				message: error.message,
 			})
+		}
+	}
+
+	static async getPdf(req: Request, res: Response, next: NextFunction) {
+		try {
+			// const { orderId } = req.params
+
+			const pdf_make = new Pdfmake(fontsPdf)
+
+			// creamos las opciones del pdf a partir de la respuesta con la funcion del helper
+			const data_pdf = await pdfCreate(dataHarcodeada)
+
+			// creamos el pdf
+			const pdf_doc = pdf_make.createPdfKitDocument(data_pdf as any)
+
+			// seteamos los encabezados del pdf
+			res.setHeader('Content-Type', 'application/pdf')
+
+			// subiendo cambios
+			pdf_doc.pipe(res)
+			pdf_doc.end()
+		} catch (error) {
+			next(error)
 		}
 	}
 }
