@@ -1,3 +1,5 @@
+'use client'
+
 import { Orders, Title } from '@/components'
 import { Button } from '@/components/button/Button'
 import { CardItem } from '@/components/dashboard-orders/cardItem'
