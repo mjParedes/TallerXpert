@@ -2,11 +2,12 @@ import {
 	AllowNull,
 	Column,
 	DataType,
+	ForeignKey,
 	HasMany,
 	Model,
 	Table,
 } from 'sequelize-typescript'
-import { User } from '../models/user.models'
+import { User } from '../models'
 
 @Table({
 	timestamps: false,
@@ -20,10 +21,11 @@ export class Order extends Model {
 	})
 	id!: string
 
+	@ForeignKey(() => User)
 	@Column({
 		type: DataType.UUID,
 	})
-	user_id!: string
+	userId!: string
 
 	// @HasMany(() => User)
 	// user!: User
