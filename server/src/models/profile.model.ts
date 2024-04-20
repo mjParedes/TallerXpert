@@ -1,4 +1,4 @@
-import { AllowNull, BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript'
+import { AllowNull, BelongsTo, Column, DataType, ForeignKey, HasMany, IsAlpha, IsUrl, Model, Table } from 'sequelize-typescript'
 import { User } from '.'
 
 @Table({
@@ -20,7 +20,9 @@ export class Profile extends Model {
 
 	@BelongsTo(() => User)
 	user!: User
-
+	
+	@AllowNull(false)
+	@IsAlpha
 	@Column({
 		type: DataType.STRING,
 	})
@@ -31,6 +33,12 @@ export class Profile extends Model {
 	})
 	phone!: string
 
+	@Column({
+		type: DataType.STRING(50),
+	})
+	address!: string
+
+	@IsUrl
 	@Column({
 		type: DataType.STRING,
 	})

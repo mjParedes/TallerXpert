@@ -35,9 +35,9 @@ export class User extends Model<User> {
 
 	@AllowNull(false)
 	@Column({
-		type: DataType.ENUM('admin', 'trabajador'),
+		type: DataType.ENUM('admin', 'technician'),
 	})
-	rol!: 'admin' | 'trabajador'
+	rol!: 'admin' | 'technician'
 
 	@Column({
 		type: DataType.BOOLEAN,
@@ -50,6 +50,6 @@ export class User extends Model<User> {
 	@HasOne(() => Profile)
 	profile!: Profile
 
-  @HasOne(() => Reparation)
+  	@HasOne(() => Reparation)
 	reparation!: Reparation
 }

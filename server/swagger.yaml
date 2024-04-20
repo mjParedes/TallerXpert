@@ -189,6 +189,8 @@ components:
           type: string
         phone:
           type: string
+        address:
+          type: string
         photo_url:
           type: string
     Supplier:
@@ -249,11 +251,93 @@ components:
 security:
   - BearerAuth: []
 paths:
+  /api/register:
+    post:
+      summary: Register a new user admin or technician, you should add 'admin' or 'technician' in role attribute
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            example:
+              fullName: John Doe
+              email: example@gmail.com
+              password: password1234
+              rol: technician
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+/api/signin:
+    post:
+      summary: Authenticate a user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            example:
+              email: example@gmail.com
+              password: password1234
+      responses:
+        '200':
+          description: User logged successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
   /api/user:
     get:
       summary: Get all users
       tags:
         - Users
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: User retrieved successfully
@@ -274,52 +358,13 @@ paths:
                 properties:
                   error:
                     type: string
-    post:
-      summary: Create a new user
-      tags:
-        - Users
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-            example:
-              fullName: John Doe
-              email: example@gmail.com
-              password: password1234
-      responses:
-        '201':
-          description: User created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-        '401':
-          description: Unauthorized
-        '500':
-          description: An unexpected error occurred
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
   /api/user/{id}:
     get:
       summary: Get user by ID
       tags:
         - Users
+      security:
+        - BearerAuth: []
       parameters:
         - name: id
           in: path
@@ -378,7 +423,7 @@ paths:
               email: exampleUpdated@gmail.com
               password: anotherPassword1234
               role: admin
-              is_active: true
+              is_active: false
       responses:
         '200':
           description: User updated successfully
@@ -477,6 +522,8 @@ paths:
       summary: Create a new workshop
       tags:
         - Workshops
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -655,6 +702,8 @@ paths:
       summary: Get all clients
       tags:
         - Clients
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: clients retrieved successfully
@@ -679,6 +728,8 @@ paths:
       summary: Create a new client
       tags:
         - Clients
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -724,6 +775,8 @@ paths:
       summary: Get client by ID
       tags:
         - Clients
+      security:
+        - BearerAuth: []
       parameters:
         - name: id
           in: path
@@ -858,6 +911,8 @@ paths:
       summary: Get all reparations
       tags:
         - Reparations
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Reparations retrieved successfully
@@ -882,6 +937,8 @@ paths:
       summary: Create a new Reparation
       tags:
         - Reparations
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -958,6 +1015,8 @@ paths:
       summary: Get reparation by ID
       tags:
         - Reparations
+      security:
+        - BearerAuth: []
       parameters:
         - name: id
           in: path
@@ -1037,6 +1096,8 @@ paths:
       summary: Get all products
       tags:
         - Products
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Products retrieved successfully
@@ -1061,6 +1122,8 @@ paths:
       summary: Create a new Product
       tags:
         - Products
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -1108,6 +1171,8 @@ paths:
       summary: Get product by ID
       tags:
         - Products
+      security:
+        - BearerAuth: []
       parameters:
         - name: id
           in: path
@@ -1247,6 +1312,8 @@ paths:
       summary: Get all profiles
       tags:
         - Profiles
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Profiles retrieved successfully
@@ -1271,6 +1338,8 @@ paths:
       summary: Create a new Profile
       tags:
         - Profiles
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -1314,6 +1383,8 @@ paths:
       summary: Get profile by ID
       tags:
         - Profiles
+      security:
+        - BearerAuth: []
       parameters:
         - name: id
           in: path
@@ -1349,7 +1420,7 @@ paths:
                   error:
                     type: string
     patch:
-      summary: Update a specific profile
+      summary: Update user profile data like address, phone or photo_url
       tags:
         - Profiles
       security:
@@ -1357,7 +1428,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: ID of the profile to update
+          description: ID of the user profile to update
           required: true
           schema:
             type: string
@@ -1369,6 +1440,7 @@ paths:
               $ref: '#/components/schemas/Profile'
             example:
               phone: 84745454464,
+              addres: Las Torres 475,
               photo_url: https://example.com/photo2.jpg
       responses:
         '200':
@@ -1399,30 +1471,106 @@ paths:
                 properties:
                   error:
                     type: string
-    delete:
-      summary: Delete user profile
+  /api/supplier:
+    get:
+      summary: Get all suppliers
       tags:
-        - Profiles
+        - Suppliers
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Suppliers retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Supplier'
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: Create a new supplier
+      tags:
+        - Suppliers
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Supplier'
+            example:
+              name: Costa Azul
+              cuit: 10548745124
+              address: Las Begonias 504
+              city: Buenos Aires
+              phone: 9587454844
+              email: costaazul@gmail.com
+              seller_name: Mirko Vucinic
+              categories: ['Linea Blanca', 'Linea amarilla']
+      responses:
+        '201':
+          description: Supplier created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Supplier'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/supplier/{id}:
+    get:
+      summary: Get supplier by ID
+      tags:
+        - Suppliers
       security:
         - BearerAuth: []
       parameters:
         - name: id
           in: path
-          description: ID of the profile to delete
+          description: supplier ID
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: Profile deleted successfully
+          description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Profile'
+                $ref: '#/components/schemas/Supplier'
         '401':
-          description: Invalid token or no token provided
+          description: Unauthorized
         '404':
-          description: Profile not found
+          description: Supplier not found
           content:
             application/json:
               schema:
@@ -1431,7 +1579,104 @@ paths:
                   error:
                     type: string
         '500':
-          description: Server error
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    patch:
+      summary: Update Supplier by ID
+      tags:
+        - Suppliers
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: ID of the supplier to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Supplier'
+            example:
+              name: Supplier Name
+              cuit: Supplier CUIT
+              address: Suplier Address
+              city: Suppluer City
+              phone: Supplier Phone
+              email: Supplier Email
+              seller_name: Supplier Seller Name
+              categories: Suppliers categories in Array format
+      responses:
+        '200':
+          description: Supplier updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Supplier'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Supplier not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected
+    delete:
+      summary: Delete a specific Supplier
+      tags:
+        - Suppliers
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID of the supplier to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Supplier deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Supplier'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Supplier not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
           content:
             application/json:
               schema:
@@ -1466,6 +1711,8 @@ paths:
       summary: Create a new Review
       tags:
         - Reviews
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
