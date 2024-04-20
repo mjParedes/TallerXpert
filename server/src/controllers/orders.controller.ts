@@ -46,10 +46,11 @@ export class OrderController {
 					'https://s14-36-t-node-react.onrender.com/api/order/webhooks',
 			}
 			const response = await createPreference(preference)
-			res.status(200).json({
-				url: response.init_point,
-				orderId: response.external_reference,
-			})
+			return res.json(response)
+			// res.status(200).json({
+			// 	url: response.init_point,
+			// 	orderId: response.external_reference,
+			// })
 		} catch (error: any) {
 			res.status(500).json({
 				message: error.message,
