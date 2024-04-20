@@ -36,6 +36,7 @@ export class User extends Model<User> {
 	@AllowNull(true)
 	@Column({
 		type: DataType.ENUM('admin', 'technician'),
+		defaultValue: 'admin',
 	})
 	rol!: 'admin' | 'technician'
 
@@ -50,6 +51,6 @@ export class User extends Model<User> {
 	@HasOne(() => Profile)
 	profile!: Profile
 
-  	@HasOne(() => Reparation)
+	@HasOne(() => Reparation)
 	reparation!: Reparation
 }
