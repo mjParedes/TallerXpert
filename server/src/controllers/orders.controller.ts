@@ -2,7 +2,7 @@ import { createPreference, getMerchantOrder } from '../utils/mercadopago.utils'
 import { Order } from '../models/order.model'
 import { Request, Response } from 'express'
 type TypeProductPreference = {
-	user_id: string
+	userId: string
 	product_name: string
 	unit_price: number
 	product_id: string

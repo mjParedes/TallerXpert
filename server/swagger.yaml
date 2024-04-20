@@ -177,12 +177,12 @@ components:
     Profile:
       type: object
       required:
-        - user_id
+        - userId
       properties:
         id:
           type: string
           format: uuid
-        user_id:
+        userId:
           type: string
           format: uuid
         fullName:
@@ -1347,7 +1347,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Profile'
             example:
-              user_id: e1c395d8-cc9d-4fd9-9c51-ce183551fd65
+              userId: e1c395d8-cc9d-4fd9-9c51-ce183551fd65
               fullName: Luis Pino Cedi
               phone: 84745454454,
               photo_url: https://example.com/photo.jpg
