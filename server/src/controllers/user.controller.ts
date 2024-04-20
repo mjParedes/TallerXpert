@@ -4,14 +4,6 @@ import { User, Client } from '../models'
 export class UserController {
 	static async getAllUsers(req: Request, res: Response, next: NextFunction) {
 		try {
-			/*const results = await User.findAll({
-				include: [
-					{
-						model: Client,
-					},
-				],
-			})
-			res.status(200).json(results)*/
 			const users = await User.findAll({
 				attributes: { exclude: ['password'] },
 			})

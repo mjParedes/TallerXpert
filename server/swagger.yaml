@@ -331,7 +331,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/user:
+/api/user:
     get:
       summary: Get all users
       tags:
@@ -358,7 +358,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/user/{id}:
+/api/user/{id}:
     get:
       summary: Get user by ID
       tags:
@@ -493,7 +493,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/workshop:
+/api/workshop:
     get:
       summary: Get all workshops
       tags:
@@ -564,7 +564,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/workshop/{id}:
+/api/workshop/{id}:
     get:
       summary: Get workshop by ID
       tags:
@@ -697,7 +697,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/client:
+/api/client:
     get:
       summary: Get all clients
       tags:
@@ -770,7 +770,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/client/{id}:
+/api/client/{id}:
     get:
       summary: Get client by ID
       tags:
@@ -906,7 +906,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/reparation:
+/api/reparation:
     get:
       summary: Get all reparations
       tags:
@@ -1010,7 +1010,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/reparation/{id}:
+/api/reparation/{id}:
     get:
       summary: Get reparation by ID
       tags:
@@ -1091,7 +1091,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/product:
+/api/product:
     get:
       summary: Get all products
       tags:
@@ -1166,7 +1166,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/product/{id}:
+/api/product/{id}:
     get:
       summary: Get product by ID
       tags:
@@ -1307,7 +1307,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/profile:
+/api/profile:
     get:
       summary: Get all profiles
       tags:
@@ -1378,7 +1378,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/profile/{id}:
+/api/profile/{id}:
     get:
       summary: Get profile by ID
       tags:
@@ -1471,7 +1471,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/supplier:
+/api/supplier:
     get:
       summary: Get all suppliers
       tags:
@@ -1546,7 +1546,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/supplier/{id}:
+/api/supplier/{id}:
     get:
       summary: Get supplier by ID
       tags:
@@ -1684,7 +1684,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/review:
+/api/review:
     get:
       summary: Get all reviews
       tags:
@@ -1706,7 +1706,7 @@ paths:
             application/json:
               schema:
                 type: object
-  /api/review/:
+/api/review/:
     post:
       summary: Create a new Review
       tags:
@@ -1748,7 +1748,7 @@ paths:
                 properties:
                   error:
                     type: string
-  /api/review/{id}:
+/api/review/{id}:
     get:
       summary: Get Review by ID
       tags:

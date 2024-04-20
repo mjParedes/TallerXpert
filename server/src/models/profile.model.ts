@@ -16,13 +16,12 @@ export class Profile extends Model {
 	@AllowNull(false)
 	@ForeignKey(() => User)
 	@Column({ type: DataType.UUID })
-	user_id!: string
+	userId!: string
 
 	@BelongsTo(() => User)
 	user!: User
 	
 	@AllowNull(false)
-	@IsAlpha
 	@Column({
 		type: DataType.STRING,
 	})

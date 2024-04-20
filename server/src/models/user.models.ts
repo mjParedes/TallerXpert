@@ -33,7 +33,7 @@ export class User extends Model<User> {
 	})
 	password!: string
 
-	@AllowNull(false)
+	@AllowNull(true)
 	@Column({
 		type: DataType.ENUM('admin', 'technician'),
 	})
