@@ -2,12 +2,12 @@ import { MercadoPagoConfig, MerchantOrder, Preference } from 'mercadopago'
 import { PreferenceRequest } from 'mercadopago/dist/clients/preference/commonTypes'
 
 const client = new MercadoPagoConfig({
-	accessToken: process.env.Mp_TOKEN as string,
+	accessToken: process.env.MP_TOKEN as string,
 })
 
 export async function createPreference(preferences: PreferenceRequest) {
 	const preference = new Preference(client)
-	const response = await preference.create({ body: preferences })
+	const response =await preference.create({ body: preferences })
 	return response
 }
 export async function getMerchantOrder(id: number) {
