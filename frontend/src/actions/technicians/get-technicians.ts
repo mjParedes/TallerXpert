@@ -1,7 +1,7 @@
 'use server'
 
 import { unstable_noStore as noStore } from 'next/cache'
-import { technicians } from './seedTechnicians'
+import { technicians } from '../seed'
 
 export const getTechnicians = async (query: string) => {
   // conect to db 
