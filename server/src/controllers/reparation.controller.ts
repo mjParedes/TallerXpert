@@ -1,50 +1,54 @@
-
 import { NextFunction, Request, Response } from 'express'
 import { Reparation, User } from '../models'
-import { Client} from '../models'
+import { Client } from '../models'
 import { Product } from '../models/product.model'
+import Pdfmake from 'pdfmake'
+import { fontsPdf, pdfCreate } from '../utils'
+import { dataHarcodeada } from '../constants'
 
 export interface ProductReparation {
-    name: string,
-    brand: string,
-    model: string,
-    serial_number?: string,
-    detail: string,
-    workshopId?: string
+	name: string
+	brand: string
+	model: string
+	serial_number?: string
+	detail: string
+	workshopId?: string
 }
 export interface ClientOrderReparation {
-	fullName: string,
-	dni: number,
-	address: string,
-	city?: string,
-	phone?: number,
+	fullName: string
+	dni: number
+	address: string
+	city?: string
+	phone?: number
 	email: string
 }
 export interface ReparationOrder {
-    ot_number?: string,
-    products: [ProductReparation],
-    client: string,
-	issue_detail: string,
-	note?: string,
-    diagnostic?: string,
-    amount?: number,
-    entry_date?: Date,
-    exit_date?: Date,
-    register_by?: string,
-	reparation_cost?: number,
-	revision_cost: number,
-	total_cost?: number,
-	is_paid?:  boolean,
-	state?: boolean,
-	assigned_user?: string,
-	warranty_invoice_number?: string,
+	ot_number?: string
+	products: [ProductReparation]
+	client: string
+	issue_detail: string
+	note?: string
+	diagnostic?: string
+	amount?: number
+	entry_date?: Date
+	exit_date?: Date
+	register_by?: string
+	reparation_cost?: number
+	revision_cost: number
+	total_cost?: number
+	is_paid?: boolean
+	state?: boolean
+	assigned_user?: string
+	warranty_invoice_number?: string
 	warranty_date?: Date
 }
 
 export class ReparationController {
 	static async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
-			const results = await Reparation.findAll({include: [Client,Product, User]})
+			const results = await Reparation.findAll({
+				include: [Client, Product, User],
+			})
 			res.status(200).json(results)
 		} catch (error: any) {
 			res.status(500).json({
@@ -60,7 +64,7 @@ export class ReparationController {
 				where: {
 					id: req.params.id,
 				},
-				include: [Client,Product,User],
+				include: [Client, Product, User],
 			})
 			res.status(201).json(result)
 		} catch (error: any) {
@@ -73,32 +77,36 @@ export class ReparationController {
 
 	static async create(req: Request, res: Response, next: NextFunction) {
 		try {
-			const {...restData}  = req.body;
-			const products = req.body.products as ProductReparation[];
-			const client = req.body.client as ClientOrderReparation;
-			let clientToSave;
-			let clientId;
-			if( !client ) {
-				throw new Error("No se ingresó un cliente");
+			const { ...restData } = req.body
+			const products = req.body.products as ProductReparation[]
+			const client = req.body.client as ClientOrderReparation
+			let clientToSave
+			let clientId
+			if (!client) {
+				throw new Error('No se ingresó un cliente')
 			}
-			const clientInstance = await Client.findOne( { where :{ dni : client.dni } }) ;
-			if(!clientInstance){
-				clientToSave = await Client.create({...client});
-				clientId = clientToSave.id;
+			const clientInstance = await Client.findOne({
+				where: { dni: client.dni },
+			})
+			if (!clientInstance) {
+				clientToSave = await Client.create({ ...client })
+				clientId = clientToSave.id
 			}
-			clientId = clientInstance?.id;
-			const reparation = await Reparation.create({...restData , client_id: clientId});
-			if(!products){
-				throw new Error("No se registraron artefactos o productos");
+			clientId = clientInstance?.id
+			const reparation = await Reparation.create({
+				...restData,
+				client_id: clientId,
+			})
+			if (!products) {
+				throw new Error('No se registraron artefactos o productos')
 			}
-			products.forEach(async(product: any
-			) => {
-			   const newProduct = await Product.create({
-				   ...product
-			   });
-			   await reparation.$add('products',newProduct);
-		   });
-			reparation.save();
+			products.forEach(async (product: any) => {
+				const newProduct = await Product.create({
+					...product,
+				})
+				await reparation.$add('products', newProduct)
+			})
+			reparation.save()
 			res.status(201).json(reparation)
 		} catch (error: any) {
 			next(error)
@@ -139,6 +147,29 @@ export class ReparationController {
 				message: error.message,
 			})
 			// next(error)
+		}
+	}
+
+	static async getPdf(req: Request, res: Response, next: NextFunction) {
+		try {
+			// const { orderId } = req.params
+
+			const pdf_make = new Pdfmake(fontsPdf)
+
+			// creamos las opciones del pdf a partir de la respuesta con la funcion del helper
+			const data_pdf = await pdfCreate(dataHarcodeada)
+
+			// creamos el pdf
+			const pdf_doc = pdf_make.createPdfKitDocument(data_pdf as any)
+
+			// seteamos los encabezados del pdf
+			res.setHeader('Content-Type', 'application/pdf')
+
+			// subiendo cambios
+			pdf_doc.pipe(res)
+			pdf_doc.end()
+		} catch (error) {
+			next(error)
 		}
 	}
 }

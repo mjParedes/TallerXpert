@@ -9,5 +9,6 @@ reparationRouter.get('/:id', authMiddleware,ReparationController.getOne)
 reparationRouter.post('/', authMiddleware,ReparationController.create)
 reparationRouter.patch('/:id', authMiddleware,ReparationController.update)
 reparationRouter.delete('/:id', authMiddleware,ReparationController.delete)
+reparationRouter.get('/pdf/:id', ReparationController.getPdf)
 
 export default reparationRouter
