@@ -74,8 +74,8 @@ export class ReparationController {
 	static async create(req: Request, res: Response, next: NextFunction) {
 		try {
 			const {...restData}  = req.body;
-			const products = req.body.products as ProductReparation[];
-			const client = req.body.client as ClientOrderReparation;
+			const products = req.body.products;
+			const client = req.body.client;
 			let clientToSave;
 			let clientId;
 			if( !client ) {
