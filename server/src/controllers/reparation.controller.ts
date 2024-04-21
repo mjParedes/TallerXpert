@@ -90,7 +90,7 @@ export class ReparationController {
 			clientId = clientInstance?.id;
 			console.log("cliente habitual: \n" + clientInstance)
 			console.log(clientId)
-			const reparation = await Reparation.create({...restData , client_id: clientId});
+			const reparation = await Reparation.create({client_id: clientId, ...restData});
 			if(!products){
 				throw new Error("No se registraron artefactos o productos");
 			}
