@@ -1,6 +1,6 @@
 'use server'
 
-import { technicians } from './seedTechnicians'
+import { technicians } from '../seed'
 import { revalidatePath } from "next/cache";
 
 export const deleteTechnician = async (id: string) => {

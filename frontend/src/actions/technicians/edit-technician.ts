@@ -1,7 +1,7 @@
 'use server'
 
 import { Technician } from "@/interfaces";
-import { technicians } from './seedTechnicians'
+import { technicians } from '../seed'
 import { revalidatePath } from "next/cache";
 
 type TechnicianWithoutId = Omit<Technician, 'id'>;

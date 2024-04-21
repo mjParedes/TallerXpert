@@ -1,7 +1,7 @@
 'use server'
 
 import { Technician } from "@/interfaces";
-import { technicians } from './seedTechnicians'
+import { technicians } from '../seed'
 import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 

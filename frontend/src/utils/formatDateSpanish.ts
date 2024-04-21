@@ -17,3 +17,12 @@ export const getDateFormatSpanish = (date: Date): string => {
 
   return `${dayWeek} ${dayMonth} de ${month} de ${year}`;
 }
+
+// dd-mm-yyyy
+export const getDateFormat = (date: Date): string => {
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear();
+
+  return `${day}-${month}-${year}`;
+}
