@@ -1,8 +1,8 @@
 import { CardItem, Order, Report, Supplier } from "@/components"
 import { titleFont } from "@/config/fonts";
-import { getDateFormat, getDateFormatSpanish } from "@/utils";
+import { getDateFormat } from "@/utils";
 import { CardDashboardProps } from "@/interfaces";
-import { getTechnicians, getOrders, getUserSessionServer } from "@/actions";
+import { getTechnicians, getOrders } from "@/actions";
 import Image from "next/image";
 import clsx from "clsx";
 
