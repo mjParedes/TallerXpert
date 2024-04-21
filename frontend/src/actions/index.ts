@@ -7,5 +7,3 @@ export { getTechnicians } from './technicians/get-technicians'
 export { getTechnicianById } from './technicians/get-technician-by-id'
 
 export { getOrders } from './orders/getOrders'
-
-export { getUserSessionServer } from './auth/getUserServerSession'
