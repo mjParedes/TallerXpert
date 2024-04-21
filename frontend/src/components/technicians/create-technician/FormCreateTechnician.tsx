@@ -1,6 +1,6 @@
 'use client'
 
-import { createTechnician } from "@/actions";
+import { createTechnician, editTechnician } from "@/actions";
 import clsx from "clsx";
 import { useEffect, useState } from "react"
 import { useForm } from 'react-hook-form'
@@ -18,13 +18,14 @@ interface FormImputs {
 interface Props {
   isFormAviable: boolean
   setIsFormAviable: (value: boolean) => void
-  technician: Technician | null
+  technician: Technician | null,
+  isEditTechnician: boolean,
+  setIsEditTechnician: (value: boolean) => void
 }
 
-export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, technician }: Props) => {
+export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, isEditTechnician, setIsEditTechnician, technician }: Props) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-
 
   const { handleSubmit, register, formState: { isValid }, reset, formState: { errors } } = useForm<FormImputs>({
     defaultValues: {
@@ -37,11 +38,29 @@ export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, technici
   })
 
   useEffect(() => {
-    if (technician) {
-      reset(technician)
-      setIsFormAviable(true)
+    // there are technician loaded and is in edit mode, reset the form with the technician data.
+    if (technician && isEditTechnician) {
+      reset({
+        fullName: technician.fullName,
+        address: technician.address,
+        phone: technician.phone,
+        email: technician.email,
+        password: technician.password
+      });
+      return;
     }
-  }, [technician, reset, setIsFormAviable])
+
+    // there are technician loaded but is not in edit mode, reset the form to empty values.
+    if (technician && !isEditTechnician) {
+      reset({ fullName: '', address: '', phone: '', email: '', password: '' });
+      return;
+    }
+
+    // there are no technicians loaded, reset the form to empty values.
+    if (!technician) {
+      reset({ fullName: '', address: '', phone: '', email: '', password: '' });
+    }
+  }, [technician, isEditTechnician, reset]);
 
   const onSubmit = async (data: FormImputs) => {
     setErrorMessage('')
@@ -50,15 +69,33 @@ export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, technici
     if (!technician) {
       // server action
       const rta = await createTechnician(data)
-      setIsSubmitting(false)
 
       if (!rta.ok) {
         setErrorMessage('No se pudo crear usuario')
         return
       }
 
-      reset({ fullName: '', address: '', phone: '', email: '', password: '' })
     }
+
+    if (technician && isEditTechnician) {
+      // server action
+      const rta = await editTechnician(data, technician.id)
+      if (!rta.ok) {
+        setErrorMessage('No se pudo crear usuario')
+        return
+      }
+
+    }
+
+    setIsSubmitting(false)
+    reset({ fullName: '', address: '', phone: '', email: '', password: '' })
+    setIsFormAviable(false)
+  }
+
+  const handleCancelled = () => {
+    setIsFormAviable(false)
+    setIsEditTechnician(false)
+    reset({ fullName: '', address: '', phone: '', email: '', password: '' })
   }
 
   return (
@@ -72,19 +109,27 @@ export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, technici
             <div className="flex flex-col">
               <div className="grid grid-cols-[200px,1fr] items-center py-[9px]">
                 <label htmlFor="fullName">Nombre y Apellido</label>
-                <input
-                  disabled={!isFormAviable}
-                  className={
-                    clsx(
-                      'h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2',
-                      {
-                        'border-red-500': errors.fullName
+                {
+                  isEditTechnician === false && technician ? (
+                    <div className='h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2 flex items-center text-primary'>
+                      <p>{technician.fullName}</p>
+                    </div>
+                  ) : (
+                    <input
+                      disabled={!isFormAviable}
+                      className={
+                        clsx(
+                          'h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2',
+                          {
+                            'border-red-500': errors.fullName
+                          }
+                        )
                       }
-                    )
-                  }
-                  type="text"
-                  {...register('fullName', { required: true })}
-                />
+                      type="text"
+                      {...register('fullName', { required: true })}
+                    />
+                  )
+                }
               </div>
               {
                 errors.fullName?.type === 'required' && (
@@ -96,19 +141,27 @@ export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, technici
             <div className="flex flex-col w-full">
               <div className="grid grid-cols-[200px,1fr] items-center py-[9px]">
                 <label htmlFor="address">Dirección</label>
-                <input
-                  disabled={!isFormAviable}
-                  className={
-                    clsx(
-                      'h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2 w-full',
-                      {
-                        'border-red-500': errors.address
+                {
+                  isEditTechnician === false && technician ? (
+                    <div className='h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2 flex items-center text-primary'>
+                      <p>{technician.address}</p>
+                    </div>
+                  ) : (
+                    <input
+                      disabled={!isFormAviable}
+                      className={
+                        clsx(
+                          'h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2',
+                          {
+                            'border-red-500': errors.address
+                          }
+                        )
                       }
-                    )
-                  }
-                  type="text"
-                  {...register('address', { required: true })}
-                />
+                      type="text"
+                      {...register('address', { required: true })}
+                    />
+                  )
+                }
               </div>
               {
                 errors.address?.type === 'required' && (
@@ -120,18 +173,26 @@ export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, technici
             <div className="flex flex-col w-full">
               <div className="grid grid-cols-[200px,1fr] items-center py-[9px]">
                 <label htmlFor="city">Número de teléfono</label>
-                <input
-                  disabled={!isFormAviable}
-                  className={
-                    clsx(
-                      'h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2',
-                      {
-                        'border-red-500': errors.phone
-                      }
-                    )
-                  } type="text"
-                  {...register('phone', { required: true })}
-                />
+                {
+                  isEditTechnician === false && technician ? (
+                    <div className='h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2 flex items-center text-primary'>
+                      <p>{technician.phone}</p>
+                    </div>
+                  ) : (
+                    <input
+                      disabled={!isFormAviable}
+                      className={
+                        clsx(
+                          'h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2',
+                          {
+                            'border-red-500': errors.phone
+                          }
+                        )
+                      } type="text"
+                      {...register('phone', { required: true })}
+                    />
+                  )
+                }
               </div>
               {
                 errors.phone?.type === 'required' && (
@@ -143,19 +204,27 @@ export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, technici
             <div className="flex flex-col w-full">
               <div className="grid grid-cols-[200px,1fr] items-center py-[9px]">
                 <label htmlFor="email">E-mail</label>
-                <input
-                  disabled={!isFormAviable}
-                  className={
-                    clsx(
-                      'h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2',
-                      {
-                        'border-red-500': errors.email
+                {
+                  isEditTechnician === false && technician ? (
+                    <div className='h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2 flex items-center text-primary'>
+                      <p>{technician.email}</p>
+                    </div>
+                  ) : (
+                    <input
+                      disabled={!isFormAviable}
+                      className={
+                        clsx(
+                          'h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2',
+                          {
+                            'border-red-500': errors.email
+                          }
+                        )
                       }
-                    )
-                  }
-                  type="email"
-                  {...register('email', { required: true, pattern: /^\S+@\S+$/i, minLength: 6 })}
-                />
+                      type="email"
+                      {...register('email', { required: true, pattern: /^\S+@\S+$/i, minLength: 6 })}
+                    />
+                  )
+                }
               </div>
               {
                 errors.email?.type === 'required' && (
@@ -167,18 +236,26 @@ export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, technici
             <div className="flex flex-col w-full">
               <div className="grid grid-cols-[200px,1fr] items-center py-[9px]">
                 <label htmlFor="password">Contraseña</label>
-                <input
-                  disabled={!isFormAviable}
-                  className={
-                    clsx(
-                      'h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2',
-                      {
-                        'border-red-500': errors.password
-                      }
-                    )
-                  } type="password"
-                  {...register('password', { required: true })}
-                />
+                {
+                  isEditTechnician === false && technician ? (
+                    <div className='h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2 flex items-center text-primary'>
+                      <p>{technician.password}</p>
+                    </div>
+                  ) : (
+                    <input
+                      disabled={!isFormAviable}
+                      className={
+                        clsx(
+                          'h-10 rounded-lg border border-solid focus:outline-none bg-white pl-2',
+                          {
+                            'border-red-500': errors.password
+                          }
+                        )
+                      } type="password"
+                      {...register('password', { required: true })}
+                    />
+                  )
+                }
               </div>
               {
                 errors.password?.type === 'required' && (
@@ -193,7 +270,7 @@ export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, technici
 
           <div className="mt-8 mb-6 flex gap-[10px]">
             <button
-              disabled={isSubmitting || !isFormAviable}
+              disabled={isSubmitting || !isFormAviable && !isEditTechnician}
               type="submit"
               className={clsx(
                 'h-[51px]',
@@ -206,12 +283,8 @@ export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, technici
               {isSubmitting ? 'Guardando...' : 'Guardar'}
             </button>
             <button
-              disabled={isSubmitting || !isFormAviable}
-              onClick={() => {
-                setIsFormAviable(false)
-                reset({ fullName: '', address: '', phone: '', email: '', password: '' })
-              }
-              }
+              disabled={isSubmitting || !isFormAviable && !isEditTechnician}
+              onClick={handleCancelled}
               type="button"
               className={clsx(
                 {
@@ -223,6 +296,7 @@ export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, technici
               Cancelar
             </button>
           </div>
+
         </div>
       </form>
 
