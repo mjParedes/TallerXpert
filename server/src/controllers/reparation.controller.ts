@@ -84,9 +84,11 @@ export class ReparationController {
 			const clientInstance = await Client.findOne( { where :{ dni : client.dni } }) ;
 			if(!clientInstance){
 				clientToSave = await Client.create({...client});
+				console.log("nuevo cliente: \n" + clientToSave)
 				clientId = clientToSave.id;
 			}
 			clientId = clientInstance?.id;
+			console.log("cliente habitual: \n" + clientInstance)
 			console.log(clientId)
 			const reparation = await Reparation.create({...restData , client_id: clientId});
 			if(!products){
