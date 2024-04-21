@@ -95,7 +95,9 @@ export class ReparationController {
 			products.forEach(async(product: any
 			) => {
 			   const newProduct = await Product.create({
-				   ...product
+				reparation_id: reparation.id,
+				client_id: clientId,
+				...product
 			   });
 			   await reparation.$add('products',newProduct);
 		   });
