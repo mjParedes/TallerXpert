@@ -72,37 +72,64 @@ Content-Type: application/json
 {
   "fullName": "Luis Angel",
   "email": "melcabo954@gmail.com",
-  "password": "123456",
+  "password": "123456"
 }
 
-#### POST REGISTER
+#### POST login
 POST http://localhost:8080/api/signin
 Content-Type: application/json
 
 {
-  "email": "luis@gmail.com",
-  "password": "luisangel"
+  "email": "melcabo954@gmail.com",
+  "password": "123456"
 }
 
-#### POST REGISTER
-POST http://localhost:8080/api/signin
+#### POST client
+POST http://localhost:8080/api/client
 Content-Type: application/json
 
 {
-  "email": "luis@gmail.com",
-  "password": "luisangel"
+  "fullName": "Chuck Norris",
+  "dni": 55123987,
+  "address": "Random Av 3245",
+  "city": "Random City",
+  "phone": 123456789,
+  "email": "client@client.com"
 }
 
 #### GET REPARATION
 GET http://localhost:8080/api/reparation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjczYTU2YWFiLTQwMzYtNDg4OC1iNzBlLTlkNjAwN2UzYThlOCIsImlhdCI6MTcxMzc0MzkwMn0.D0Jhoyrh1NdJ2OBJKs5Bg53offSApiyX9GQxhd6vGjM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
 
 
 #### POST REPARATION
 POST http://localhost:8080/api/reparation
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
 
 {
-  "fullName": "",
-  "password": "luisangel"
+  "client": {
+    "fullName": "cliente luis 1",
+    "dni": 45874545,
+    "address": "Rambla 33",
+    "city": "Barcelona 2",
+    "phone": +51980459218,
+    "email": "lguzman.58erb@outlook.com"
+  },
+  "products": [
+    {
+      "product_name": "TV2",
+      "product_category": "Electrodométicos",
+      "brand": "LG",
+      "model": "LGA484754",
+      "serial_number": "AZERTYUIOPLKJH",
+      "detail": "No mira el televisor por favor",
+      "issue_detail": "El tv no tiene volumen",
+      "revision_cost": 50,
+      "warranty_date": "20/04/2024",
+      "warranty_invoice_number": "R01-458454",
+      "client_id": "debd6f5c-b309-4846-b82f-fec716a2616f"
+    }
+  ],
+  "assigned_user": "d90bbfea-a397-4e07-a6dd-1b35ddca18ef"
 }
