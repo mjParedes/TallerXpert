@@ -1,13 +1,14 @@
-import { BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasOne, Model, Table, UpdatedAt } from "sequelize-typescript"
-import { User } from '../models/user.models'
+import { BeforeCreate, BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasOne, Model, Table, UpdatedAt } from "sequelize-typescript"
 import { Client } from "./client.model"
 import { Reparation } from "./reparation.model"
 
 export enum productState {
     PENDING = 'Pendiente',
-    IN_PROGRESS = 'En Progreso',
+    WAITING = 'En espera',
     REPAIRED = 'Reparado',
-    DONE = 'Finalizado',
+    DELIVERED = 'Entregado',
+    RETURNED = 'Devuelto',
+    CLOSED = 'Cerrado',
     PAID = 'Pagado'
 }
 
@@ -75,11 +76,13 @@ export class Product extends Model {
 
     @Column({
         type: DataType.ENUM(...Object.values(productState)),
+        defaultValue: productState.PENDING
     })
     state!: productState;
 
     @Column({
         type: DataType.BOOLEAN,
+        defaultValue: false
     })
     is_paid!: boolean;
 
@@ -116,15 +119,6 @@ export class Product extends Model {
     @Column
     exit_date!: Date;
 
-    /*@ForeignKey(() => User)
-    @Column({
-        type: DataType.STRING,
-    })
-    register_by!: string;
-
-    @BelongsTo(() => User)
-    user!: User;*/
-
     @ForeignKey(() => Client)
     client_id!: Client
 
@@ -136,4 +130,11 @@ export class Product extends Model {
 
     @BelongsTo( ()=> Reparation)
     reparation!: Reparation
+
+    @BeforeCreate
+    static async capitalizeAttributes(instance: Product) {
+        instance.brand = instance.brand.toUpperCase();
+        instance.model = instance.model.toUpperCase();
+        instance.serial_number = instance.serial_number.toUpperCase();
+    }
 }

@@ -142,11 +142,13 @@ components:
         state:
           type: string
           enum:
-            - PENDING
-            - IN_PROGRESS
-            - REPAIRED
-            - DONE
-            - PAID
+            - Pendiente
+            - En espera
+            - Reparado
+            - Entrgado
+            - Devuelto
+            - Cerrado
+            - Pagado
         is_paid:
           type: boolean
         total_cost:
@@ -964,9 +966,8 @@ paths:
                   detail:  No mira el televisor por favor,
                   issue_detail:  El tv no tiene volumen,
                   revision_cost: 50,
-                  warranty_date: 20/04/2024,
-                  warranty_invoice_number: R01-458454,
-                  client_id: debd6f5c-b309-4846-b82f-fec716a2616f
+                  warranty_date: 2024-05-01,
+                  warranty_invoice_number: R01-458454
                 },
                 {
                   product_name: Radio,
@@ -977,12 +978,10 @@ paths:
                   detail:  No mira el televisor por favor,
                   issue_detail: Sin sonido,
                   revision_cost: 40,
-                  warranty_date: 20/04/2024,
-                  warranty_invoice_number: R02-458454,
-                  client_id: debd6f5c-b309-4846-b82f-fec716a2616f
+                  warranty_date: 2024-05-01,
+                  warranty_invoice_number: R02-458454
                 }
               ]
-              assigned_user: debd6f5c-b309-4846-b82f-fec716a2616f
       responses:
         '201':
           description: Reparation created successfully
@@ -1168,7 +1167,7 @@ paths:
                     type: string
 /api/product/{id}:
     get:
-      summary: Get product by ID
+      summary: Get product from Reparation Order by ID
       tags:
         - Products
       security:
