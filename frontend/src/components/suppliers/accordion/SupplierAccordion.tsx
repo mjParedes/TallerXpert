@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 interface Props {
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
   supplier: {
     id: string
     company: string

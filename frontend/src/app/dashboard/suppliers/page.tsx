@@ -11,7 +11,8 @@ export default function SuppliersPage() {
       seller: 'Esteban Lapiedra',
       phone: '+54 343 4256433',
       email: 'proveedor@email.com',
-      cuit: '30838187796'
+      cuit: '30838187796',
+      description: 'lorem ipsum dolor'
     },
     {
       id: '000-002',
@@ -21,7 +22,8 @@ export default function SuppliersPage() {
       seller: 'Lorena Carrigo',
       phone: '+54 343 252463',
       email: 'proveedor@email.com',
-      cuit: '30838187796'
+      cuit: '30838187796',
+      description: 'lorem ipsum dolor'
     }
   ]
 
