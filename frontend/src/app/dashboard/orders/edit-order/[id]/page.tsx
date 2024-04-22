@@ -6,37 +6,18 @@ import { CardItem } from "@/components/dashboard-orders/cardItem";
 import { NewClient } from "@/components/dashboard-orders/newClient";
 import { NewItem } from "@/components/dashboard-orders/newItem";
 import { useState } from "react";
-import { createReparation } from "../orderRequest";
-import { useSession } from "next-auth/react";
-import { Products } from "../interface";
 
 export default function OrdersPage() {
 
-    const { data: session, status } = useSession();
-
-    const [products, setProducts] = useState<Products[]>([])
-    const [client, setClient] = useState({
-        fullName: '',
-        dni: '',
-        address: '',
-        city: '',
-        phone: '',
-        email: ''
-    })
+    const [products, setProducts] = useState([])
 
     const date = new Date();
     const day = date.getDate()
     const month = date.getMonth() + 1;
     const year = date.getFullYear()
 
-    const guardarOrden = async () => {
-        try {
-            console.log("datos del cliente: ", client)
-            console.log("datos de productos: ", products)
-            // await createReparation(session, client, products)
-        } catch (error) {
-            console.error("Error al guardar la orden: ", error)
-        }
+    const guardarOrden = () => {
+        console.log("orden Nueva")
     }
 
     const cancelarOrden = () => {
@@ -52,16 +33,16 @@ export default function OrdersPage() {
                 </div>
                 <p>Fecha de Ingreso: {day}/{month}/{year}</p>
             </div>
-            <div className="grid grid-cols-2 justify-center gap-4">
+            <div className="flex flex-row justify-center gap-4">
                 <div className="flex flex-col gap-4">
-                    <NewClient setClient={setClient} />
+                    <NewClient />
                     <p className="text-base font-bold mt-7 mb-4">Articulos agregados</p>
-                    <div className="flex flex-col gap-4 h-40 overflow-auto pb-2">
+                    <div className="flex flex-col gap-4 h-40">
                         {products.length > 0
                             ?
                             <>
                                 ({products?.map((product, index) =>
-                                    <CardItem key={index} product={product} />
+                                    <CardItem key={index} product={product}/>
                                 )})
                             </>
                             : <p>Aún no hay contenido agregado</p>
@@ -72,7 +53,7 @@ export default function OrdersPage() {
                         <Button title="Cancelar" onClick={cancelarOrden} />
                     </div>
                 </div>
-                <NewItem setProducts={setProducts} />
+                <NewItem setProducts={setProducts}/>
             </div>
         </div>
     );

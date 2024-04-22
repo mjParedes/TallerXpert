@@ -40,6 +40,7 @@ export { CloseIcon } from './icons/modal/close'
 
 // form create workshop
 export * from './create-workshop/FormCreateWorkshop'
+export * from './suppliers/form/SupplierForm'
 
 // form create technician
 export * from './technicians/create-technician/FormCreateTechnician'

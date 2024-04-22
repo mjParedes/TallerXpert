@@ -1,9 +1,9 @@
 import { Delete } from "../icons/Delete"
 import { Edit } from "../icons/Edit"
 
-export const CardItem = () => {
+export const CardItem = ({product} : any) => {
     return (
-        <div className="flex flex-row items-center justify-between px-6 h-14 rounded-lg shadow-md bg-secondary">
+        <div className="flex flex-row items-center justify-between px-6 py-5 rounded-lg bg-secondary shadow-md ">
             <p className="text-sm">Nombre del artículo</p>
             <p className="text-sm">Estado</p>
             <div className="flex flex-row gap-6 justify-center">
