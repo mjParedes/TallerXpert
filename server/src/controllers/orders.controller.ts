@@ -3,7 +3,7 @@ import { Order } from '../models/order.model'
 import { Request, Response, NextFunction } from 'express'
 
 type TypeProductPreference = {
-	user_id: string
+	userId: string
 	product_name: string
 	unit_price: number
 	product_id: string
@@ -47,10 +47,11 @@ export class OrderController {
 					'https://s14-36-t-node-react.onrender.com/api/order/webhooks',
 			}
 			const response = await createPreference(preference)
-			res.status(200).json({
-				url: response.init_point,
-				orderId: response.external_reference,
-			})
+			return res.json(response)
+			// res.status(200).json({
+			// 	url: response.init_point,
+			// 	orderId: response.external_reference,
+			// })
 		} catch (error: any) {
 			res.status(500).json({
 				message: error.message,

@@ -18,6 +18,10 @@ const swaggerOptions: swaggerJSDoc.Options = {
             url: `http://localhost:${PORT}`,
             description: 'Local server',
         },
+        {
+            url: `https://s14-36-t-node-react.onrender.com`,
+            description: 'Testing server',
+        },
     ],
     apis: [swaggerYaml]
 };

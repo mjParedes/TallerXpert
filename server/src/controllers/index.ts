@@ -1,6 +1,6 @@
 export * from './reparation.controller'
 export * from './user.controller'
-export * from './signin.controller'
+export * from './signin.controller.js'
 export * from './workshop.controller'
 export * from './client.controller'
 export * from './profile.controller'
