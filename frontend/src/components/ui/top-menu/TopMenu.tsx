@@ -26,7 +26,7 @@ export const TopMenu = () => {
     "/dashboard/workshop": { icon: <WorkshopTop />, title: "Taller" },
   };
   const currentRouteConfig =
-    routeConfig[pathName as keyof typeof routeConfig] || {};
+    routeConfig[pathName as keyof typeof routeConfig] || {icon: null, title: null};
   const { icon, title } = currentRouteConfig;
   const userName = "Admin";
   const userImage = "/avatar.png";

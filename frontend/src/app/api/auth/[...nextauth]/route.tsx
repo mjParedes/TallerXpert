@@ -42,6 +42,11 @@ const handler = NextAuth({
     pages: {
         signIn: "/",
     },
+    secret: process.env.NEXTAUTH_SECRET,
+    session: {
+      // Duración de la sesión en segundos (por ejemplo, 7 días)
+      maxAge: 7 * 24 * 60 * 60, // 7 días
+    },
 });
 
 export { handler as GET, handler as POST };
