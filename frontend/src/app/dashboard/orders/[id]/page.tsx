@@ -1,4 +1,35 @@
-import Link from 'next/link';
+import Link from 'next/link'
+
+function TemplateOrdersArticles({
+  name,
+  mark,
+  model,
+  warranty,
+  state,
+  id,
+  idReparate
+}: {
+  name: string
+  mark: string
+  model: string
+  warranty: string
+  state: string
+  id: string
+  idReparate: string
+}) {
+  return (
+    <div className='flex justify-between bg-[#DBDCF7] rounded-lg p-4 shadow-[0px_4px_4px_0px_#00000040] max-lg:flex-col max-lg:items-center max-lg:justify-center'>
+      <p>{name}</p>
+      <p>{mark}</p>
+      <p>{model}</p>
+      <p>{warranty}</p>
+      <p>{state}</p>
+      <Link href={'/dashboard/orders/' + id + '/' + idReparate} className='hover:opacity-70'>
+        <img src='/llaveOrders.svg' alt='llaveOrders' />
+      </Link>
+    </div>
+  )
+}
 
 const example = [
   {
@@ -7,7 +38,7 @@ const example = [
     mark: 'Marca',
     model: 'Modelo',
     warranty: 'Garantía',
-    state: 'Estado Reparación',
+    state: 'Estado Reparación'
   },
   {
     id: '342543',
@@ -15,7 +46,7 @@ const example = [
     mark: 'Marca',
     model: 'Modelo',
     warranty: 'Garantía',
-    state: 'Estado Reparación',
+    state: 'Estado Reparación'
   },
   {
     id: '65476',
@@ -23,7 +54,7 @@ const example = [
     mark: 'Marca',
     model: 'Modelo',
     warranty: 'Garantía',
-    state: 'Estado Reparación',
+    state: 'Estado Reparación'
   },
   {
     id: '978979',
@@ -31,18 +62,17 @@ const example = [
     mark: 'Marca',
     model: 'Modelo',
     warranty: 'Garantía',
-    state: 'Estado Reparación',
-  },
-];
-export default function OrderId({params}: {params: {id: string}}) {
+    state: 'Estado Reparación'
+  }
+]
+export default function OrderId({ params }: { params: { id: string } }) {
   return (
     <div className='flex flex-col gap-12'>
       <div className='flex flex-col gap-4'>
         <div className='flex items-center justify-between'>
           <h2 className='font-bold  text-2xl flex gap-2 items-center'>
             <img src='/user.svg' alt='users' />
-            Nombre del Cliente{' '}
-            <span className='text-xl font-normal'>(ID:{params.id})</span>
+            Nombre del Cliente <span className='text-xl font-normal'>(ID:{params.id})</span>
           </h2>
           <p>Fecha de ingreso - DD/MM/AAA</p>
         </div>
@@ -59,17 +89,13 @@ export default function OrderId({params}: {params: {id: string}}) {
             <img src='/email.svg' alt='email' />
             E-mail
           </p>
-          <img
-            src='/human.svg'
-            alt='human'
-            className='absolute bottom-0 right-0 max-lg:hidden'
-          />
+          <img src='/human.svg' alt='human' className='absolute bottom-0 right-0 max-lg:hidden' />
         </div>
       </div>
       <div className='flex flex-col gap-4'>
         <h2 className='font-bold'>Artículos</h2>
         <div className='flex flex-col gap-4 max-lg:flex-row max-lg:flex-wrap'>
-          {example.map((item) => (
+          {example.map(item => (
             <TemplateOrdersArticles
               name={item.name}
               mark={item.mark}
@@ -86,43 +112,11 @@ export default function OrderId({params}: {params: {id: string}}) {
       <div className='max-lg:flex max-lg:justify-center'>
         <Link
           href={'/dashboard/orders'}
-          className='bg-primary text-white p-8 pt-2 pb-2 rounded-lg hover:opacity-70'>
+          className='bg-primary text-white p-8 pt-2 pb-2 rounded-lg hover:opacity-70'
+        >
           Volver
         </Link>
       </div>
     </div>
-  );
-}
-
-function TemplateOrdersArticles({
-  name,
-  mark,
-  model,
-  warranty,
-  state,
-  id,
-  idReparate,
-}: {
-  name: string;
-  mark: string;
-  model: string;
-  warranty: string;
-  state: string;
-  id: string;
-  idReparate: string;
-}) {
-  return (
-    <div className='flex justify-between bg-[#DBDCF7] rounded-lg p-4 shadow-[0px_4px_4px_0px_#00000040] max-lg:flex-col max-lg:items-center max-lg:justify-center'>
-      <p>{name}</p>
-      <p>{mark}</p>
-      <p>{model}</p>
-      <p>{warranty}</p>
-      <p>{state}</p>
-      <Link
-        href={'/dashboard/orders/' + id + '/' + idReparate}
-        className='hover:opacity-70'>
-        <img src='/llaveOrders.svg' alt='llaveOrders' />
-      </Link>
-    </div>
-  );
+  )
 }
