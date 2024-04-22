@@ -26,7 +26,7 @@ El software cumple con el objetivo de ayudar a sus usuarios a gestionar su talle
 
 Si quieres ver el estudio de caso completo descarga el siguiente pdf.
 
-<a href="./frontend/src/assets/pdf/taller_xpert_caso_de_estudio.pdf" download>TallerXpert - Caso de Estudio</a>
+<a href="./frontend/src/assets/pdf/taller_xpert_estudio_de_caso.pdf" download>TallerXpert - Caso de Estudio</a>
 </br>
 <a href="./frontend/src/assets/pdf/guia_de_estilos.pdf" download>TallerXpert - Guía de estilos</a>
 </br>
