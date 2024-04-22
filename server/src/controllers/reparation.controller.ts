@@ -5,6 +5,7 @@ import { Product } from '../models/product.model'
 import Pdfmake from 'pdfmake'
 import { fontsPdf, pdfCreate } from '../utils'
 import { dataHarcodeada } from '../constants'
+import { HttpCodes } from '../utils'
 
 export interface ProductReparation {
 	name: string
@@ -46,15 +47,10 @@ export interface ReparationOrder {
 export class ReparationController {
 	static async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
-			const results = await Reparation.findAll({
-				include: [Client, Product, User],
-			})
-			res.status(200).json(results)
+			const results = await Reparation.findAll({include: [Client,Product, User]})
+			res.status(HttpCodes.SUCCESS).json(results)
 		} catch (error: any) {
-			res.status(500).json({
-				message: error.message,
-			})
-			// next(error)
+			next(error)
 		}
 	}
 
@@ -66,48 +62,42 @@ export class ReparationController {
 				},
 				include: [Client, Product, User],
 			})
-			res.status(201).json(result)
+			res.status(HttpCodes.SUCCESS).json(result)
 		} catch (error: any) {
-			res.status(500).json({
-				message: error.message,
-			})
-			// next(error)
+			next(error)
 		}
 	}
 
 	static async create(req: Request, res: Response, next: NextFunction) {
 		try {
-			const { ...restData } = req.body
-			const products = req.body.products as ProductReparation[]
-			const client = req.body.client as ClientOrderReparation
-			let clientToSave
-			let clientId
-			if (!client) {
-				throw new Error('No se ingresó un cliente')
+			const products = req.body.products;
+			const client = req.body.client;
+			let clientId: string;
+			if( !client ) {
+				throw new Error("No se ingresó un cliente");
 			}
-			const clientInstance = await Client.findOne({
-				where: { dni: client.dni },
-			})
-			if (!clientInstance) {
-				clientToSave = await Client.create({ ...client })
-				clientId = clientToSave.id
+			const clientInstance = await Client.findOne( { where :{ dni : client.dni } }) ;
+			if(clientInstance){
+				clientId = clientInstance.id;
+			}else{
+				const newClient = await Client.create({...client});
+				clientId = newClient.id;
 			}
-			clientId = clientInstance?.id
-			const reparation = await Reparation.create({
-				...restData,
+			const reparation = await Reparation.create({client_id: clientId},{include: [Client,Product, User]});
+			if(!products){
+				throw new Error("No se registraron artefactos o productos");
+			}
+			products.forEach(async(product: any
+			) => {
+			   const newProduct = await Product.create({
+				reparation_id: reparation.id,
 				client_id: clientId,
-			})
-			if (!products) {
-				throw new Error('No se registraron artefactos o productos')
-			}
-			products.forEach(async (product: any) => {
-				const newProduct = await Product.create({
-					...product,
-				})
-				await reparation.$add('products', newProduct)
-			})
-			reparation.save()
-			res.status(201).json(reparation)
+				...product
+			   });
+			   await reparation.$add('products',newProduct);
+		   });
+			reparation.save();
+			res.status(HttpCodes.SUCCESS_CREATED).json(reparation);
 		} catch (error: any) {
 			next(error)
 		}
@@ -125,12 +115,9 @@ export class ReparationController {
 					},
 				},
 			)
-			res.status(201).json(result)
+			res.status(HttpCodes.SUCCESS).json(result)
 		} catch (error: any) {
-			res.status(500).json({
-				message: error.message,
-			})
-			// next(error)
+			next(error)
 		}
 	}
 
@@ -141,12 +128,9 @@ export class ReparationController {
 					id: req.params.id,
 				},
 			})
-			res.status(201).json(result)
+			res.status(HttpCodes.SUCCESS_DELETED).json(result)
 		} catch (error: any) {
-			res.status(500).json({
-				message: error.message,
-			})
-			// next(error)
+			next(error)
 		}
 	}
 
