@@ -6,12 +6,13 @@ export * from './hero-home/HeroHome'
 
 // section services
 export * from './section-services/SectionServices'
-export * from './card-servcice/CardService'
+export * from './card-service/CardService'
 
 // UI
 export * from './ui/top-menu/TopMenu'
 export * from './ui/title/Title'
 export * from './sidebar/Sidebar'
+export * from './ui/modal/Modal'
 
 // footer
 export * from './footer/Footer'
@@ -35,6 +36,7 @@ export { AvatarTechnician } from './icons/dashboard/avatar'
 export { AvatarTechnician2 } from './icons/dashboard/avatar2'
 export { AvatarTechnician3 } from './icons/dashboard/avatar3'
 export { Pencil, Trash, SearchTechnicianIcon } from './icons/technicians/ui-icons'
+export { CloseIcon } from './icons/modal/close'
 
 // form create workshop
 export * from './create-workshop/FormCreateWorkshop'
@@ -50,4 +52,7 @@ export * from './register/FormRegister'
 export * from './login/FormLogin'
 
 // dashboard
-export * from './dashboard/card-item/CardItem'
+export * from './dashboard/cards-dashboard/CardDashboard'
+
+// modal
+export * from './ui/modal/Modal'

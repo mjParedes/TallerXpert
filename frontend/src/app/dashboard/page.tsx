@@ -1,41 +1,9 @@
-import { CardItem, Order, Report, Supplier } from "@/components"
+import { CardsDashboard } from "@/components"
 import { titleFont } from "@/config/fonts";
 import { getDateFormat } from "@/utils";
-import { CardDashboardProps } from "@/interfaces";
 import { getTechnicians, getOrders } from "@/actions";
 import Image from "next/image";
 import clsx from "clsx";
-
-const cards: CardDashboardProps[] = [
-  {
-    icon: <Order />,
-    title: 'nueva orden de trabajo',
-    total: 60123,
-    className: 'bg-[#F1CC5B]',
-    link: '/dashboard/orders'
-  },
-  {
-    icon: <Report />,
-    title: 'nuevo informe de trabajo',
-    total: 5,
-    className: 'bg-[#8A7CC9]',
-    link: '',
-  },
-  {
-    icon: < Supplier />,
-    title: 'agregar proveedor',
-    total: 10,
-    className: 'bg-[#EB6196]',
-    link: '/dashboard/suppliers'
-  },
-  {
-    icon: <Report />,
-    title: 'consultar reparación',
-    total: 50148,
-    className: 'bg-[#34A853]',
-    link: '',
-  },
-]
 
 export default async function DashboardPage({
   searchParams
@@ -58,13 +26,7 @@ export default async function DashboardPage({
       {/*  section 1 */}
       <div className="md:flex">
         {/* cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-8">
-          {
-            cards.map((card, index) => (
-              <CardItem key={index} card={card} />
-            ))
-          }
-        </div>
+        <CardsDashboard />
 
         {/*  technicians */}
         <div className="p-4 ml-4 border rounded-lg flex-grow flex-col gap-4">
@@ -72,12 +34,16 @@ export default async function DashboardPage({
 
           <div className="mt-4 flex flex-col gap-4">
             {
-              technicians.map((technician, index) => (
-                <div key={index} className="flex items-center gap-8 p-3 rounded bg-secondary">
-                  <Image src={technician.avatar ? technician.avatar : '/avatar'} alt="avatar" width={50} height={50} className="rounded-full" />
-                  <p className="text-black">{technician.fullName}</p>
-                </div>
-              ))
+              technicians.length === 0 ? (
+                <h1 className="text-center">Aún no hay técnicos agregados</h1>
+              ) : (
+                technicians.map((technician, index) => (
+                  <div key={index} className="flex items-center gap-8 p-3 rounded bg-secondary">
+                    <Image src={technician.avatar ? technician.avatar : '/avatar'} alt="avatar" width={50} height={50} className="rounded-full" />
+                    <p className="text-black">{technician.fullName}</p>
+                  </div>
+                ))
+              )
             }
           </div>
 
