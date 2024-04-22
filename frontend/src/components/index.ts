@@ -34,13 +34,15 @@ export { TechniciansTop } from './icons/top-menu/Technicians'
 export { AvatarTechnician } from './icons/dashboard/avatar'
 export { AvatarTechnician2 } from './icons/dashboard/avatar2'
 export { AvatarTechnician3 } from './icons/dashboard/avatar3'
-export { Pencil, Trash } from './icons/technicians/ui-icons'
+export { Pencil, Trash, SearchTechnicianIcon } from './icons/technicians/ui-icons'
 
 // form create workshop
 export * from './create-workshop/FormCreateWorkshop'
+export * from './suppliers/form/SupplierForm'
 
 // form create technician
 export * from './technicians/create-technician/FormCreateTechnician'
+export { SearchTechnician } from './technicians/search-technician/SearchTechnician'
 
 // form register
 export * from './register/FormRegister'

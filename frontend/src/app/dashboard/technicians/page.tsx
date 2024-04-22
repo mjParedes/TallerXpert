@@ -3,8 +3,16 @@ import { TechnicianGrid } from "@/components/technicians/technician-grid/Technic
 import { titleFont } from "@/config/fonts"
 import Link from "next/link"
 
-export default async function TechniciansPage() {
-  const { technicians } = await getTechnicians()
+export default async function TechniciansPage({
+  searchParams
+}: {
+  searchParams: {
+    query?: string
+  }
+}) {
+  const query = searchParams?.query || ''
+  const response = await getTechnicians(query)
+  const technicians = response.technicians || []
 
   return (
     <div className={`flex flex-col gap-12 justify-between ${titleFont.className}`}>

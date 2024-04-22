@@ -1,6 +1,6 @@
 'use server'
 
-import { technicians } from './seedTechnicians'
+import { technicians } from '../seed'
 
 export const getTechnicianById = async (id: string) => {
 

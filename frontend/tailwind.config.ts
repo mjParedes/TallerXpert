@@ -22,6 +22,9 @@ const config: Config = {
         "black": "#2E353A",
         "white": "#F4F4F4",
       },
+      outlineColor: {
+        "primary": "#6264D5",
+      },
     },
   },
   plugins: [],
