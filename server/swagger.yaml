@@ -142,11 +142,13 @@ components:
         state:
           type: string
           enum:
-            - PENDING
-            - IN_PROGRESS
-            - REPAIRED
-            - DONE
-            - PAID
+            - Pendiente
+            - En espera
+            - Reparado
+            - Entrgado
+            - Devuelto
+            - Cerrado
+            - Pagado
         is_paid:
           type: boolean
         total_cost:
@@ -1168,7 +1170,7 @@ paths:
                     type: string
 /api/product/{id}:
     get:
-      summary: Get product by ID
+      summary: Get product from Reparation Order by ID
       tags:
         - Products
       security:

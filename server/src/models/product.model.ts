@@ -5,9 +5,11 @@ import { Reparation } from "./reparation.model"
 
 export enum productState {
     PENDING = 'Pendiente',
-    IN_PROGRESS = 'En Progreso',
+    WAITING = 'En espera',
     REPAIRED = 'Reparado',
-    DONE = 'Finalizado',
+    DELIVERED = 'Entregado',
+    RETURNED = 'Devuelto',
+    CLOSED = 'Cerrado',
     PAID = 'Pagado'
 }
 

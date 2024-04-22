@@ -30,7 +30,6 @@ export class SupplierController {
 		try {
 			const supplierDataParse = SupplierSchema.parse(req.body)
 			const supplier = await Supplier.create(supplierDataParse)
-
 			res.status(HttpCodes.SUCCESS_CREATED).json(supplier)
 		} catch (error: any) {
 			next(error)
