@@ -1,72 +1,108 @@
-############# CLIENT
+# ### GET
+# GET http://localhost:8080/api/
 
-### GET ALL
-GET http://localhost:8080/api/client/
+# ### POST
+# POST http://localhost:8080/api/user
+# Content-Type: application/json
 
-### GET BY ID
-GET http://localhost:8080/api/client/08c0b65e-afdb-4bc6-b6a1-b1808e404cd0
+# {
+#   "email": "usuario1",
+#   "password": "password usuario1",
+#   "clientId": "08c0b65e-afdb-4bc6-b6a1-b1808e404cd0"
+# }
 
-### GET USER
-GET http://localhost:8080/api/user
+# ############# CLIENT
 
-### POST
-POST http://localhost:8080/api/users
+# ### GET ALL
+# GET http://localhost:8080/api/client/
+
+# ### GET BY ID
+# GET http://localhost:8080/api/client/08c0b65e-afdb-4bc6-b6a1-b1808e404cd0
+
+# ### POST
+# POST http://localhost:8080/api/client
+# Content-Type: application/json
+
+# {
+#   "fullName": "nuevo cliente1",
+#   "address": "direccion nueva",
+#   "dni": 12265678,
+#   "city": "ciudad nueva",
+#   "phone": 12345678,
+#   "email": "email2nuevo@gmail.com"
+# }
+
+# ### UPDATE BY ID
+# PATCH http://localhost:8080/api/client/08c0b65e-afdb-4bc6-b6a1-b1808e404cd0
+# Content-Type: application/json
+
+# {
+#   "name": "update cliente1",
+#   "address": "direccion nueva",
+# }
+
+# ### DELETE BY ID
+# DELETE http://localhost:8080/api/client/08c0b65e-afdb-4bc6-b6a1-b1808e404cd0
+
+
+# ########### SUPPLIER
+
+# ### GET ALL
+# GET http://localhost:8080/api/supplier/
+
+# ### POST
+# POST http://localhost:8080/api/supplier
+# Content-Type: application/json
+
+# {
+#   "name": "Honda",
+#   "cuit": 10786,
+#   "address": "Asturias 916",
+#   "city": "Buenos Aires",
+#   "phone": "+51789876557",
+#   "email": "hondaselect@gmail.com",
+#   "seller_name": "Luana Especi",
+#   "categories": {"hola":"hola"}
+# }
+
+#### POST USER
+POST http://localhost:8080/api/register
 Content-Type: application/json
 
 {
-  "fullName": "nuevo cliente1",
-  "address": "direccion nueva",
-  "dni": 12265678,
-  "city": "ciudad nueva",
-  "phone": 12345678,
-  "email": "email2nuevo@gmail.com"
+  "fullName": "Luis Angel",
+  "email": "melcabo954@gmail.com",
+  "password": "123456",
 }
 
-### UPDATE BY ID
-PATCH http://localhost:8080/api/client/08c0b65e-afdb-4bc6-b6a1-b1808e404cd0
+#### POST REGISTER
+POST http://localhost:8080/api/signin
 Content-Type: application/json
 
 {
-  "name": "update cliente1",
-  "address": "direccion nueva",
+  "email": "luis@gmail.com",
+  "password": "luisangel"
 }
 
-### DELETE BY ID
-DELETE http://localhost:8080/api/client/08c0b65e-afdb-4bc6-b6a1-b1808e404cd0
-
-
-########### SUPPLIER
-
-### GET ALL
-GET http://localhost:8080/api/supplier/
-
-### POST
-POST http://localhost:8080/api/supplier
+#### POST REGISTER
+POST http://localhost:8080/api/signin
 Content-Type: application/json
 
 {
-  "name": "Honda",
-  "cuit": 10786,
-  "address": "Asturias 916",
-  "city": "Buenos Aires",
-  "phone": "+51789876557",
-  "email": "hondaselect@gmail.com",
-  "seller_name": "Luana Especi",
-  "categories": {"hola":"hola"}
+  "email": "luis@gmail.com",
+  "password": "luisangel"
 }
 
-################ TRANSACTION MERCADO PAGO
-POST https://4255-190-12-97-93.ngrok-free.app/api/order
+#### GET REPARATION
+GET http://localhost:8080/api/reparation
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjczYTU2YWFiLTQwMzYtNDg4OC1iNzBlLTlkNjAwN2UzYThlOCIsImlhdCI6MTcxMzc0MzkwMn0.D0Jhoyrh1NdJ2OBJKs5Bg53offSApiyX9GQxhd6vGjM
+
+
+#### POST REPARATION
+POST http://localhost:8080/api/reparation
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRkN2Y0OTNlLWUwYTAtNDQ1MS1iMGZlLTEwMWU3MTYzN2RiMCIsImlhdCI6MTcxMzQ4MjEyNH0.-v9jANGgLleznCCxR_-ivTATE9eJLZaNeedOhi90fmY
 
 {
-    "unit_price": 15000,
-    "product_name": "Prueba",
-    "user_id": "dd7f493e-e0a0-4451-b0fe-101e71637db0",
-    "product_id":"f24bcc15-8552-62cd2ec3f0034242342"
+  "fullName": "",
+  "password": "luisangel"
 }
-
-####### pdf
-### GET
-GET http://localhost:8080/api/reparation/pdf/1
