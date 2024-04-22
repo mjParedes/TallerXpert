@@ -48,9 +48,9 @@ export class Client extends Model {
 
 	@AllowNull(false)
 	@Column({
-		type: DataType.INTEGER,
+		type: DataType.STRING,
 	})
-	phone!: number
+	phone!: string
 
 	@AllowNull(false)
 	@Unique(true)
