@@ -51,7 +51,7 @@ export default function supplierDetail({
 
       <div className='grid grid-cols-2 gap w-full'>
         <div className='col-span-1'>
-          <SupplierForm isEditSupplier={true} setIsEditSupplier={false} supplier={supplier} />
+          <SupplierForm isEditSupplier={true} supplier={supplier} />
         </div>
         <div className='col-span-1'>
           <div
