@@ -133,3 +133,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhL
   ],
   "assigned_user": "d90bbfea-a397-4e07-a6dd-1b35ddca18ef"
 }
+
+#### GET REPARATION
+GET http://localhost:8080/api/reparation/pdf/00000001
+

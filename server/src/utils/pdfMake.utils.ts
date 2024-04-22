@@ -1,4 +1,5 @@
 import { format, parse } from '@formkit/tempo'
+import { ErrorMessage } from './errorMessage.utils'
 
 export const fontsPdf = {
 	Roboto: {
@@ -583,6 +584,6 @@ export const pdfCreate = async (data: any) => {
 		}
 	} catch (error) {
 		console.log(`${error}`)
-		throw error
+		throw new Error(ErrorMessage.PDF_NOT_CREATED)
 	}
 }
