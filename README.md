@@ -24,9 +24,9 @@ El software cumple con el objetivo de ayudar a sus usuarios a gestionar su talle
 
 ## Estudio de caso UX/UI.
 
-Si quieres ver el estudio de caso completo descarga el siguiente pdf.
+Si quieres ver los archivos recomendamos descargarlos y abrirlos desde tu PC.
 
-<a href="./frontend/src/assets/pdf/taller_xpert_estudio_de_caso.pdf" download>TallerXpert - Caso de Estudio</a>
+<a href="./frontend/src/assets/pdf/taller_xpert_estudio_de_caso.pdf" download>TallerXpert - Estudio de caso</a>
 </br>
 <a href="./frontend/src/assets/pdf/guia_de_estilos.pdf" download>TallerXpert - Guía de estilos</a>
 </br>
@@ -79,10 +79,9 @@ Si quieres ver el estudio de caso completo descarga el siguiente pdf.
                 <h6 style="">Product Manager</br>Backend Dev</br>Frontend Dev</h6>
             </div>
             <div style="height: 24px; display:flex; gap:8px;">
-                <a href="https://github.com/rociograff"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/rocio-graff/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
+                <a href="https://github.com/rociograff" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/rocio-graff/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
             </div>
     </article>
-    </hr>
     <!--[Bruno Ken]-->
     <article style="display:inline-block; width: 200px; padding:16px; border:solid 1px gray; border-radius: 8px; background-color:#848484; overflow:hidden;">
         <h3 style="margin: 0 0 16px 0; text-align:center; color:black;">Bruno Ken</h3>
@@ -91,10 +90,9 @@ Si quieres ver el estudio de caso completo descarga el siguiente pdf.
                 <h6 style="">Backend Dev</br>Frontend Dev</h6>
             </div>
             <div style="height: 24px; display:flex; gap:8px;">
-                <a href="https://github.com/brunoken22"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/brunoken18/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
+                <a href="https://github.com/brunoken22" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/brunoken18/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
             </div>
     </article>
-    </hr>
     <!--[Sebastian Castiblanco]-->
      <article style="display:inline-block; width: 200px; padding:16px; border:solid 1px gray; border-radius: 8px; background-color:#848484; overflow:hidden;">
         <h3 style="margin: 0 0 16px 0; text-align:center; color:black;">Sebastian Castiblanco</h3>
@@ -103,10 +101,9 @@ Si quieres ver el estudio de caso completo descarga el siguiente pdf.
                 <h6 style="">Backend Dev</h6>
             </div>
             <div style="height: 24px; display:flex; gap:8px;">
-                <a href="https://github.com/Dracarystian"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/davidsebastiancastiblanco/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
+                <a href="https://github.com/Dracarystian" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/davidsebastiancastiblanco/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
             </div>
     </article>
-    </hr>
     <!--[Luis Guzman]-->
     <article style="display:inline-block; width: 200px; padding:16px; border:solid 1px gray; border-radius: 8px; background-color:#848484; overflow:hidden;">
         <h3 style="margin: 0 0 16px 0; text-align:center; color:black;">Luis Guzman</h3>
@@ -115,10 +112,9 @@ Si quieres ver el estudio de caso completo descarga el siguiente pdf.
                 <h6 style="">Backend Dev</h6>
             </div>
             <div style="height: 24px; display:flex; gap:8px;">
-                <a href="https://github.com/lags2022"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/devluisgs/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
+                <a href="https://github.com/lags2022" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/devluisgs/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
             </div>
     </article>
-    </hr>
     <!--[Sonny Pimentel]-->
     <article style="display:inline-block; width: 200px; padding:16px; border:solid 1px gray; border-radius: 8px; background-color:#848484; overflow:hidden;">
         <h3 style="margin: 0 0 16px 0; text-align:center; color:black;">Sonny Pimentel</h3>
@@ -127,10 +123,9 @@ Si quieres ver el estudio de caso completo descarga el siguiente pdf.
                 <h6 style="">Backend Dev</h6>
             </div>
             <div style="height: 24px; display:flex; gap:8px;">
-                <a href="https://github.com/spimentel1201"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/sonny-pimentel/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
+                <a href="https://github.com/spimentel1201" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/sonny-pimentel/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
             </div>
     </article>
-    </hr>
     <!--[Matias Paredes]-->
     <article style="display:inline-block; width: 200px; padding:16px; border:solid 1px gray; border-radius: 8px; background-color:#848484; overflow:hidden;">
         <h3 style="margin: 0 0 16px 0; text-align:center; color:black;">Matias Paredes</h3>
@@ -139,10 +134,9 @@ Si quieres ver el estudio de caso completo descarga el siguiente pdf.
                 <h6 style="">Backend Dev</h6>
             </div>
             <div style="height: 24px; display:flex; gap:8px;">
-                <a href="https://github.com/mjParedes"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/matias-paredes-m8j5/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
+                <a href="https://github.com/mjParedes" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/matias-paredes-m8j5/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
             </div>
     </article>
-    </hr>
     <!--[David Hilera]-->
     <article style="display:inline-block; width: 200px; padding:16px; border:solid 1px gray; border-radius: 8px; background-color:#848484; overflow:hidden;">
         <h3 style="margin: 0 0 16px 0; text-align:center; color:black;">David Hilera</h3>
@@ -151,10 +145,9 @@ Si quieres ver el estudio de caso completo descarga el siguiente pdf.
                 <h6 style="">Backend Dev</h6>
             </div>
             <div style="height: 24px; display:flex; gap:8px;">
-                <a href="https://github.com/deiviiss"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/davidhilera/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
+                <a href="https://github.com/deiviiss" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/davidhilera/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
             </div>
     </article>
-    </hr>
     <!--[Mariana Potichkin]-->
     <article style="display:inline-block; width: 200px; padding:16px; border:solid 1px gray; border-radius: 8px; background-color:#848484; overflow:hidden;">
         <h3 style="margin: 0 0 16px 0; text-align:center; color:black;">Mariana Potichkin</h3>
@@ -163,10 +156,9 @@ Si quieres ver el estudio de caso completo descarga el siguiente pdf.
                 <h6 style="">Frontend Dev</h6>
             </div>
             <div style="height: 24px; display:flex; gap:8px;">
-                <a href="https://github.com/MarPotichkin"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/mariana-potichkin/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
+                <a href="https://github.com/MarPotichkin" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/mariana-potichkin/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
             </div>
     </article>
-    </hr>
     <!--[David Martinez]-->
     <article style="display:inline-block; width: 200px; padding:16px; border:solid 1px gray; border-radius: 8px; background-color:#848484; overflow:hidden;">
         <h3 style="margin: 0 0 16px 0; text-align:center; color:black;">David Martinez</h3>
@@ -175,10 +167,9 @@ Si quieres ver el estudio de caso completo descarga el siguiente pdf.
                 <h6 style="">Frontend Dev</h6>
             </div>
             <div style="height: 24px; display:flex; gap:8px;">
-                <a href="https://github.com/dv-mata"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/david-martinez-mata/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
+                <a href="https://github.com/dv-mata" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/david-martinez-mata/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
             </div>
     </article>
-    </hr>
     <!--[Emanuel Valente]-->
     <article style="display:inline-block; width: 200px; padding:16px; border:solid 1px gray; border-radius: 8px; background-color:#848484; overflow:hidden;">
         <h3 style="margin: 0 0 16px 0; text-align:center; color:black;">Emanuel Valente</h3>
@@ -187,7 +178,7 @@ Si quieres ver el estudio de caso completo descarga el siguiente pdf.
                 <h6 style="">UX/UI Designer</h6>
             </div>
             <div style="height: 24px; display:flex; gap:8px;">
-                <a href="https://github.com/emavalente"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/emanuel-valente/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
+                <a href="https://github.com/emavalente" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/emanuel-valente/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
             </div>
     </article>
 
