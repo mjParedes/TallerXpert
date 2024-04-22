@@ -1,28 +1,39 @@
-import { Title } from '@/components'
-import { SupplierAccordion } from '@/components/supplier-accordion/SupplierAccordion'
+import { SupplierAccordion } from '@/components/suppliers/accordion/SupplierAccordion'
+import Link from 'next/link'
 
 export default function SuppliersPage() {
   const suppliers = [
     {
       id: '000-001',
       company: 'Oster',
+      address: 'Lorem ipsum dolor sit amet.',
+      city: 'Philadelphia',
       seller: 'Esteban Lapiedra',
       phone: '+54 343 4256433',
-      email: 'proveedor@email.com'
+      email: 'proveedor@email.com',
+      cuit: '30838187796'
     },
     {
       id: '000-002',
       company: 'GA.MA',
+      address: 'Lorem ipsum dolor sit amet.',
+      city: 'Philadelphia',
       seller: 'Lorena Carrigo',
       phone: '+54 343 252463',
-      email: 'proveedor@email.com'
+      email: 'proveedor@email.com',
+      cuit: '30838187796'
     }
   ]
 
   return (
     <section>
       <div className='flex justify-between items-end mt-2'>
-        <button className='bg-primary text-white p-3 rounded leading-none'>Añadir Proveedor</button>
+        <Link
+          href={'/dashboard/suppliers/create'}
+          className='bg-primary text-white p-3 rounded leading-none'
+        >
+          Añadir Proveedor
+        </Link>
         <div className='relative'>
           <input
             type='text'
