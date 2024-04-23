@@ -4,8 +4,14 @@ import { Client } from '../models'
 import { Product } from '../models/product.model'
 import Pdfmake from 'pdfmake'
 import { ErrorMessage, fontsPdf, pdfCreate } from '../utils'
-import { dataHarcodeada } from '../constants'
+import {
+	SENDPULSE_WHATSAPP_ID,
+	SENDPULSE_WHATSAPP_SECRET,
+	dataHarcodeada,
+} from '../constants'
 import { HttpCodes } from '../utils'
+import { sendEmailWithAttachment } from '../utils/doc.mails'
+import { Base64Encode } from 'base64-stream'
 
 export interface ProductReparation {
 	name: string
@@ -140,48 +146,6 @@ export class ReparationController {
 		}
 	}
 
-	// {
-	//   "id": "0f56140e-4245-48e1-8ba1-5b6a3baff18c",
-	//   "ot_number": "00000001",
-	//   "client_id": "4b14d2f6-7086-425f-b416-b61cfa2e8b60",
-	//   "created_at": "2024-04-21T06:48:43.000Z",
-	//   "updated_at": "2024-04-21T06:48:43.000Z",
-	//   "assigned_user": null,
-	//   "client": {
-	//     "id": "4b14d2f6-7086-425f-b416-b61cfa2e8b60",
-	//     "fullName": "Marcos Poed",
-	//     "dni": 45874545,
-	//     "address": "Rambla 33",
-	//     "city": "Barcelona",
-	//     "phone": 69696968,
-	//     "email": "marcospoed@gmail.com"
-	//   },
-	//   "products": [
-	//     {
-	//       "id": "9f77d0d9-2f0c-4419-8f3b-6f798f2c8bea",
-	//       "product_name": "Radio",
-	//       "product_category": "Electrodométicos",
-	//       "brand": "PANASONIC",
-	//       "model": "SPF484754",
-	//       "serial_number": "AZEFTYUIOPLJH",
-	//       "detail": null,
-	//       "workshop": null,
-	//       "issue_detail": "Sin sonido",
-	//       "note": null,
-	//       "diagnostic": null,
-	//       "state": null,
-	//       "is_paid": null,
-	//       "total_cost": null,
-	//       "revision_cost": "30.00",
-	//       "reparation_cost": null,
-	//       "warranty_date": "2024-03-25T00:00:00.000Z",
-	//       "warranty_invoice_number": "R02-458454",
-	//       "entry_date": "2024-04-21T06:48:43.000Z",
-	//       "exit_date": "2024-04-21T06:48:44.000Z",
-	//       "reparation_id": "0f56140e-4245-48e1-8ba1-5b6a3baff18c",
-	//       "client_id": "4b14d2f6-7086-425f-b416-b61cfa2e8b60"
-	//     },
-
 	static async getPdf(req: Request, res: Response, next: NextFunction) {
 		try {
 			const { otNumber } = req.params
@@ -212,6 +176,236 @@ export class ReparationController {
 			pdf_doc.end()
 		} catch (error) {
 			next(error)
+		}
+	}
+
+	static async sendPdfandWhatsapp(
+		req: Request,
+		res: Response,
+		next: NextFunction,
+	) {
+		try {
+			const { otNumber } = req.params
+
+			//========= funcionalidad para enviar email =========
+
+			// buscamos la reparation por ot_number
+			const reparation = await Reparation.findOne({
+				where: {
+					ot_number: otNumber,
+				},
+				include: [Client, Product],
+			})
+
+			if (!reparation) throw new Error(ErrorMessage.REPARATION_NOT_FOUND)
+
+			const pdf_make = new Pdfmake(fontsPdf)
+
+			// creamos las opciones del pdf a partir de la respuesta con la funcion del helper
+			const data_pdf = await pdfCreate(dataHarcodeada)
+
+			// creamos el pdf
+			// const pdf_doc = pdf_make.createPdfKitDocument(data_pdf as any)
+			const pdf_doc = pdf_make.createPdfKitDocument(data_pdf as any)
+
+			const base64Stream = pdf_doc.pipe(new Base64Encode())
+			pdf_doc.end()
+
+			let tempFileBase64 = ''
+
+			base64Stream.on('data', function (buffer) {
+				tempFileBase64 += buffer.toString()
+			})
+
+			base64Stream.on('end', async function () {
+				await sendEmailWithAttachment(tempFileBase64)
+			})
+
+			//========= funcionalidad para enviar x whatsapp =========
+
+			//-------------- token sendpulse ----------------
+			const options = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					grant_type: 'client_credentials',
+					client_id: SENDPULSE_WHATSAPP_ID,
+					client_secret: SENDPULSE_WHATSAPP_SECRET,
+				}),
+			}
+
+			const fetchApiToken = await fetch(
+				'https://api.sendpulse.com/oauth/access_token',
+				options,
+			)
+
+			const { access_token } = await fetchApiToken.json()
+
+			// const { message, phone } = req.body
+			const phone = '+573224849822'
+			// const phone = '+51980459218'
+
+			//-------------- nuevo contacto whatsapp ----------------
+			const fetchApiNewContact = await fetch(
+				'https://api.sendpulse.com/whatsapp/contacts',
+				{
+					method: 'POST',
+					headers: {
+						Authorization: `Bearer ${access_token}`,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						phone,
+						name: 'contacto 4',
+						bot_id: '6622e56efa831206cc04c055', // esto lo saque de la aplicacion sino caballero dela api whatsapp
+						tags: ['contacto ncountry'],
+						variables: [
+							{
+								name: 'image',
+								value: 'https://ui-avatars.com/api/?name=John+Doe',
+							},
+						],
+					}),
+				},
+			)
+
+			const responseNewContact = await fetchApiNewContact.json()
+
+			// habilitar contacto
+
+			await fetch('https://api.sendpulse.com/whatsapp/contacts/enable', {
+				method: 'POST',
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					contact_id: responseNewContact.id,
+				}),
+			})
+			// enviar plantilla
+
+			await fetch(
+				'https://api.sendpulse.com/whatsapp/contacts/sendTemplateByPhone',
+				{
+					method: 'POST',
+					headers: {
+						Authorization: `Bearer ${access_token}`,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						bot_id: '6622e56efa831206cc04c055',
+						phone,
+						template: {
+							name: 'taller_xpert_2',
+							components: [],
+							language: {
+								policy: 'deterministic',
+								code: 'es',
+							},
+						},
+					}),
+				},
+			)
+
+			return res.status(200).send({
+				message: 'Nuevo contacto whatsapp enviado correctamente.',
+			})
+		} catch (error) {
+			next(error)
+		}
+	}
+
+	static async handleWebhookWhatsapp(
+		req: Request,
+		res: Response,
+		next: NextFunction,
+	) {
+		try {
+			const [
+				{
+					info: {
+						message: {
+							channel_data: {
+								message: {
+									text: { body = '' } = {},
+									button: { payload = '' } = {},
+								} = {},
+							} = {},
+						} = {},
+					} = {},
+					service = '',
+					title = '',
+					contact: { id: contact_id = '' } = {},
+				},
+			] = req.body
+
+			console.log(title, 'tipo', payload, 'payload')
+
+			if (
+				service === 'whatsapp' &&
+				title === 'incoming_message' &&
+				(body === 'Si' || payload === 'Si')
+			) {
+				//-------------- token sendpulse ----------------
+				const options = {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						grant_type: 'client_credentials',
+						client_id: SENDPULSE_WHATSAPP_ID,
+						client_secret: SENDPULSE_WHATSAPP_SECRET,
+					}),
+				}
+
+				const fetchApiToken = await fetch(
+					'https://api.sendpulse.com/oauth/access_token',
+					options,
+				)
+
+				const { access_token } = await fetchApiToken.json()
+
+				const message =
+					'Este es tu pdf: https://cvl.bdigital.uncu.edu.ar/objetos_digitales/15657/monedas-virtuales-y-su-impacto-en-el-comercio-electr.pdf'
+
+				//-------------- mensaje whatsapp ----------------
+				// esto es para enviar el mensaje por whatsapp
+				const fetchApi = await fetch(
+					'https://api.sendpulse.com/whatsapp/contacts/send',
+					{
+						method: 'POST',
+						headers: {
+							Authorization: `Bearer ${access_token}`,
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							// contact_id: "662303ff3e6468c75a032936",
+							contact_id,
+							message: {
+								type: 'text',
+								text: {
+									body: message,
+								},
+							},
+						}),
+					},
+				)
+				const response = await fetchApi.json()
+				return res.status(200).send({
+					message: 'WhatsApp enviado correctamente.',
+					response,
+				})
+			}
+		} catch (error) {
+			console.log(error)
+			res.status(500).send({
+				message: 'Error al enviar el mensaje de WhatsApp.',
+				error: error,
+			})
 		}
 	}
 }
