@@ -38,6 +38,7 @@ export { Pencil, Trash, SearchTechnicianIcon } from './icons/technicians/ui-icon
 
 // form create workshop
 export * from './create-workshop/FormCreateWorkshop'
+export * from './suppliers/form/SupplierForm'
 
 // form create technician
 export * from './technicians/create-technician/FormCreateTechnician'

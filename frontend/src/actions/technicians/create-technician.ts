@@ -1,15 +1,19 @@
 'use server'
 
-import { Technician } from "@/interfaces";
+import { Technician } from '@/interfaces'
 import { technicians } from '../seed'
-import { randomUUID } from "crypto";
-import { revalidatePath } from "next/cache";
+import { randomUUID } from 'crypto'
+import { revalidatePath } from 'next/cache'
 
-type TechnicianWithoutId = Omit<Technician, 'id'>;
+type TechnicianWithoutId = Omit<Technician, 'id'>
 
 export const createTechnician = async (data: TechnicianWithoutId) => {
   try {
-    const technicianWithDefaultAvatar = { ...data, avatar: data.avatar || '/avatar.png', id: randomUUID() };
+    const technicianWithDefaultAvatar = {
+      ...data,
+      avatar: data.avatar || '/avatar.png',
+      id: randomUUID()
+    }
 
     technicians.push(technicianWithDefaultAvatar)
 

@@ -61,11 +61,7 @@ export default function OrderId({params}: {params: {id: string}}) {
             <img src='/email.svg' alt='email' />
             {dataResponse?.client.email || 'Email'}
           </p>
-          <img
-            src='/human.svg'
-            alt='human'
-            className='absolute bottom-0 right-0 max-lg:hidden'
-          />
+          <img src='/human.svg' alt='human' className='absolute bottom-0 right-0 max-lg:hidden' />
         </div>
       </div>
       <div className='flex flex-col gap-4'>
@@ -100,7 +96,8 @@ export default function OrderId({params}: {params: {id: string}}) {
       <div className='max-lg:flex max-lg:justify-center'>
         <Link
           href={'/dashboard/orders'}
-          className='bg-primary text-white p-8 pt-2 pb-2 rounded-lg hover:opacity-70'>
+          className='bg-primary text-white p-8 pt-2 pb-2 rounded-lg hover:opacity-70'
+        >
           Volver
         </Link>
       </div>
