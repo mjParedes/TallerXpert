@@ -60,9 +60,9 @@ export class Workshop extends Model {
 	})
 	location!: string
 
+	@AllowNull(false)
 	@Column({
 		type: DataType.ENUM(...Object.values(workshopCategory)),
 	})
 	category!: workshopCategory
-
 }

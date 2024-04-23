@@ -9,7 +9,7 @@ export class AuthAndSignController {
 			if (!req.body.email || !req.body.password ) {
 				return res.status(400).json({ message: 'Faltan datos' })
 			}
-			const user = await User.create({			
+			const user = await User.create({
 					...req.body,
 					password: getSHA256ofString(req.body.password),
 			})
@@ -34,9 +34,10 @@ export class AuthAndSignController {
 	}
 	static async signin(req: Request, res: Response) {
 		try {
+			const email = req.body.email.toLowerCase();
 			const user = await User.findOne({
 				where: {
-					email: req.body.email,
+					email: email,
 					password: getSHA256ofString(req.body.password),
 				},
 			})

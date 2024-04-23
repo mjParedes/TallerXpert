@@ -1,4 +1,4 @@
-import { BeforeCreate, BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasOne, Model, Table, UpdatedAt } from "sequelize-typescript"
+import { BeforeCreate, BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasOne, IsDate, Model, Table, UpdatedAt } from "sequelize-typescript"
 import { Client } from "./client.model"
 import { Reparation } from "./reparation.model"
 
@@ -115,7 +115,7 @@ export class Product extends Model {
     @Column
     entry_date!: Date;
 
-    @UpdatedAt
+    @IsDate
     @Column
     exit_date!: Date;
 
