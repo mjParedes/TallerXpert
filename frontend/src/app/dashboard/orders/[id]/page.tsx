@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use client';
 import {Loader} from '@/components/loader';
 import Link from 'next/link';
@@ -8,6 +9,41 @@ export default function OrderId({params}: {params: {id: string}}) {
   const [dataResponse, setDataResponse] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
   const {data: session} = useSession();
+=======
+import Image from 'next/image'
+import Link from 'next/link'
+
+function TemplateOrdersArticles({
+  name,
+  mark,
+  model,
+  warranty,
+  state,
+  id,
+  idReparate
+}: {
+  name: string
+  mark: string
+  model: string
+  warranty: string
+  state: string
+  id: string
+  idReparate: string
+}) {
+  return (
+    <div className='flex justify-between bg-[#DBDCF7] rounded-lg p-4 shadow-[0px_4px_4px_0px_#00000040] max-lg:flex-col max-lg:items-center max-lg:justify-center'>
+      <p>{name}</p>
+      <p>{mark}</p>
+      <p>{model}</p>
+      <p>{warranty}</p>
+      <p>{state}</p>
+      <Link href={'/dashboard/orders/' + id + '/' + idReparate} className='hover:opacity-70'>
+        <Image src='/llaveOrders.svg' alt='llaveOrders' />
+      </Link>
+    </div>
+  )
+}
+>>>>>>> refact-nextAuth-David-Hilera
 
   useEffect(() => {
     (async () => {
@@ -39,9 +75,14 @@ export default function OrderId({params}: {params: {id: string}}) {
       <div className='flex flex-col gap-4'>
         <div className='flex items-center justify-between'>
           <h2 className='font-bold  text-2xl flex gap-2 items-center'>
+<<<<<<< HEAD
             <img src='/user.svg' alt='users' />
             {dataResponse?.client?.fullName}
             <span className='text-xl font-normal'>(ID:{params.id})</span>
+=======
+            <Image src='/user.svg' alt='users' />
+            Nombre del Cliente <span className='text-xl font-normal'>(ID:{params.id})</span>
+>>>>>>> refact-nextAuth-David-Hilera
           </h2>
           <p>
             Fecha de ingreso{' '}
@@ -50,6 +91,7 @@ export default function OrderId({params}: {params: {id: string}}) {
         </div>
         <div className='relative flex flex-col gap-6 pt-12 pb-12 text-white p-4 border-[1px] rounded-lg border-[#B9B8B8] shadow-[0px_4px_4px_0px_#00000040] bg-gradient-to-b from-[#4F3E9C] to-[#6162D3]  '>
           <p className='flex gap-4 items-center'>
+<<<<<<< HEAD
             <img src='/direction.svg' alt='direction' />
             {dataResponse?.client.city || 'Dirección + Ciudad'}
           </p>
@@ -60,8 +102,20 @@ export default function OrderId({params}: {params: {id: string}}) {
           <p className='flex gap-4 items-center'>
             <img src='/email.svg' alt='email' />
             {dataResponse?.client.email || 'Email'}
+=======
+            <Image src='/direction.svg' alt='direction' />
+            Dirección + Ciudad
           </p>
-          <img src='/human.svg' alt='human' className='absolute bottom-0 right-0 max-lg:hidden' />
+          <p className='flex gap-4 items-center'>
+            <Image src='/phone.svg' alt='phone' />
+            Número de Teléfono
+          </p>
+          <p className='flex gap-4 items-center'>
+            <Image src='/email.svg' alt='email' />
+            E-mail
+>>>>>>> refact-nextAuth-David-Hilera
+          </p>
+          <Image src='/human.svg' alt='human' className='absolute bottom-0 right-0 max-lg:hidden' />
         </div>
       </div>
       <div className='flex flex-col gap-4'>

@@ -4,7 +4,10 @@ export default function NotFound() {
     <div className='absolute inset-0 z-10 flex justify-center items-center bg-white'>
       <div className='flex  max-md:flex-col items-center'>
         <div>
-          <img src='/error.webp' alt='error' className='h-[500px] max-md:h-auto' />
+          <Link
+            href={'/error.webp'}
+            className='h-[500px] max-md:h-auto'
+          />
         </div>
         <div className='flex flex-col items-center max-md:text-center'>
           <h2 className='text-black text-5xl font-semibold'>Página no encontrada</h2>

@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import Image from "next/image";
+import { login, registerUser } from "@/actions";
 
 interface RegistrationForm {
   fullName: string;
@@ -20,22 +20,14 @@ export const RegistrationForm = () => {
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const router = useRouter();
 
   const {
     handleSubmit,
     register,
     formState: { isValid },
     formState: { errors },
-    control,
   } = useForm<RegistrationForm>({
     defaultValues: {},
-  });
-
-  const password = useWatch({
-    control,
-    name: "password",
-    defaultValue: "",
   });
 
   const onSubmit = async (data: RegistrationForm) => {
@@ -43,60 +35,35 @@ export const RegistrationForm = () => {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      const responseAPI = await res.json();
+      const res = await registerUser(data);
 
       if (!res.ok) {
         setErrorMessage({
-          general: responseAPI.message || "Error al registrarse",
+          general: "Error al registrarse",
         });
         return;
       }
 
-      const responseNextAuth = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-      });
+      const responseNextAuth = await login(
+        data.email,
+        data.password
+      );
 
-      if (responseNextAuth?.error) {
-        setErrorMessage({ general: responseNextAuth.error });
+      if (!responseNextAuth.ok) {
+        setErrorMessage({ general: "Error al registrarse" });
+        setIsSubmitting(false);
         return;
       }
 
       setShowSuccessModal(true); // Mostrar el modal de éxito
+
+      setTimeout(() => {
+        window.location.replace('/auth/create-workshop')
+      }, 2000);
     } catch (error) {
       setErrorMessage({ general: "Error al registrarse" });
-    } finally {
-      setIsSubmitting(false);
     }
   };
-
-  // const handleCloseModal = () => {
-  //   setShowSuccessModal(false);
-  //   router.push("/login"); // Redirigir a la página de inicio de sesión
-  // };
-
-  useEffect(() => {
-    if (showSuccessModal) {
-      const timer = setTimeout(() => {
-        setShowSuccessModal(false); // Cierra el modal después de 5 segundos
-        router.push("login"); // Redirige al usuario al inicio de sesión
-      }, 2000);
-
-      return () => clearTimeout(timer); // Limpia el temporizador al desmontar el componente
-    }
-  }, [showSuccessModal, router]);
 
   // Función para renderizar los mensajes de error
   const renderErrorMessage = (field: keyof RegistrationForm | "general") => {
@@ -117,15 +84,20 @@ export const RegistrationForm = () => {
           <input
             id="name"
             className={clsx(
-              "w-full h-12 p-3 rounded-lg border border-solid focus:outline-none",
+              "w-full h-12 p-3 rounded-lg border border-solid focus:outline-none mb-2",
               {
-                "border-red-500": errorMessage.fullName,
+                "border-red-500": errors.fullName || errorMessage.fullName,
               }
             )}
             type="text"
             placeholder="TallerXpert"
             {...register("fullName", { required: true })}
           />
+          {errors.fullName?.type === "required" && (
+            <span className="text-red-500">
+              * El nombre completo es requerido
+            </span>
+          )}
           {renderErrorMessage("fullName")}
         </div>
 
@@ -134,15 +106,25 @@ export const RegistrationForm = () => {
           <input
             id="email"
             className={clsx(
-              "w-full h-12 p-3 rounded-lg border border-solid focus:outline-none",
+              "w-full h-12 p-3 rounded-lg border border-solid focus:outline-none mb-2",
               {
-                "border-red-500": errorMessage.email,
+                "border-red-500": errors.email || errorMessage.email,
               }
             )}
             type="email"
             placeholder="TallerXpert@gmail.com"
             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
           />
+          {errors.email?.type === "required" && (
+            <span className="text-red-500 mt-2">
+              * El correo electrónico es requerido
+            </span>
+          )}
+          {errors.email?.type === "pattern" && (
+            <span className="text-red-500">
+              * Ingrese un correo electrónico válido
+            </span>
+          )}
           {renderErrorMessage("email")}
         </div>
 
@@ -151,51 +133,37 @@ export const RegistrationForm = () => {
           <input
             id="password"
             className={clsx(
-              "w-full h-12 p-3 rounded-lg border border-solid focus:outline-none",
+              "w-full h-12 p-3 rounded-lg border border-solid focus:outline-none mb-2",
               {
-                "border-red-500": errorMessage.password,
+                "border-red-500": errors.password || errorMessage.password,
               }
             )}
             type="password"
             placeholder="********"
             {...register("password", { required: true, minLength: 8 })}
           />
+          {errors.password?.type === "required" && (
+            <span className="text-red-500">* La contraseña es requerida</span>
+          )}
           {renderErrorMessage("password")}
         </div>
 
-        {/* <div>
-          <input
-            className={clsx(
-              "w-full h-12 p-3 rounded-lg border border-solid focus:outline-none",
-              {
-                "border-red-500": errorMessage.rol,
-              }
-            )}
-            type="text"
-            placeholder="Rol"
-            {...register("rol", { required: true })}
-          />
-          {renderErrorMessage('rol')}
-        </div> */}
+        {renderErrorMessage("general")}
 
-        <div>
-          <button className=" w-full h-12 rounded-lg border-[1px] border-[#6264D5] hover:opacity-70 flex justify-center items-center bg-[#fff] gap-4">
-            Iniciar sesión con Google <img src="/google.svg" alt="google" />
-          </button>
-        </div>
+        <button
+          disabled={isSubmitting}
+          type="submit"
+          className={clsx({
+            "btn-primary  w-full ": !isValid || !isSubmitting,
+            "btn-disable": isSubmitting,
+          })}
+        >
+          {isSubmitting ? "Registrando..." : "Crear Cuenta"}
+        </button>
 
-        <div>
-          <button
-            disabled={isSubmitting}
-            type="submit"
-            className={clsx({
-              "btn-primary  w-full ": !isValid || !isSubmitting,
-              "btn-disable": isSubmitting,
-            })}
-          >
-            {isSubmitting ? "Registrando..." : "Crear Cuenta"}
-          </button>
-        </div>
+        <button className=" w-full h-12 rounded-lg border-[1px] border-[#6264D5] hover:opacity-70 flex justify-center items-center bg-[#fff] gap-4">
+          Iniciar sesión con Google <Image src="/google.svg" height={20} width={20} alt="google" />
+        </button>
 
         <div className="text-center">
           ¿Ya tienes una cuenta?{" "}
@@ -207,8 +175,6 @@ export const RegistrationForm = () => {
           </Link>
         </div>
       </form>
-
-      {renderErrorMessage("general")}
 
       {/* Modal de éxito */}
       {showSuccessModal && (
