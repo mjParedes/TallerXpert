@@ -18,7 +18,10 @@ export class AuthAndSignController {
 			}
 			const userProfile = await Profile.create({
 				fullName: req.body.fullName,
-				userId: user.id
+				userId: user.id,
+				address: req.body.address,
+				phone: req.body.phone,
+				photo_url: req.body.photo_url
 			})
 			await userProfile.save()
 			const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string)
