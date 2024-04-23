@@ -1,47 +1,47 @@
-import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import NextAuth from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
 const handler = NextAuth({
-    providers: [
-        CredentialsProvider({
-            name: "Credentials",
-            credentials: {
-                email: { label: "email", type: "email", placeholder: "test@test.com" },
-                password: { label: "Password", type: "password" },
-            },
-            async authorize(credentials) {
-                const res = await fetch(
-                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/signin`,
-                    {
-                        method: "POST",
-                        body: JSON.stringify({
-                            email: credentials?.email,
-                            password: credentials?.password,
-                        }),
-                        headers: { "Content-Type": "application/json" },
-                    }
-                );
-                const user = await res.json();
-                console.log(user);
+  providers: [
+    CredentialsProvider({
+      name: 'Credentials',
+      credentials: {
+        email: {label: 'email', type: 'email', placeholder: 'test@test.com'},
+        password: {label: 'Password', type: 'password'},
+      },
+      async authorize(credentials) {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/signin`,
+          {
+            method: 'POST',
+            body: JSON.stringify({
+              email: credentials?.email,
+              password: credentials?.password,
+            }),
+            headers: {'Content-Type': 'application/json'},
+          }
+        );
+        const user = await res.json();
+        console.log(user);
 
-                if (user.error) throw user;
+        if (user.error) throw user;
 
-                return user;
-            },
-        }),
-    ],
-    callbacks: {
-        async jwt({ token, user }) {
-            return { ...token, ...user };
-        },
-        async session({ session, token }) {
-            session.user = token as any;
-            return session;
-        },
+        return user;
+      },
+    }),
+  ],
+  callbacks: {
+    async jwt({token, user}) {
+      return {...token, ...user};
     },
-    pages: {
-        signIn: "/",
+    async session({session, token}) {
+      session.user = token as any;
+      return session;
     },
+  },
+  pages: {
+    signIn: '/',
+  },
     secret: process.env.NEXTAUTH_SECRET,
     session: {
       // Duración de la sesión en segundos (por ejemplo, 7 días)
@@ -49,4 +49,4 @@ const handler = NextAuth({
     },
 });
 
-export { handler as GET, handler as POST };
+export {handler as GET, handler as POST};
