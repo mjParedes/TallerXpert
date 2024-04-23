@@ -1,6 +1,7 @@
 import { createPreference, getMerchantOrder } from '../utils/mercadopago.utils'
 import { Order } from '../models/order.model'
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
+
 type TypeProductPreference = {
 	userId: string
 	product_name: string
