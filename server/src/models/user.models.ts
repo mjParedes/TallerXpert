@@ -59,6 +59,6 @@ export class User extends Model<User> {
 
 	@BeforeCreate
     static async capitalizeAttributes(instance: User) {
-        instance.email = instance.email.toUpperCase();
+        instance.email = instance.email.toLowerCase();
     }
 }

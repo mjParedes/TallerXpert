@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
 import { Request, Response } from 'express'
-import { Profile, User } from '../models'
+import { Profile, User, Workshop } from '../models'
 
 export class AuthAndSignController {
 	static async register(req: Request, res: Response) {
@@ -40,6 +40,7 @@ export class AuthAndSignController {
 					email: email,
 					password: getSHA256ofString(req.body.password),
 				},
+				include: [Workshop]
 			})
 			if (user) {
 				const token = jwt.sign(
