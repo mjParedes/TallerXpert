@@ -65,7 +65,7 @@ export const TechnicianGrid = ({ technicians }: Props) => {
                     key={index}
                     className="flex items-center justify-between gap-8 p-3 rounded bg-secondary cursor-pointer">
 
-                    <Image src={technician.avatar ? technician.avatar : '/avatar'} alt="avatar" width={50} height={50} className="rounded-full" />
+                    <Image src='/avatarTechnician1.png' alt="avatar" width={50} height={50} className="rounded-full" />
 
 
                     <p className="text-black">{technician.fullName}</p>

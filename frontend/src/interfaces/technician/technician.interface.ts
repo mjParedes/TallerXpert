@@ -5,5 +5,5 @@ export interface Technician {
   phone: string
   email: string
   password: string
-  avatar?: string
+  photo_url?: string
 }
