@@ -142,7 +142,7 @@ Si quieres ver los archivos recomendamos descargarlos y abrirlos desde tu PC.
         <h3 style="margin: 0 0 16px 0; text-align:center; color:black;">David Hilera</h3>
             <div style="display:flex; gap:16px; margin-bottom:8px;">
                 <img src="https://avatars.githubusercontent.com/u/44903105?v=4" alt="David Hilera" width="80" style="border-radius:50%;">
-                <h6 style="">Backend Dev</h6>
+                <h6 style="">Frontend Dev</h6>
             </div>
             <div style="height: 24px; display:flex; gap:8px;">
                 <a href="https://github.com/deiviiss" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/davidhilera/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
