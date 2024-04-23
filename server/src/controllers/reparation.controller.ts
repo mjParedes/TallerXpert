@@ -220,7 +220,21 @@ export class ReparationController {
 
 			// funcionalidad para enviar el pdf por correo
 			base64Stream.on('end', async function () {
-				await sendEmailWithAttachment(tempFileBase64, otNumber)
+				await sendEmailWithAttachment({
+					text: 'Hola 👋 te adjunto el PDF solicitado 🚀 desde nuestra App TallerXpert.',
+					subject: `Reparacion OT-${otNumber}-Review Pdf`,
+					to: 'tallerxpert@gmail.com',
+					attachments: [
+						{
+							filename: `Reparacion OT-${otNumber}.pdf`, // Nombre del archivo adjunto
+							// path: '/ruta/al/archivo/documento.pdf', // Ruta al archivo PDF en tu sistema
+							contentType: 'application/pdf', // Tipo MIME del archivo adjunto
+							content: tempFileBase64, // Aquí pasamos el contenido binario en base64
+							encoding: 'base64',
+							contentDisposition: 'attachment',
+						},
+					],
+				})
 			})
 
 			//========= funcionalidad para enviar x whatsapp =========

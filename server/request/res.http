@@ -113,16 +113,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhL
 
 {
   "client": {
-    "fullName": "David 1",
+    "fullName": "Luis Angel",
     "dni": 45874545,
     "address": "Rambla 33",
     "city": "Barcelona",
-    "phone": "+573224849822",
-    "email": "dcastiblanco14@gmail.com"
+    "phone": "+51932052849",
+    "email": "melcabo954@gmail.com"
   },
   "products": [
     {
-      "product_name": "TV2",
+      "product_name": "TV",
       "product_category": "Electrodométicos",
       "brand": "LG",
       "model": "LGA484754",
@@ -134,7 +134,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhL
       "warranty_invoice_number": "R01-458454"
     },
     {
-      "product_name": "Radio2",
+      "product_name": "Radio",
       "product_category": "Electrodométicos",
       "brand": "SONY",
       "model": "SNY484754",
@@ -149,8 +149,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhL
 }
 
 #### GET REPARATION
-GET http://localhost:8080/api/reparation/pdf/00000007
+GET http://localhost:8080/api/reparation/09087aab-5844-4326-933e-d4bd3095d8ac
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
+
+#### GET REPARATION
+GET http://localhost:8080/api/reparation/pdf/00000001
 
 #### SEND PDF REPARATION x correo and whatsapp
-GET http://localhost:8080/api/reparation/sendPdf/00000007
+GET http://localhost:8080/api/reparation/sendPdf/00000001
 
+#### OBTERNER URI MP
+GET http://localhost:8080/api/product/chekout/a7eaffab-738e-4324-943a-7c69997e6347
+
+### credenciales de pago:
+
+# 5031 7557 3453 0604
+# 123
+# 11/25
+# 12345678
+# comprador: TESTUSER1744467970@testuser.com

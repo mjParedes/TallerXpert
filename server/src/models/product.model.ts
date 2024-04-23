@@ -144,7 +144,7 @@ export class Product extends Model {
 	@BelongsTo(() => Reparation)
 	reparation!: Reparation
 
-	@AllowNull(false)
+	@AllowNull(true)
 	@Column({
 		type: DataType.STRING,
 	})
