@@ -4,10 +4,8 @@ import { Client } from "./client.model"
 import { Product } from "./product.model"
 
 export enum reparationState {
-    PENDING = 'Pendiente',
-    IN_PROGRESS = 'En Progreso',
-    REPAIRED = 'Reparado',
-    DONE = 'Finalizado'
+    OPENED = 'Abierto',
+    CLOSED = 'Cerrado'
 }
 
 @Table({
@@ -27,6 +25,12 @@ export class Reparation extends Model {
         type: DataType.STRING
     })
     ot_number!: string
+
+    @Column({
+        type: DataType.ENUM(...Object.values(reparationState)),
+        defaultValue: reparationState.OPENED
+    })
+    state!: reparationState;
 
     @HasMany(() => Product)
     products!: Product[]
