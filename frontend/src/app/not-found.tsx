@@ -4,9 +4,8 @@ export default function NotFound() {
     <div className='absolute inset-0 z-10 flex justify-center items-center bg-white'>
       <div className='flex  max-md:flex-col items-center'>
         <div>
-          <img
-            src='/error.webp'
-            alt='error'
+          <Link
+            href={'/error.webp'}
             className='h-[500px] max-md:h-auto'
           />
         </div>

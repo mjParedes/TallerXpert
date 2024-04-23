@@ -1,9 +1,10 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function ReparateId({
   params,
 }: {
-  params: {id: string; idReparate: string};
+  params: { id: string; idReparate: string };
 }) {
   return (
     <div>
@@ -11,7 +12,7 @@ export default function ReparateId({
         <div className='flex flex-col gap-4'>
           <div className='flex items-center justify-between'>
             <h2 className='font-bold  text-2xl flex gap-2 items-center'>
-              <img src='/dataReparation.svg' alt='dataReparation' />
+              <Image src='/dataReparation.svg' alt='dataReparation' />
               Datos de Reparación
               <span className='text-xl font-normal'>
                 (ID:{params.idReparate})
@@ -43,7 +44,7 @@ export default function ReparateId({
             <p className='flex gap-4 items-center'>
               Notas: <span className='ml-1'>DESCRIPCION NOTAS ADICIONALES</span>
             </p>
-            <img
+            <Image
               src='/orderReparation.svg'
               alt='orderReparation'
               className='absolute top-[5%] right-[2%] max-lg:hidden'

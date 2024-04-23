@@ -11,7 +11,7 @@ import { Reparation } from "./interface";
 
 export default function OrdersPage() {
 
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [reparations, setReparations] = useState<Reparation[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState("")
@@ -28,7 +28,7 @@ export default function OrdersPage() {
       }
     }
     dataReparation()
-  }, [])
+  }, [session])
 
   const handleDeleteOrder = async (orderId: string) => {
     try {

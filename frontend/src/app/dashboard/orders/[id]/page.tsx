@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 function TemplateOrdersArticles({
@@ -25,7 +26,7 @@ function TemplateOrdersArticles({
       <p>{warranty}</p>
       <p>{state}</p>
       <Link href={'/dashboard/orders/' + id + '/' + idReparate} className='hover:opacity-70'>
-        <img src='/llaveOrders.svg' alt='llaveOrders' />
+        <Image src='/llaveOrders.svg' alt='llaveOrders' />
       </Link>
     </div>
   )
@@ -71,25 +72,25 @@ export default function OrderId({ params }: { params: { id: string } }) {
       <div className='flex flex-col gap-4'>
         <div className='flex items-center justify-between'>
           <h2 className='font-bold  text-2xl flex gap-2 items-center'>
-            <img src='/user.svg' alt='users' />
+            <Image src='/user.svg' alt='users' />
             Nombre del Cliente <span className='text-xl font-normal'>(ID:{params.id})</span>
           </h2>
           <p>Fecha de ingreso - DD/MM/AAA</p>
         </div>
         <div className='relative flex flex-col gap-6 pt-12 pb-12 text-white p-4 border-[1px] rounded-lg border-[#B9B8B8] shadow-[0px_4px_4px_0px_#00000040] bg-gradient-to-b from-[#4F3E9C] to-[#6162D3]  '>
           <p className='flex gap-4 items-center'>
-            <img src='/direction.svg' alt='direction' />
+            <Image src='/direction.svg' alt='direction' />
             Dirección + Ciudad
           </p>
           <p className='flex gap-4 items-center'>
-            <img src='/phone.svg' alt='phone' />
+            <Image src='/phone.svg' alt='phone' />
             Número de Teléfono
           </p>
           <p className='flex gap-4 items-center'>
-            <img src='/email.svg' alt='email' />
+            <Image src='/email.svg' alt='email' />
             E-mail
           </p>
-          <img src='/human.svg' alt='human' className='absolute bottom-0 right-0 max-lg:hidden' />
+          <Image src='/human.svg' alt='human' className='absolute bottom-0 right-0 max-lg:hidden' />
         </div>
       </div>
       <div className='flex flex-col gap-4'>
