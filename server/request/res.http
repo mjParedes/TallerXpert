@@ -101,6 +101,10 @@ Content-Type: application/json
 GET http://localhost:8080/api/reparation
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
 
+#### GET REPARATION
+GET http://localhost:8080/api/reparation/12c40614-30c0-4558-bb81-e47d4f7c24ca
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
+
 
 #### POST REPARATION
 POST http://localhost:8080/api/reparation
@@ -145,8 +149,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhL
 }
 
 #### GET REPARATION
-GET http://localhost:8080/api/reparation/pdf/00000001
+GET http://localhost:8080/api/reparation/pdf/00000007
 
 #### SEND PDF REPARATION x correo and whatsapp
-GET http://localhost:8080/api/reparation/sendPdf/00000001
+GET http://localhost:8080/api/reparation/sendPdf/00000007
 

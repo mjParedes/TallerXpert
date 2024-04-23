@@ -1,5 +1,6 @@
 import {
 	AllowNull,
+	BelongsTo,
 	Column,
 	DataType,
 	ForeignKey,
@@ -7,7 +8,7 @@ import {
 	Model,
 	Table,
 } from 'sequelize-typescript'
-import { User } from '../models'
+import { Client, Product, User } from '../models'
 
 @Table({
 	timestamps: false,
@@ -21,33 +22,48 @@ export class Order extends Model {
 	})
 	id!: string
 
-	@ForeignKey(() => User)
+	// @ForeignKey(() => User)
+	// @Column({
+	// 	type: DataType.UUID,
+	// })
+	// userId!: string
+
+	@AllowNull(false)
+	@ForeignKey(() => Product)
 	@Column({
 		type: DataType.UUID,
 	})
-	userId!: string
+	productId?: string
 
-	// @HasMany(() => User)
-	// user!: User
-	@Column({
-		type: DataType.UUID,
-	})
-	product_id!: string
+	@AllowNull(false)
+	@BelongsTo(() => Product)
+	product?: Product
 
-	@Column({
-		type: DataType.INTEGER,
-	})
-	unit_price!: number
+	// @Column({
+	// 	type: DataType.UUID,
+	// })
+	// product_id!: string
 
+	// @Column({
+	// 	type: DataType.INTEGER,
+	// })
+	// unit_price!: number
+
+	// @Column({
+	// 	type: DataType.STRING,
+	// })
+	// product_name!: string
+
+	@AllowNull(false)
 	@Column({
 		type: DataType.STRING,
 	})
-	product_name!: string
+	uriMercadoPago?: string
 
-	@Column({
-		type: DataType.STRING,
-	})
-	description!: string | null
+	// @Column({
+	// 	type: DataType.STRING,
+	// })
+	// description!: string | null
 
 	@AllowNull(false)
 	@Column({
