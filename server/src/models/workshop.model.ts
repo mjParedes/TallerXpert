@@ -4,7 +4,7 @@ import { User } from './user.models'
 export enum workshopCategory {
 	Electricidad = 'Electricidad',
 	Mecanica = 'Mecánica',
-	Carpinteria = 'Carpinteria',
+	Carpinteria = 'Carpintería',
 	Plomeria = 'Plomería',
 	Jardineria = 'Jardinería',
 	Informatica = 'Informática',
@@ -57,9 +57,9 @@ export class Workshop extends Model {
 	city!: string
 
 	@Column({
-		type: DataType.INTEGER,
+		type: DataType.STRING,
 	})
-	phone!: number
+	phone!: string
 
 	@Column({
 		type: DataType.STRING,
