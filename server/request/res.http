@@ -105,6 +105,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhL
 GET http://localhost:8080/api/reparation/b0ade435-abdc-47c0-9aa2-20f8d8db00d7
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
 
+#### GET CLIENT
+GET http://localhost:8080/api/client/530c11ef-24e2-4fb1-805f-7445833100e9
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
 
 #### POST REPARATION
 POST http://localhost:8080/api/reparation
@@ -117,7 +121,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhL
     "dni": 45874545,
     "address": "Rambla 33",
     "city": "Barcelona",
-    "phone": "+51932052849",
+    "phone": "51980459218",
     "email": "melcabo954@gmail.com"
   },
   "products": [
@@ -132,18 +136,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhL
       "revision_cost": 50,
       "warranty_date": "2024-05-01",
       "warranty_invoice_number": "R01-458454"
-    },
-    {
-      "product_name": "Radio",
-      "product_category": "Electrodométicos",
-      "brand": "SONY",
-      "model": "SNY484754",
-      "serial_number": "AZEFTYUIOPLKJH",
-      "detail": "No mira el televisor por favor",
-      "issue_detail": "Sin sonido",
-      "revision_cost": 40,
-      "warranty_date": "2024-05-01",
-      "warranty_invoice_number": "R02-458454"
     }
   ]
 }
@@ -158,8 +150,8 @@ GET http://localhost:8080/api/reparation/pdf/00000001
 #### SEND PDF REPARATION x correo and whatsapp
 GET http://localhost:8080/api/reparation/sendPdf/00000001
 
-#### OBTERNER URI MP
-GET http://localhost:8080/api/product/chekout/a7eaffab-738e-4324-943a-7c69997e6347
+#### OBTERNER URI MP Y SEND POR EMAIL Y WHATSAPP
+GET http://localhost:8080/api/product/chekout/45b8c9de-f6c7-499d-be12-bf9a066d8f38
 
 ### credenciales de pago:
 
@@ -169,4 +161,13 @@ GET http://localhost:8080/api/product/chekout/a7eaffab-738e-4324-943a-7c69997e63
 # 12345678
 # comprador: TESTUSER1744467970@testuser.com
 
-##
+
+# vendedor: TESTUSER2018947212
+# fBvUrp2xi2
+
+##[1] {
+# [1]   success: false,
+# [1]   data: null,
+# [1]   errors: { phone: [ 'Contact already exists' ] },
+# [1]   error_code: 400
+# [1] } fucking contacto

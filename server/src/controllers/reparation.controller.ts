@@ -262,12 +262,12 @@ export class ReparationController {
 			// const { message, phone } = req.body
 			// const phone = '+573224849822'
 			// CAMBIAR LUIS NUMERO DEL ADMIN O QUE VA HACER ELVIDEO
-			const phone = '+51932052849'
+			const phone = '51932052849'
 
 			// mensaje por whatsapp para contacto ya suscrito
 			const url = `${req.protocol}://${req.hostname}`
 
-			const message = `Hola Administrador de TallerXpert, este es tu pdf con OT-${otNumber}: ${url}/api/reparation/pdf/${otNumber}`
+			const message = `Hola Administrador de TallerXpert, este es tu orden con OT-${otNumber}: ${url}/api/reparation/pdf/${otNumber}`
 
 			const fetchApi = await fetch(
 				'https://api.sendpulse.com/whatsapp/contacts/sendByPhone',
@@ -320,7 +320,7 @@ export class ReparationController {
 					} = {},
 					service = '',
 					title = '',
-					contact: { id: contact_id = '', tags = [] } = {},
+					contact: { id: contact_id = '', phone = '' } = {},
 				},
 			] = req.body
 
@@ -349,13 +349,26 @@ export class ReparationController {
 
 				const { access_token } = await fetchApiToken.json()
 
-				const product = await Product.findOne({ where: { id: tags[0] } })
+				const client = await Client.findOne({
+					where: { phone },
+					include: Product,
+				})
 
-				if (!product) {
+				if (!client) {
 					throw new Error('El cliente no existe en la base de datos')
 				}
 
-				const message = `Hola👋 usuario ${product.client.fullName} te escribimos desde TallerXpert. Para enviarte el pago que hemos generado la siguiente URL de Mercado Pago: ${product.uriMercadoPago || ""}. Realiza el pago para el despacho de tu equipo ${product.product_name} ${product.brand}. El costo total es de $${product.total_cost || '$200'}. Además, si necesitas alguna asistencia adicional o tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por tu colaboración!`
+				// revisar codigo porque no esta bien esto siempre traera un producto pero para la demo day esta bien xd
+
+				const product = client?.products.find(
+					(p) => p.uriMercadoPago,
+				)
+
+        if (!product) {
+					throw new Error('El producto no existe en la base de datos')
+				}
+
+				const message = `Hola👋 usuario ${client.fullName} te escribimos desde TallerXpert. Para enviarte el pago que hemos generado la siguiente URL de Mercado Pago: ${product.uriMercadoPago || 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1526098788-f3d0ff67-7565-4bda-aa8c-9f017b115da3'}. Realiza el pago para el despacho de tu equipo ${product.product_name} ${product.brand}. El costo total es de $${product.total_cost || '$200'}. Además, si necesitas alguna asistencia adicional o tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por tu colaboración!`
 
 				//-------------- mensaje whatsapp ----------------
 				// esto es para enviar el mensaje por whatsapp

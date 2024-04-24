@@ -9,6 +9,7 @@ import {
 import { Payment } from 'mercadopago'
 import { sendEmailWithAttachment } from '../utils/doc.mails'
 import { SENDPULSE_WHATSAPP_ID, SENDPULSE_WHATSAPP_SECRET } from '../constants'
+import { Client } from '../models'
 
 type TypeProductPreference = {
 	userId: string
@@ -101,7 +102,9 @@ export class ProductController {
 				})
 			}
 
-			const product = await Product.findByPk(productId)
+			const product = await Product.findByPk(productId, {
+				include: Client,
+			})
 
 			if (!product) {
 				throw new Error(ErrorMessage.PRODUCT_NOT_FOUND)
@@ -136,7 +139,7 @@ export class ProductController {
 				auto_return: 'approved',
 				external_reference: product.id,
 				notification_url:
-					'https://291b-179-6-166-5.ngrok-free.app/api/product/mp/webhook',
+					'https://0294-179-6-166-5.ngrok-free.app/api/product/mp/webhook',
 			}
 
 			const response = await createPreference(preference)
@@ -162,8 +165,8 @@ export class ProductController {
 				text: message,
 				subject: `Pago TALLERXPERT Equipo ${product.product_name} ${product.brand}`,
 				// CAMBIAR LUIS CORREO POR EL DEL CLIENTE
-				// to: product.client.email,
-				to: 'melcabo954@gmail.com',
+				to: product.client.email,
+				// to: 'melcabo954@gmail.com',
 			})
 
 			// enviar mensaje wasap con la url del pago al cliente
@@ -202,15 +205,15 @@ export class ProductController {
 					},
 					body: JSON.stringify({
 						// CAMBIAR LUIS NUMERO POR EL DEL CLIENTE
-						// phone: product.client.phone,
-						phone: '+51980459218',
+						phone: product.client.phone,
+						// phone: '+51980459218',
 						name: 'contacto nocountry',
 						bot_id: '6622e56efa831206cc04c055', // esto lo saque de la aplicacion sino caballero dela api whatsapp
-						tags: [product.id.toString()],
+						tags: ['tallerxpert'],
 						variables: [
 							{
-								name: 'image',
-								value: 'https://ui-avatars.com/api/?name=John+Doe',
+								name: 'productId',
+								value: product.id.toString(),
 							},
 						],
 					}),
@@ -218,6 +221,8 @@ export class ProductController {
 			)
 
 			const responseNewContact = await fetchApiNewContact.json()
+
+			console.log(responseNewContact, 'fucking contacto')
 
 			// habilitar contacto
 
@@ -279,8 +284,11 @@ export class ProductController {
 
 				// verificar el estado del pago
 				if (data && data.status === 'approved') {
+					console.log('porque')
 					// actualizar el estado del producto en la base de datos como pago aprobado
-					const product = await Product.findByPk(data.external_reference)
+					const product = await Product.findByPk(data.external_reference, {
+						include: Client,
+					})
 
 					if (!product) {
 						throw new Error(ErrorMessage.PRODUCT_NOT_FOUND)

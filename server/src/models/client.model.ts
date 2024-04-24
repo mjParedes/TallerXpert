@@ -62,4 +62,7 @@ export class Client extends Model {
 	// falta cambiar la relacion de User por Workshop
 	@HasMany(() => Reparation)
 	reparations!: Reparation[]
+
+  @HasMany(() => Product)
+	products!: Product[]
 }
