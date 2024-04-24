@@ -24,19 +24,19 @@ export const getAllReparation = async () => {
   }
 };
 
-export const createReparation = async (session: any, client: any, products: any) => {
-  try {
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reparation`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session?.user?.token}`,
-      },
-      body: JSON.stringify({
-        client: client,
-        products: products
-      })
-    })
+export const createReparation = async (session : any, client : any, products : any) => {
+    try{
+        await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reparation`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${session?.user?.token}`,
+            },
+            body: JSON.stringify({
+                client: client,
+                products: products
+            })
+        })
 
   } catch (error) {
     console.log(error)
