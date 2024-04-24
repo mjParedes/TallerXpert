@@ -71,12 +71,23 @@ Si quieres ver los archivos recomendamos descargarlos y abrirlos desde tu PC.
 ## Integrantes y Roles del Equipo
 
 <section style="max-width: 1200px;">
+     <!--[Gabriela Pardo]-->
+    <article style="display:inline-block; width: 200px; padding:16px; border:solid 1px gray; border-radius: 8px; background-color:#848484; overflow:hidden;">
+        <h3 style="margin: 0 0 16px 0; text-align:center; color:black;">Gabriela Pardo</h3>
+            <div style="display:flex; gap:16px; margin-bottom:8px;">
+                <img src="https://media.licdn.com/dms/image/D4D03AQHEGg1mdOmxMQ/profile-displayphoto-shrink_200_200/0/1704762977364?e=1719446400&v=beta&t=lHzpkOfYt4e5hOtn-saLlJWEhOTv-lXqcF7VpDrdYx0" alt="Gabriela Pardo" width="80" style="border-radius:50%;">
+                <h6 style="">Team Leader</h6>
+            </div>
+            <div style="height: 24px; display:flex; gap:8px;">
+                <a href="#"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/gabriela-beatriz-pardo/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
+            </div>
+    </article>
     <!--[Rocío Graff]-->
     <article style="display:inline-block; width: 200px; padding:16px; border:solid 1px gray; border-radius: 8px; background-color:#848484; overflow:hidden;">
         <h3 style="margin: 0 0 16px 0; text-align:center; color:black;">Rocío Graff</h3>
             <div style="display:flex; gap:16px; margin-bottom:8px;">
                 <img src="https://avatars.githubusercontent.com/u/39743523?s=400&u=fe8567cd221ee31e7d4ebe8d85da673662703204&v=4" alt="Rocío Graff" width="80" style="border-radius:50%;">
-                <h6 style="">Product Manager</br>Backend Dev</br>Frontend Dev</h6>
+                <h6 style="">Project Manager</br>Backend Dev</br>Frontend Dev</h6>
             </div>
             <div style="height: 24px; display:flex; gap:8px;">
                 <a href="https://github.com/rociograff" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" width=100/></a><a href="https://www.linkedin.com/in/rocio-graff/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width=100 style=""/></a>
