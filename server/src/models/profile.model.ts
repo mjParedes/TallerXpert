@@ -1,4 +1,4 @@
-import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript'
+import { AllowNull, BelongsTo, Column, DataType, ForeignKey, HasMany, IsAlpha, IsUrl, Model, Table } from 'sequelize-typescript'
 import { User } from '.'
 
 @Table({
@@ -13,15 +13,15 @@ export class Profile extends Model {
 	})
 	id!: string
 
-	@Column({
-		primaryKey: true,
-		type: DataType.UUID,
-	})
-	user_id!: string
+	@AllowNull(false)
+	@ForeignKey(() => User)
+	@Column({ type: DataType.UUID })
+	userId!: string
 
-	// @HasMany(() => User)
-	// user!: User
-
+	@BelongsTo(() => User)
+	user!: User
+	
+	@AllowNull(false)
 	@Column({
 		type: DataType.STRING,
 	})
@@ -32,6 +32,12 @@ export class Profile extends Model {
 	})
 	phone!: string
 
+	@Column({
+		type: DataType.STRING(50),
+	})
+	address!: string
+
+	@IsUrl
 	@Column({
 		type: DataType.STRING,
 	})

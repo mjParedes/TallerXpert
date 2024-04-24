@@ -7,7 +7,7 @@ import {
 	Table,
 	Unique,
 } from 'sequelize-typescript'
-import { User } from '.'
+import { Reparation } from '.'
 
 @Table({
 	timestamps: false,
@@ -60,6 +60,6 @@ export class Client extends Model {
 	email!: string
 
 	// falta cambiar la relacion de User por Workshop
-	@HasMany(() => User)
-	users!: User[]
+	@HasMany(() => Reparation)
+	reparations!: Reparation[]
 }

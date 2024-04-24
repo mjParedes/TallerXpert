@@ -17,13 +17,14 @@ export const errorHandler = (
 ) => {
 	if (error instanceof ZodError) {
 		// Error de validación de Zod
-		const errObj: { [key: string]: string } = {}
+		/*const errObj: { [key: string]: string } = {}
 		error.errors.map((error) => {
 			errObj[error.path] = error.message
-		})
+		})*/
 		return res.status(HttpCodes.BAD_REQUEST).json({
 			message: 'Error de validación',
-			errors: errObj,
+			errors: (error.errors).map(e => `
+			${e.message.trim()}`.trim()),
 		})
 	}
 

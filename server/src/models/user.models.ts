@@ -1,5 +1,5 @@
-import { AllowNull, BelongsTo, Column, DataType, ForeignKey, Model, Table, Unique } from 'sequelize-typescript'
-import { Client } from '.';
+import { AllowNull, BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasOne, IsEmail, Model, Table, Unique } from 'sequelize-typescript'
+import { Client, Profile, Reparation } from '.';
 
 @Table({
 	timestamps: false,
@@ -11,7 +11,7 @@ export class User extends Model<User> {
 		type: DataType.UUID,
 		defaultValue: DataType.UUIDV4,
 	})
-	id!: number
+	id!: string
 
 	@AllowNull(false)
 	@Column({
@@ -20,6 +20,7 @@ export class User extends Model<User> {
 	fullName!: string
 
 	@AllowNull(false)
+	@IsEmail
 	@Unique(true)
 	@Column({
 		type: DataType.STRING,
@@ -32,11 +33,12 @@ export class User extends Model<User> {
 	})
 	password!: string
 
-	@AllowNull(false)
+	@AllowNull(true)
 	@Column({
-		type: DataType.ENUM('admin', 'trabajador'),
+		type: DataType.ENUM('admin', 'technician'),
+		defaultValue: 'admin',
 	})
-	rol!: 'admin' | 'trabajador'
+	rol!: 'admin' | 'technician'
 
 	@Column({
 		type: DataType.BOOLEAN,
@@ -46,6 +48,9 @@ export class User extends Model<User> {
 	is_active!: boolean
 
 	// Relacion con la tabla Profile, falta terminarlo
-	// @HasOne(() => Profile)
-	// profile: Profile
+	@HasOne(() => Profile)
+	profile!: Profile
+
+	@HasOne(() => Reparation)
+	reparation!: Reparation
 }

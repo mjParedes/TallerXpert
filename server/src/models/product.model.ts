@@ -1,74 +1,140 @@
-import { BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasOne, Model, Table, UpdatedAt } from "sequelize-typescript"
-import { User } from '../models/user.models'
+import { BeforeCreate, BelongsTo, Column, CreatedAt, DataType, ForeignKey, HasOne, Model, Table, UpdatedAt } from "sequelize-typescript"
+import { Client } from "./client.model"
+import { Reparation } from "./reparation.model"
+
+export enum productState {
+    PENDING = 'Pendiente',
+    WAITING = 'En espera',
+    REPAIRED = 'Reparado',
+    DELIVERED = 'Entregado',
+    RETURNED = 'Devuelto',
+    CLOSED = 'Cerrado',
+    PAID = 'Pagado'
+}
 
 @Table({
-    timestamps: false,
-    tableName: 'products', // nombre de la tabla en la base de datos
+    timestamps: true,
+    tableName: 'product', // nombre de la tabla en la base de datos
 })
-
 export class Product extends Model {
     @Column({
         primaryKey: true,
         type: DataType.UUID,
         defaultValue: DataType.UUIDV4,
     })
-    id!: string
-
-    @Column({
-        type: DataType.STRING,
-        unique: true
-    })
-    ot_number!: string
+    id!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    product_name!: string
+    product_name!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    product_category!: string
+    product_category!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    brand!: string
+    brand!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    model!: string
+    model!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    serial_number!: string
+    serial_number!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    detail!: string
+    detail!: string;
 
     @Column({
         type: DataType.STRING,
     })
-    workshop!: string
+    workshop!: string;
+
+    @Column({
+        type: DataType.STRING,
+    })
+    issue_detail!: string;
+
+    @Column({
+        type: DataType.STRING,
+    })
+    note!: string;
+
+    @Column({
+        type: DataType.STRING,
+    })
+    diagnostic!: string;
+
+    @Column({
+        type: DataType.ENUM(...Object.values(productState)),
+        defaultValue: productState.PENDING
+    })
+    state!: productState;
+
+    @Column({
+        type: DataType.BOOLEAN,
+        defaultValue: false
+    })
+    is_paid!: boolean;
+
+    @Column({
+        type: DataType.DECIMAL(10, 2),
+    })
+    total_cost!: number;
+
+    @Column({
+        type: DataType.DECIMAL(10, 2),
+    })
+    revision_cost!: number;
+
+    @Column({
+        type: DataType.DECIMAL(10, 2),
+    })
+    reparation_cost!: number;
+
+    @Column({
+        type: DataType.DATE,
+    })
+    warranty_date!: Date;
+
+    @Column({
+        type: DataType.STRING,
+    })
+    warranty_invoice_number!: string;
 
     @CreatedAt
     @Column
-    entry_date!: Date
+    entry_date!: Date;
 
     @UpdatedAt
     @Column
-    exit_date!: Date
+    exit_date!: Date;
 
-    @ForeignKey(() => User)
-    @Column({
-        type: DataType.STRING,
-    })
-    register_by!: string
+    @ForeignKey(() => Client)
+    client_id!: Client
 
-    @BelongsTo(() => User)
-    user!: User
+    @BelongsTo(() => Client)
+    client!: Client
+
+    @ForeignKey(() => Reparation)
+    reparation_id!: string
+
+    @BelongsTo( ()=> Reparation)
+    reparation!: Reparation
+
+    @BeforeCreate
+    static async capitalizeAttributes(instance: Product) {
+        instance.brand = instance.brand.toUpperCase();
+        instance.model = instance.model.toUpperCase();
+        instance.serial_number = instance.serial_number.toUpperCase();
+    }
 }

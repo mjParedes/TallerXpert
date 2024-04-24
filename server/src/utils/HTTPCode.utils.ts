@@ -1,6 +1,7 @@
 export class HttpCodes {
   static readonly SUCCESS = 200;
   static readonly SUCCESS_CREATED = 201;
+  static readonly SUCCESS_DELETED = 204;
   static readonly BAD_REQUEST = 400;
   static readonly UNAUTHORIZED = 401;
   static readonly FORBIDDEN = 403;

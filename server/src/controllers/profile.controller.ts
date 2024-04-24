@@ -1,17 +1,24 @@
 import { NextFunction, Request, Response } from 'express'
-import { Profile } from '../models'
+import { Profile, User } from '../models'
 
 export class ProfileController {
 	static async create(req: Request, res: Response, next: NextFunction) {
 		try {
-			if (!req.body.fullName && !req.body.phone && !req.body['user_id']) {
+			if (!req.body.fullName && !req.body.phone && !req.body['userId']) {
 				return res.status(400).json({
 					message: 'Faltan datos',
 				})
 			}
+			const user = await User.findByPk(req.body['userId'])
+			if (!user) {
+				return res.status(404).json({
+					message: 'Usuario no existe',
+					create: false,
+				})
+			}
 			const [profile, createProfile] = await Profile.findOrCreate({
 				where: {
-					user_id: req.body['user_id'],
+					userId: req.body['userId'],
 				},
 				defaults: {
 					...req.body,

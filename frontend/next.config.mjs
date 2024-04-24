@@ -1,4 +1,31 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
 
-export default nextConfig;
+const nextConfig = {
+  // ...
+  /**
+   * @param {import('webpack').Configuration} webpackConfig
+   * @returns {import('webpack').Configuration}
+   */
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'e7.pngegg.com'
+      }
+    ]
+  },
+  // webpack(webpackConfig) {
+  //   return {
+  //     ...webpackConfig,
+  //     optimization: {
+  //       minimize: false,
+  //     },
+  //   };
+  // },
+}
+
+export default nextConfig
