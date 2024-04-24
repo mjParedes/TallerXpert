@@ -230,7 +230,7 @@ export class ReparationController {
 				await sendEmailWithAttachment({
 					text: 'Hola 👋 te adjunto el PDF solicitado 🚀 desde nuestra App TallerXpert.',
 					subject: `Reparacion OT-${otNumber}-Review Pdf`,
-					to: 'rograff17@gmail.com',
+					to: 'mjparedes2505@gmail.com',
 					attachments: [
 						{
 							filename: `Reparacion OT-${otNumber}.pdf`, // Nombre del archivo adjunto
@@ -270,7 +270,7 @@ export class ReparationController {
 			// const phone = '+573224849822'
 			// CAMBIAR LUIS NUMERO DEL ADMIN O QUE VA HACER ELVIDEO
 			// const phone = '51932052849'
-			const phone = '5492996261033'
+			const phone = '5491124611071'
 
 			// mensaje por whatsapp para contacto ya suscrito
 			const url = `${req.protocol}://${req.hostname}`
