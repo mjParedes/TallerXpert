@@ -68,9 +68,9 @@ export class ReparationController {
 				where: {
 					id: req.params.id,
 				},
-				//include: [Client, Product, User],
+				include: [Client, Product, User],
 			})
-			res.status(HttpCodes.SUCCESS).json(result?.dataValues)
+			res.status(HttpCodes.SUCCESS).json(result)
 		} catch (error: any) {
 			next(error)
 		}
