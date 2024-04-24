@@ -17,21 +17,20 @@ export const createWorkshop = async (data: WorkshopForm) => {
   try {
     const user = await getUserSessionServer()
 
+    if (!user) return { ok: false }
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/workshop`, {
       method: "POST",
       body: JSON.stringify({
         ...data,
-        ownerId: user?.id
+        ownerId: user.id
       }),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${user?.token}`,
+        Authorization: `Bearer ${user.token}`,
       }
     })
-    console.log({
-      ...data,
-      ownerId: user?.id
-    })
+
     if (!response.ok) return { ok: false }
 
     return { ok: true }

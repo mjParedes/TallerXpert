@@ -2,12 +2,17 @@
 
 import { Technician } from "@/interfaces";
 import { revalidatePath } from "next/cache";
+import { getUserSessionServer } from "@/actions";
 
-type TechnicianWithoutId = Omit<Technician, 'id'>
+type TechnicianWithoutId = Omit<Technician, 'id' | 'rol' | 'is_active'>
 
 export const createTechnician = async (data: TechnicianWithoutId) => {
   try {
-    await fetch(
+    const user = await getUserSessionServer()
+
+    if (!user) return { ok: false }
+
+    const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/register`,
       {
         method: "POST",
@@ -25,6 +30,8 @@ export const createTechnician = async (data: TechnicianWithoutId) => {
         }),
       }
     );
+
+    if (!response.ok) return { ok: false }
 
     revalidatePath('/dashboard/technicians')
     return { ok: true }

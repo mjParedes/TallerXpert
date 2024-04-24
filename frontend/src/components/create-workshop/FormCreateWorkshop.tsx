@@ -79,7 +79,6 @@ export const FormCreateWorkshop = () => {
     }
   };
 
-
   const { handleSubmit, register, formState: { isValid }, formState: { errors } } = useForm<WorkshopForm>({
     defaultValues: {}
   })
