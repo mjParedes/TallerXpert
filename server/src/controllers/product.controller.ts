@@ -138,8 +138,7 @@ export class ProductController {
 				},
 				auto_return: 'approved',
 				external_reference: product.id,
-				notification_url:
-					'https://0294-179-6-166-5.ngrok-free.app/api/product/mp/webhook',
+				notification_url: `${req.protocol}://${req.hostname}/api/product/mp/webhook`,
 			}
 
 			const response = await createPreference(preference)
@@ -385,7 +384,7 @@ export class ProductController {
 
 					// CAMBIAR LUIS NUMERO DEL ADMIN O QUE VA HACER ELVIDEO
 					// const phone = '+51932052849'
-          const phone = '5492996261033'
+					const phone = '5492996261033'
 
 					await fetch(
 						'https://api.sendpulse.com/whatsapp/contacts/sendByPhone',
