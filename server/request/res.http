@@ -98,8 +98,8 @@ Content-Type: application/json
 }
 
 #### GET REPARATION
-GET http://localhost:8080/api/reparation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
+GET https://s14-36-t-node-react.onrender.com/api/reparation
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNGRiZjJiLTAxNzctNDVlYi1iZmQwLTk2Yjk1NjhkOTc2YyIsImlhdCI6MTcxMzk3NDE4N30.cNtJAW2w8lIdxbd5bsmXWgUI-GUMhr5jyBh9IoYPBpc
 
 #### GET REPARATION
 GET http://localhost:8080/api/reparation/4fdc9d19-ef76-4fc6-8a3f-22682dced982
@@ -111,18 +111,17 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
 
 #### POST REPARATION
-POST http://localhost:8080/api/reparation
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
+POST https://s14-36-t-node-react.onrender.com/api/reparation
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNGRiZjJiLTAxNzctNDVlYi1iZmQwLTk2Yjk1NjhkOTc2YyIsImlhdCI6MTcxMzk3NDE4N30.cNtJAW2w8lIdxbd5bsmXWgUI-GUMhr5jyBh9IoYPBpc
 
 {
   "client": {
-    "fullName": "Luis Angel 2",
-    "dni": 45874546,
-    "address": "Rambla 334",
-    "city": "Barcelona 1",
-    "phone": "5492996261033",
-    "email": "melcabo953@gmail.com"
+    "fullName": "Sony",
+    "dni": 45874545,
+    "address": "Rambla 33",
+    "city": "Barcelona",
+    "phone": "51968977152",
+    "email": "spimentelm1201@gmail.com"
   },
   "products": [
     {
@@ -136,6 +135,60 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhL
       "revision_cost": 50,
       "warranty_date": "2024-05-01",
       "warranty_invoice_number": "R01-458454"
+    },
+    {
+      "product_name": "Radio",
+      "product_category": "Electrodométicos",
+      "brand": "SONY",
+      "model": "SNY484754",
+      "serial_number": "AZEFTYUIOPLKJH",
+      "detail": "No mira el televisor por favor",
+      "issue_detail": "Sin sonido",
+      "revision_cost": 40,
+      "warranty_date": "2024-05-01",
+      "warranty_invoice_number": "R02-458454"
+    }
+  ]
+}
+
+#### POST REPARATION
+POST http://localhost:8080/api/reparation
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
+
+{
+  "client": {
+    "fullName": "Sony",
+    "dni": 45874545,
+    "address": "Rambla 33",
+    "city": "Barcelona",
+    "phone": "51968977152",
+    "email": "spimentelm1201@gmail.com"
+  },
+  "products": [
+    {
+      "product_name": "TV",
+      "product_category": "Electrodométicos",
+      "brand": "LG",
+      "model": "LGA484754",
+      "serial_number": "AZERTYUIOPLKJH",
+      "detail": "No mira el televisor por favor",
+      "issue_detail": "El tv no tiene volumen",
+      "revision_cost": 50,
+      "warranty_date": "2024-05-01",
+      "warranty_invoice_number": "R01-458454"
+    },
+    {
+      "product_name": "Radio",
+      "product_category": "Electrodométicos",
+      "brand": "SONY",
+      "model": "SNY484754",
+      "serial_number": "AZEFTYUIOPLKJH",
+      "detail": "No mira el televisor por favor",
+      "issue_detail": "Sin sonido",
+      "revision_cost": 40,
+      "warranty_date": "2024-05-01",
+      "warranty_invoice_number": "R02-458454"
     }
   ]
 }
@@ -151,7 +204,7 @@ GET http://localhost:8080/api/reparation/pdf/00000001
 GET http://localhost:8080/api/reparation/sendPdf/00000001
 
 #### OBTERNER URI MP Y SEND POR EMAIL Y WHATSAPP
-GET http://localhost:8080/api/product/chekout/6403b4fc-6501-4aaa-bc28-6ebb0d4b6e87
+GET https://s14-36-t-node-react.onrender.com/api/product/chekout/6403b4fc-6501-4aaa-bc28-6ebb0d4b6e87
 
 ### credenciales de pago:
 
