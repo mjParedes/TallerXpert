@@ -19,7 +19,7 @@ export default async function DashboardPage({
 
   const { orders } = await getOrders()
 
-  const articles = orders?.flatMap(order => order.products)
+  const articles = orders.flatMap(order => order.products)
 
   return (
     <>
