@@ -107,12 +107,12 @@ export default async function DashboardPage({
                       clsx(
                         'border rounded-full h-6 py-1 px-5 flex justify-center items-center uppercase  text-white',
                         {
-                          'bg-violet': order.products[0].state === 'Closed',
-                          'bg-[#B9B8B8]': order.products[0].state === 'Openened',
+                          'bg-violet': order.state === 'Closed',
+                          'bg-[#B9B8B8]': order.state === 'Openened',
                         }
                       )
                     }
-                    ><span>{order.products[0].state}</span></p>
+                    ><span>{order.state}</span></p>
                     <p>{getDateFormat(order.created_at)}</p>
                   </div>
                 ))

@@ -47,11 +47,11 @@ export default function ReparateId({
 
   return dataResponse && !dataResponse?.error ? (
     <div>
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col gap-11">
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <h2 className="font-bold  text-2xl flex gap-2 items-center">
-              <Image src="/dataReparation.svg" alt="dataReparation" />
+              <Image src="/dataReparation.svg" alt="dataReparation" width={32} height={32}/>
               Datos de Reparación
               <span className="text-xl font-normal">
                 (ID:{params.idProduct})
@@ -59,7 +59,7 @@ export default function ReparateId({
             </h2>
             <p>Fecha de ingreso - {getDateFormat(dataResponse.entry_date)}</p>
           </div>
-          <div className="relative flex flex-col gap-6 pt-12 pb-12 text-white p-4 border-[1px] rounded-lg border-[#B9B8B8] shadow-[0px_4px_4px_0px_#00000040] bg-gradient-to-b from-[#4F3E9C] to-[#6162D3]  ">
+          <div className="relative flex flex-col gap-6 px-4 py-8 text-white p-4 border-[1px] rounded-lg border-[#B9B8B8] shadow-[0px_4px_4px_0px_#00000040] bg-gradient-to-b from-[#4F3E9C] to-[#6162D3]  ">
             <p className="flex gap-4 items-center">
               Artículo:{" "}
               <span className="ml-1">{dataResponse.product_name} </span>
@@ -92,10 +92,11 @@ export default function ReparateId({
               src="/orderReparation.svg"
               alt="orderReparation"
               className="absolute top-[5%] right-[2%] max-lg:hidden"
+              width={200} height={200}
             />
           </div>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3">
           <h2 className="font-bold text-2xl">Diagnóstico</h2>
           <p className="flex gap-4 items-center">
             Técnico Asignado{" "}
@@ -182,14 +183,14 @@ export default function ReparateId({
                 </div>
                 <div className="flex justify-between gap-2">
                   <button className="mt-4 p-2 pl-6 pr-6 bg-[#2E353A] text-white hover:opacity-70 rounded-md w-[170px] h-[55px] flex items-center justify-center gap-2">
-                    <Image src="/dislikeProduct.svg" alt="success" />
+                    <Image src="/dislikeProduct.svg" alt="success" width={24} height={24}/>
                     Devuelto
                   </button>
                   <button
                     onClick={() => setMethodPayment(true)}
                     className="mt-4 p-2 pl-6 pr-6 bg-[#6264D5] text-white hover:opacity-70 rounded-md w-[170px] h-[55px]  flex items-center justify-center gap-2"
                   >
-                    <Image src="/succesDeliver.svg" alt="success" />
+                    <Image src="/succesDeliver.svg" alt="success" width={24} height={24}/>
                     Entregar
                   </button>
                 </div>
@@ -230,7 +231,7 @@ export default function ReparateId({
                   />
                   <label htmlFor="cash">PAGO EN EFECTIVO</label>
                 </div>
-                <Image src="/cardCash.svg" alt="cash" />
+                <Image src="/cardCash.svg" alt="cash" width={24} height={24}/>
               </div>
               <div className="flex items-center justify-between gap-2 bg-[#DBDCF7] shadow-[0px_4px_12px_0px_#00000040] rounded-lg h-[50px] p-2">
                 <div className="flex items-center gap-2">
@@ -242,7 +243,7 @@ export default function ReparateId({
                   />
                   <label htmlFor="electronic">PAGO ELECTRONICO</label>
                 </div>
-                <Image src="/cash.svg" alt="cash" />
+                <Image src="/cash.svg" alt="cash"  width={24} height={24}/>
               </div>
             </div>
 
