@@ -53,7 +53,6 @@ export class Client extends Model {
 	phone!: string
 
 	@AllowNull(false)
-	@Unique(true)
 	@Column({
 		type: DataType.STRING,
 	})
@@ -63,6 +62,6 @@ export class Client extends Model {
 	@HasMany(() => Reparation)
 	reparations!: Reparation[]
 
-  @HasMany(() => Product)
+  	@HasMany(() => Product)
 	products!: Product[]
 }

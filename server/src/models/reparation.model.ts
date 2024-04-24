@@ -2,6 +2,7 @@ import { AllowNull, BeforeValidate, BelongsTo, Column, CreatedAt, DataType, Fore
 import { User } from "./user.models"
 import { Client } from "./client.model"
 import { Product } from "./product.model"
+import { uuid } from "uuidv4"
 
 export enum reparationState {
     OPENED = 'Abierto',
@@ -20,7 +21,6 @@ export class Reparation extends Model {
     })
     id!: string
 
-    @Unique(true)
     @Column({
         type: DataType.STRING
     })
@@ -61,7 +61,7 @@ export class Reparation extends Model {
     @BeforeValidate
     static async setCustomId(instance: Reparation) {
         if (!instance.ot_number) {
-            instance.ot_number = await generateCustomId();
+            instance.ot_number = await generateShortUUID();
         }
     }
 }
@@ -78,5 +78,11 @@ async function generateCustomId(): Promise<string> {
     const formattedId = nextId.toString().padStart(8, '0');
 
     return formattedId;
+}
+
+async function generateShortUUID() {
+    const fullUUID = uuid();
+    const shortUUID = fullUUID.replace(/^(.{8}).*$/, '$1');
+    return shortUUID;
 }
 
