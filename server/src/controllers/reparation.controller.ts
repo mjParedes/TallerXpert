@@ -262,7 +262,8 @@ export class ReparationController {
 			// const { message, phone } = req.body
 			// const phone = '+573224849822'
 			// CAMBIAR LUIS NUMERO DEL ADMIN O QUE VA HACER ELVIDEO
-			const phone = '51932052849'
+			// const phone = '51932052849'
+			const phone = '5492996261033'
 
 			// mensaje por whatsapp para contacto ya suscrito
 			const url = `${req.protocol}://${req.hostname}`
@@ -360,11 +361,9 @@ export class ReparationController {
 
 				// revisar codigo porque no esta bien esto siempre traera un producto pero para la demo day esta bien xd
 
-				const product = client?.products.find(
-					(p) => p.uriMercadoPago,
-				)
+				const product = client?.products.find((p) => p.uriMercadoPago)
 
-        if (!product) {
+				if (!product) {
 					throw new Error('El producto no existe en la base de datos')
 				}
 

@@ -247,9 +247,6 @@ export class ProductController {
 
 				const { access_token } = await fetchApiToken.json()
 
-				// CAMBIAR LUIS NUMERO DEL ADMIN O QUE VA HACER ELVIDEO
-				// const phone = '+51932052849'
-
 				await fetch('https://api.sendpulse.com/whatsapp/contacts/sendByPhone', {
 					method: 'POST',
 					headers: {
@@ -387,7 +384,8 @@ export class ProductController {
 					const { access_token } = await fetchApiToken.json()
 
 					// CAMBIAR LUIS NUMERO DEL ADMIN O QUE VA HACER ELVIDEO
-					const phone = '+51932052849'
+					// const phone = '+51932052849'
+          const phone = '5492996261033'
 
 					await fetch(
 						'https://api.sendpulse.com/whatsapp/contacts/sendByPhone',
