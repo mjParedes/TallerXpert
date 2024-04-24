@@ -37,7 +37,7 @@ export async function sendEmailWithAttachment({
 		// Enviar el correo electrónico
 		transporter.sendMail(
 			{
-				from: 'rograff17@gmail.com',
+				from: 'mjparedes2505@gmail.com',
 				to, // Dirección de correo electrónico de la entidad "admin"
 				subject,
 				text,

@@ -330,7 +330,7 @@ export const pdfCreate = async (data: Reparation) => {
 									bold: true,
 								},
 								{
-									text: `rograff17@gmail.com`,
+									text: `mjparedes2505@gmail.com`,
 									style: 'text',
 								},
 							],

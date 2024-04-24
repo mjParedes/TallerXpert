@@ -138,7 +138,7 @@ export class ProductController {
 				},
 				auto_return: 'approved',
 				external_reference: product.id,
-				notification_url: `${req.protocol}://${req.hostname}/api/product/mp/webhook`,
+				notification_url: `https://s14-36-t-node-react.onrender.com/api/product/mp/webhook`,
 			}
 
 			const response = await createPreference(preference)
@@ -357,7 +357,7 @@ export class ProductController {
 					await sendEmailWithAttachment({
 						text: message,
 						subject: `PAGO TALLERXPERT - Usuario ${product.client.fullName} - Equipo ${product.product_name} ${product.brand} - APROBADO`,
-						to: 'rograff17@gmail.com',
+						to: 'mjparedes2505@gmail.com',
 					})
 
 					// enviar mensaje de confirmación de pago al admin
@@ -384,7 +384,8 @@ export class ProductController {
 
 					// CAMBIAR LUIS NUMERO DEL ADMIN O QUE VA HACER ELVIDEO
 					// const phone = '+51932052849'
-					const phone = '5492996261033'
+					// const phone = '5492996261033'
+					const phone = '5491124611071'
 
 					await fetch(
 						'https://api.sendpulse.com/whatsapp/contacts/sendByPhone',
