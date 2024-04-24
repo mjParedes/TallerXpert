@@ -31,7 +31,7 @@ export default function OrdersPage() {
 
   const handleDeleteOrder = async (orderId: string) => {
     try {
-      await deleteReparation(orderId, session);
+      await deleteReparation(orderId);
       const updateData = await getAllReparation()
       setReparations(updateData)
     } catch (error) {

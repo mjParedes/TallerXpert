@@ -1,35 +1,31 @@
 'use client';
-import {Loader} from '@/components/loader';
-import {useEffect, useState} from 'react';
-import {useSession} from 'next-auth/react';
+import { Loader } from '@/components/loader';
+import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image'
 import Link from 'next/link'
 import { getDateFormat } from '@/utils';
+import { getOrder } from '../orderRequest';
 
-export default function OrderId({params}: {params: {id: string}}) {
+export default function OrderId({ params }: { params: { id: string } }) {
   const [dataResponse, setDataResponse] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
-  const {data: session} = useSession();
-
+  const { data: session } = useSession();
 
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const response = await fetch(
-        'https://s14-36-t-node-react.onrender.com/api/reparation/' + params.id,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: 'bearer ' + session?.user.token,
-          },
-        }
-      );
-      const data = await response.json();
-      setDataResponse(data);
-      setLoading(false);
-    })();
-  }, [params.id, session?.user.token]);
+    const dataOrder = async () => {
+      try {
+        const initialData = await getOrder(params.id)
+        setDataResponse(initialData)
+        setLoading(false)
+      } catch (error) {
+        console.error("Error al cargar la orden: ", error)
+        setLoading(false)
+      }
+    }
+    dataOrder()
+  }, [params.id, session]);
+
   if (loading) {
     return (
       <div className='h-3/4 flex justify-center items-center'>
@@ -37,14 +33,15 @@ export default function OrderId({params}: {params: {id: string}}) {
       </div>
     );
   }
+
   return dataResponse && !dataResponse?.error ? (
     <div className="flex flex-col gap-12">
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <h2 className="font-bold  text-2xl flex gap-2 items-center">
-            <Image src="/user.svg" alt="users" />
-            Nombre del Cliente{" "}
-            <span className="text-xl font-normal">(ID:{params.id})</span>
+            <Image src="/user.svg" alt="users" width={32} height={32} />
+            Cliente: {dataResponse.client.fullName}
+            <span className="text-xl font-normal">(ID:{dataResponse.ot_number})</span>
           </h2>
           <p>
             Fecha de ingreso{" "}
@@ -55,21 +52,22 @@ export default function OrderId({params}: {params: {id: string}}) {
         </div>
         <div className="relative flex flex-col gap-6 pt-12 pb-12 text-white p-4 border-[1px] rounded-lg border-[#B9B8B8] shadow-[0px_4px_4px_0px_#00000040] bg-gradient-to-b from-[#4F3E9C] to-[#6162D3]  ">
           <p className="flex gap-4 items-center">
-            <Image src="/direction.svg" alt="direction" />
-            Dirección + Ciudad
+            <Image src="/direction.svg" alt="direction" width={24} height={24} />
+            {dataResponse?.client?.address} - {dataResponse?.client?.city}
           </p>
           <p className="flex gap-4 items-center">
-            <Image src="/phone.svg" alt="phone" />
-            Número de Teléfono
+            <Image src="/phone.svg" alt="phone" width={24} height={24} />
+            {dataResponse?.client?.phone}
           </p>
           <p className="flex gap-4 items-center">
-            <Image src="/email.svg" alt="email" />
-            E-mail
+            <Image src="/email.svg" alt="email" width={24} height={24} />
+            {dataResponse?.client?.email}
           </p>
           <Image
             src="/human.svg"
             alt="human"
             className="absolute bottom-0 right-0 max-lg:hidden"
+            width={200} height={200}
           />
         </div>
       </div>
@@ -86,19 +84,19 @@ export default function OrderId({params}: {params: {id: string}}) {
         <div className="flex flex-col gap-4 max-lg:flex-row max-lg:flex-wrap">
           {dataResponse
             ? dataResponse?.products?.map((item: any) => (
-                <TemplateOrdersArticles
-                  name={item.product_name}
-                  mark={item.brand}
-                  model={item.model}
-                  state={item.state || "PENDING"}
-                  is_paid={item.is_paid || "PAID"}
-                  id={item.id}
-                  key={item.id}
-                  entryDate={getDateFormat(item.entry_date)}
-                  idReparate={item.reparation_id}
-                  idReparationProduct={params.id}
-                />
-              ))
+              <TemplateOrdersArticles
+                name={item.product_name}
+                mark={item.brand}
+                model={item.model}
+                state={item.state || "PENDIENTE"}
+                is_paid={item.is_paid || "PENDIENTE"}
+                id={item.id}
+                key={item.id}
+                entryDate={getDateFormat(item.entry_date)}
+                idReparate={item.reparation_id}
+                idReparationProduct={params.id}
+              />
+            ))
             : "No hay Articulos"}
         </div>
       </div>
@@ -144,14 +142,13 @@ function TemplateOrdersArticles({
       <p className='w-[15%] max-lg:w-full'>{model}</p>
       <div className=' w-[15%] max-lg:w-full max-lg:flex max-lg:justify-center max-lg:items-center'>
         <p
-          className={`${
-            is_paid == 'PENDING'
+          className={`${is_paid == 'Pendiente'
               ? 'bg-[#F1CC5B]'
               : is_paid == 'REPAIRED'
-              ? 'bg-[#34A853]'
-              : 'bg-[#EB6196]'
-          } pr-4 pl-4 rounded-lg text-white  w-max `}>
-          {state}
+                ? 'bg-[#34A853]'
+                : 'bg-[#EB6196]'
+            } pr-4 pl-4 rounded-lg text-white  w-max `}>
+          {state.toUpperCase()}
         </p>
       </div>
       <div className=' w-[15%] max-lg:w-full max-lg:flex max-lg:justify-center max-lg:items-center'>
@@ -163,7 +160,7 @@ function TemplateOrdersArticles({
       <Link
         href={'/dashboard/orders/' + idReparationProduct + '/' + id}
         className='hover:opacity-70'>
-        <Image src='/llaveOrders.svg' alt='llaveOrders' />
+        <Image src='/llaveOrders.svg' alt='llaveOrders' width={24} height={24} />
       </Link>
     </div>
   );
