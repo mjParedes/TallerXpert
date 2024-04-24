@@ -36,7 +36,7 @@ export const createSupplier = async (session: any, supplier: any) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQyY2QxMjQ2LWJjMzYtNDRlNC1hYzVhLTIzM2Q1MGE2NzRiYyIsImlhdCI6MTcxMzk2OTYwMX0.fbAf9dcbbsggJkWKjiserv-GKymYydAhchBXCVfivCE`
+        Authorization: `Bearer ${session?.user?.token}`
       },
       body: JSON.stringify({
         name: supplier.name,
@@ -81,8 +81,7 @@ export const editSupplier = async (supplier: any, id: string, session: any) => {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${session?.user?.token}`
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQyY2QxMjQ2LWJjMzYtNDRlNC1hYzVhLTIzM2Q1MGE2NzRiYyIsImlhdCI6MTcxMzk2OTYwMX0.fbAf9dcbbsggJkWKjiserv-GKymYydAhchBXCVfivCE`
+        Authorization: `Bearer ${session?.user?.token}`
       },
       body: JSON.stringify({
         name: supplier.name,
