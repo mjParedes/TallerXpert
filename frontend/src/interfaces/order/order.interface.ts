@@ -44,4 +44,5 @@ export interface Order {
   client: Client;
   products: Product[];
   user: null;
+  state: string;
 }
