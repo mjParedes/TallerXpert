@@ -19,7 +19,7 @@ export const getAllReparation = async (session : any) => {
 export const createReparation = async (session : any, client : any, products : any) => {
     try{
         await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reparation`, {
-            method: "DELETE",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${session?.user?.token}`,
