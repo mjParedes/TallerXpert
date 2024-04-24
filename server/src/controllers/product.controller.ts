@@ -156,7 +156,7 @@ export class ProductController {
 			)
 
 			// mensaje para el usuario usando nodemailer y whatsapp sendpulse
-			const message = `Hola👋 usuario ${product.client.fullName} te escribimos desde TallerXpert. Para enviarte el pago, hemos generado la siguiente URL de Mercado Pago: ${response.init_point}. Realiza el pago para el despacho de tu equipo ${product.product_name} ${product.brand}. El costo total es de $${product.total_cost || '$200'}. Además, si necesitas alguna asistencia adicional o tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por tu colaboración!`
+			const message = `Hola👋 usuario ${product.client.fullName} te escribimos desde TallerXpert. Para enviarte el pago, hemos generado la siguiente URL de Mercado Pago: ${response.init_point}. Realiza el pago para el despacho de tu equipo ${product.product_name} ${product.brand}. El costo total es de ${product.total_cost || '$200'}. Además, si necesitas alguna asistencia adicional o tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por tu colaboración!`
 
 			// enviar correo con la url del pago al cliente
 			//====== NODEMAILER ======
@@ -222,8 +222,54 @@ export class ProductController {
 
 			const responseNewContact = await fetchApiNewContact.json()
 
-			console.log(responseNewContact, 'fucking contacto')
+			if (responseNewContact.success === false) {
+				// mensaje para el usuario usando nodemailer y whatsapp sendpulse
 
+				// enviar mensaje de confirmación de pago al admin
+				//====== WHATSAPP ======
+				//-------------- token sendpulse ----------------
+				const options = {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						grant_type: 'client_credentials',
+						client_id: SENDPULSE_WHATSAPP_ID,
+						client_secret: SENDPULSE_WHATSAPP_SECRET,
+					}),
+				}
+
+				const fetchApiToken = await fetch(
+					'https://api.sendpulse.com/oauth/access_token',
+					options,
+				)
+
+				const { access_token } = await fetchApiToken.json()
+
+				// CAMBIAR LUIS NUMERO DEL ADMIN O QUE VA HACER ELVIDEO
+				// const phone = '+51932052849'
+
+				await fetch('https://api.sendpulse.com/whatsapp/contacts/sendByPhone', {
+					method: 'POST',
+					headers: {
+						Authorization: `Bearer ${access_token}`,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						// contact_id: "662303ff3e6468c75a032936",
+						bot_id: '6622e56efa831206cc04c055',
+						phone: product.client.phone,
+						message: {
+							type: 'text',
+							text: {
+								body: message,
+							},
+						},
+					}),
+				})
+				return res.status(200).json({ ok: true })
+			}
 			// habilitar contacto
 
 			await fetch('https://api.sendpulse.com/whatsapp/contacts/enable', {
@@ -307,7 +353,7 @@ export class ProductController {
 					)
 
 					// mensaje para el usuario usando nodemailer y whatsapp sendpulse
-					const message = `Hola👋 desde la App TallerXpert el usuario ${product.product_name} realizo el pago para el despacho de su equipo ${product.product_name} ${product.brand} con serial ${product.serial_number}. El costo total fue de $${product.total_cost || '$200'}. ¡Nos vemos pronto! 🚀`
+					const message = `Hola👋 desde la App TallerXpert el usuario ${product.product_name} realizo el pago para el despacho de su equipo ${product.product_name} ${product.brand} con serial ${product.serial_number}. El costo total fue de ${product.total_cost || '$200'}. ¡Nos vemos pronto! 🚀`
 
 					// enviar correo con la url del pago al cliente
 					//====== NODEMAILER ======
