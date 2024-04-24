@@ -261,77 +261,13 @@ export class ReparationController {
 
 			// const { message, phone } = req.body
 			// const phone = '+573224849822'
+			// CAMBIAR LUIS NUMERO DEL ADMIN O QUE VA HACER ELVIDEO
 			const phone = '+51932052849'
-
-			//-------------- nuevo contacto whatsapp ----------------
-			// const fetchApiNewContact = await fetch(
-			// 	'https://api.sendpulse.com/whatsapp/contacts',
-			// 	{
-			// 		method: 'POST',
-			// 		headers: {
-			// 			Authorization: `Bearer ${access_token}`,
-			// 			'Content-Type': 'application/json',
-			// 		},
-			// 		body: JSON.stringify({
-			// 			phone,
-			// 			name: 'contacto 4',
-			// 			bot_id: '6622e56efa831206cc04c055', // esto lo saque de la aplicacion sino caballero dela api whatsapp
-			// 			tags: ['contacto ncountry'],
-			// 			variables: [
-			// 				{
-			// 					name: 'image',
-			// 					value: 'https://ui-avatars.com/api/?name=John+Doe',
-			// 				},
-			// 			],
-			// 		}),
-			// 	},
-			// )
-
-			// const responseNewContact = await fetchApiNewContact.json()
-
-			// // habilitar contacto
-
-			// await fetch('https://api.sendpulse.com/whatsapp/contacts/enable', {
-			// 	method: 'POST',
-			// 	headers: {
-			// 		Authorization: `Bearer ${access_token}`,
-			// 		'Content-Type': 'application/json',
-			// 	},
-			// 	body: JSON.stringify({
-			// 		contact_id: responseNewContact.id,
-			// 	}),
-			// })
-			// // enviar plantilla
-
-			// await fetch(
-			// 	'https://api.sendpulse.com/whatsapp/contacts/sendTemplateByPhone',
-			// 	{
-			// 		method: 'POST',
-			// 		headers: {
-			// 			Authorization: `Bearer ${access_token}`,
-			// 			'Content-Type': 'application/json',
-			// 		},
-			// 		body: JSON.stringify({
-			// 			bot_id: '6622e56efa831206cc04c055',
-			// 			phone,
-			// 			template: {
-			// 				name: 'taller_xpert_2',
-			// 				components: [],
-			// 				language: {
-			// 					policy: 'deterministic',
-			// 					code: 'es',
-			// 				},
-			// 			},
-			// 		}),
-			// 	},
-			// )
 
 			// mensaje por whatsapp para contacto ya suscrito
 			const url = `${req.protocol}://${req.hostname}`
 
-			const message = `Hola Administrador de TallerXpert, este es tu pdf: ${url}/api/reparation/pdf/${otNumber}`
-
-			console.log('message', message)
+			const message = `Hola Administrador de TallerXpert, este es tu pdf con OT-${otNumber}: ${url}/api/reparation/pdf/${otNumber}`
 
 			const fetchApi = await fetch(
 				'https://api.sendpulse.com/whatsapp/contacts/sendByPhone',
@@ -384,7 +320,7 @@ export class ReparationController {
 					} = {},
 					service = '',
 					title = '',
-					contact: { id: contact_id = '' } = {},
+					contact: { id: contact_id = '', tags = [] } = {},
 				},
 			] = req.body
 
@@ -413,8 +349,13 @@ export class ReparationController {
 
 				const { access_token } = await fetchApiToken.json()
 
-				const message =
-					'Este es tu pdf: https://cvl.bdigital.uncu.edu.ar/objetos_digitales/15657/monedas-virtuales-y-su-impacto-en-el-comercio-electr.pdf'
+				const product = await Product.findOne({ where: { id: tags[0] } })
+
+				if (!product) {
+					throw new Error('El cliente no existe en la base de datos')
+				}
+
+				const message = `Hola👋 usuario ${product.client.fullName} te escribimos desde TallerXpert. Para enviarte el pago que hemos generado la siguiente URL de Mercado Pago: ${product.uriMercadoPago || ""}. Realiza el pago para el despacho de tu equipo ${product.product_name} ${product.brand}. El costo total es de $${product.total_cost || '$200'}. Además, si necesitas alguna asistencia adicional o tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por tu colaboración!`
 
 				//-------------- mensaje whatsapp ----------------
 				// esto es para enviar el mensaje por whatsapp

@@ -8,6 +8,7 @@ import {
 } from '../utils/mercadopago.utils'
 import { Payment } from 'mercadopago'
 import { sendEmailWithAttachment } from '../utils/doc.mails'
+import { SENDPULSE_WHATSAPP_ID, SENDPULSE_WHATSAPP_SECRET } from '../constants'
 
 type TypeProductPreference = {
 	userId: string
@@ -140,7 +141,6 @@ export class ProductController {
 
 			const response = await createPreference(preference)
 
-			// actualizar el url de mercadopago en la base de datos
 			await Product.update(
 				{
 					uriMercadoPago: response.init_point,
@@ -161,16 +161,104 @@ export class ProductController {
 			await sendEmailWithAttachment({
 				text: message,
 				subject: `Pago TALLERXPERT Equipo ${product.product_name} ${product.brand}`,
-				to: product.client.email,
+				// CAMBIAR LUIS CORREO POR EL DEL CLIENTE
+				// to: product.client.email,
+				to: 'melcabo954@gmail.com',
 			})
 
 			// enviar mensaje wasap con la url del pago al cliente
+			// ====== WHATSAPP SENDPULSE ======
+			//-------------- token sendpulse ----------------
+			const options = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					grant_type: 'client_credentials',
+					client_id: SENDPULSE_WHATSAPP_ID,
+					client_secret: SENDPULSE_WHATSAPP_SECRET,
+				}),
+			}
 
-			// return res.json(response)
-			// res.status(200).json({
-			// 	url: response.init_point,
-			// 	orderId: response.external_reference,
-			// })
+			const fetchApiToken = await fetch(
+				'https://api.sendpulse.com/oauth/access_token',
+				options,
+			)
+
+			const { access_token } = await fetchApiToken.json()
+
+			// const { message, phone } = req.body
+			// const phone = '+573224849822'
+			// const phone = '+51932052849'
+			// -------------- nuevo contacto whatsapp ----------------
+			const fetchApiNewContact = await fetch(
+				'https://api.sendpulse.com/whatsapp/contacts',
+				{
+					method: 'POST',
+					headers: {
+						Authorization: `Bearer ${access_token}`,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						// CAMBIAR LUIS NUMERO POR EL DEL CLIENTE
+						// phone: product.client.phone,
+						phone: '+51980459218',
+						name: 'contacto nocountry',
+						bot_id: '6622e56efa831206cc04c055', // esto lo saque de la aplicacion sino caballero dela api whatsapp
+						tags: [product.id.toString()],
+						variables: [
+							{
+								name: 'image',
+								value: 'https://ui-avatars.com/api/?name=John+Doe',
+							},
+						],
+					}),
+				},
+			)
+
+			const responseNewContact = await fetchApiNewContact.json()
+
+			// habilitar contacto
+
+			await fetch('https://api.sendpulse.com/whatsapp/contacts/enable', {
+				method: 'POST',
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					contact_id: responseNewContact.id,
+				}),
+			})
+			// enviar plantilla
+
+			await fetch(
+				'https://api.sendpulse.com/whatsapp/contacts/sendTemplateByPhone',
+				{
+					method: 'POST',
+					headers: {
+						Authorization: `Bearer ${access_token}`,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						bot_id: '6622e56efa831206cc04c055',
+						phone: product.client.phone,
+						template: {
+							name: 'taller_expert_3',
+							components: [],
+							language: {
+								policy: 'deterministic',
+								code: 'es',
+							},
+						},
+					}),
+				},
+			)
+
+			return res.status(200).json({
+				message: 'ok',
+			})
 		} catch (error: any) {
 			next(error)
 		}
@@ -223,7 +311,51 @@ export class ProductController {
 					})
 
 					// enviar mensaje de confirmación de pago al admin
+					//====== WHATSAPP ======
+					//-------------- token sendpulse ----------------
+					const options = {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							grant_type: 'client_credentials',
+							client_id: SENDPULSE_WHATSAPP_ID,
+							client_secret: SENDPULSE_WHATSAPP_SECRET,
+						}),
+					}
 
+					const fetchApiToken = await fetch(
+						'https://api.sendpulse.com/oauth/access_token',
+						options,
+					)
+
+					const { access_token } = await fetchApiToken.json()
+
+					// CAMBIAR LUIS NUMERO DEL ADMIN O QUE VA HACER ELVIDEO
+					const phone = '+51932052849'
+
+					await fetch(
+						'https://api.sendpulse.com/whatsapp/contacts/sendByPhone',
+						{
+							method: 'POST',
+							headers: {
+								Authorization: `Bearer ${access_token}`,
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({
+								// contact_id: "662303ff3e6468c75a032936",
+								bot_id: '6622e56efa831206cc04c055',
+								phone,
+								message: {
+									type: 'text',
+									text: {
+										body: message,
+									},
+								},
+							}),
+						},
+					)
 					return res.status(200).json({ ok: true })
 				}
 			}

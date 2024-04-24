@@ -102,7 +102,7 @@ GET http://localhost:8080/api/reparation
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
 
 #### GET REPARATION
-GET http://localhost:8080/api/reparation/12c40614-30c0-4558-bb81-e47d4f7c24ca
+GET http://localhost:8080/api/reparation/b0ade435-abdc-47c0-9aa2-20f8d8db00d7
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
 
 
@@ -168,3 +168,5 @@ GET http://localhost:8080/api/product/chekout/a7eaffab-738e-4324-943a-7c69997e63
 # 11/25
 # 12345678
 # comprador: TESTUSER1744467970@testuser.com
+
+##

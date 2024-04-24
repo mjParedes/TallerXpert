@@ -7,7 +7,7 @@ import {
 	Table,
 	Unique,
 } from 'sequelize-typescript'
-import { Reparation } from '.'
+import { Reparation, Product } from '.'
 
 @Table({
 	timestamps: false,
