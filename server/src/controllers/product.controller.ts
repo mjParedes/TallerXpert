@@ -357,7 +357,7 @@ export class ProductController {
 					await sendEmailWithAttachment({
 						text: message,
 						subject: `PAGO TALLERXPERT - Usuario ${product.client.fullName} - Equipo ${product.product_name} ${product.brand} - APROBADO`,
-						to: 'tallerxpert@gmail.com',
+						to: 'rograff17@gmail.com',
 					})
 
 					// enviar mensaje de confirmación de pago al admin

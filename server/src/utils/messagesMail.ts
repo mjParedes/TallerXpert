@@ -12,7 +12,7 @@ const transporter: Transporter = nodemailer.createTransport({
 	port: 587,
 	secure: false,
 	auth: {
-		user: 'tallerxpert@gmail.com',
+		user: 'rograff17@gmail.com',
 		pass: 'passwordDeGmail',
 	},
 })
@@ -67,7 +67,7 @@ async function sendEmailWithAttachment(
 ) {
 	// Configuración del contenido del correo electrónico
 	const mailContent: CustomMailContent = {
-		from: 'tallerxpert@gmail.com',
+		from: 'rograff17@gmail.com',
 		to: destinatarioEmail,
 		subject: 'Resultado de la orden en MercadoPago',
 		text: `La orden con referencia externa ${externalReference} tiene el estado: ${orderStatus}.`,
