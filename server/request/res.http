@@ -98,12 +98,15 @@ Content-Type: application/json
 }
 
 #### GET REPARATION
-GET https://s14-36-t-node-react.onrender.com/api/reparation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNGRiZjJiLTAxNzctNDVlYi1iZmQwLTk2Yjk1NjhkOTc2YyIsImlhdCI6MTcxMzk3NDE4N30.cNtJAW2w8lIdxbd5bsmXWgUI-GUMhr5jyBh9IoYPBpc
+GET https://s14-36-t-node-react.onrender.com/api/reparation/4df77d2b-04a3-4f00-858a-ed10fa0e19a2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMjY5ZWZlLTFiNGMtNGQ2Ny05NTMyLWVhOTk4MzFlZDEwMSIsImlhdCI6MTcxMzk4NDczM30.y75Niy4GLOPXh6_qzYuE7_RQAk8DNaHCY9Odlysd9xs
 
 #### GET REPARATION
-GET http://localhost:8080/api/reparation/4fdc9d19-ef76-4fc6-8a3f-22682dced982
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
+GET https://s14-36-t-node-react.onrender.com/api/client/2d3ea020-4936-4dc4-b9bb-8106a291b048
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMjY5ZWZlLTFiNGMtNGQ2Ny05NTMyLWVhOTk4MzFlZDEwMSIsImlhdCI6MTcxMzk4NDczM30.y75Niy4GLOPXh6_qzYuE7_RQAk8DNaHCY9Odlysd9xs
+
+
+
 
 #### GET CLIENT
 GET http://localhost:8080/api/client/530c11ef-24e2-4fb1-805f-7445833100e9
@@ -112,16 +115,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhL
 
 #### POST REPARATION
 POST https://s14-36-t-node-react.onrender.com/api/reparation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNGRiZjJiLTAxNzctNDVlYi1iZmQwLTk2Yjk1NjhkOTc2YyIsImlhdCI6MTcxMzk3NDE4N30.cNtJAW2w8lIdxbd5bsmXWgUI-GUMhr5jyBh9IoYPBpc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
+
+# {
+#   "id": "5e269efe-1b4c-4d67-9532-ea99831ed101",
+#   "fullName": "Luis Angel",
+#   "email": "melcabo954@gmail.com",
+#   "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+#   "rol": "admin",
+#   "is_active": true,
+#   "workshop": null,
+#   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMjY5ZWZlLTFiNGMtNGQ2Ny05NTMyLWVhOTk4MzFlZDEwMSIsImlhdCI6MTcxMzk4NDczM30.y75Niy4GLOPXh6_qzYuE7_RQAk8DNaHCY9Odlysd9xs"
+# }
 
 {
   "client": {
-    "fullName": "Sony",
+    "fullName": "Mariana",
     "dni": 45874545,
     "address": "Rambla 33",
     "city": "Barcelona",
-    "phone": "51968977152",
-    "email": "spimentelm1201@gmail.com"
+    "phone": "5492616828403",
+    "email": "marpotichkin@gmail.com"
   },
   "products": [
     {
@@ -152,46 +166,46 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNGRiZjJiL
 }
 
 #### POST REPARATION
-POST http://localhost:8080/api/reparation
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
+# POST http://localhost:8080/api/reparation
+# Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
 
-{
-  "client": {
-    "fullName": "Sony",
-    "dni": 45874545,
-    "address": "Rambla 33",
-    "city": "Barcelona",
-    "phone": "51968977152",
-    "email": "spimentelm1201@gmail.com"
-  },
-  "products": [
-    {
-      "product_name": "TV",
-      "product_category": "Electrodométicos",
-      "brand": "LG",
-      "model": "LGA484754",
-      "serial_number": "AZERTYUIOPLKJH",
-      "detail": "No mira el televisor por favor",
-      "issue_detail": "El tv no tiene volumen",
-      "revision_cost": 50,
-      "warranty_date": "2024-05-01",
-      "warranty_invoice_number": "R01-458454"
-    },
-    {
-      "product_name": "Radio",
-      "product_category": "Electrodométicos",
-      "brand": "SONY",
-      "model": "SNY484754",
-      "serial_number": "AZEFTYUIOPLKJH",
-      "detail": "No mira el televisor por favor",
-      "issue_detail": "Sin sonido",
-      "revision_cost": 40,
-      "warranty_date": "2024-05-01",
-      "warranty_invoice_number": "R02-458454"
-    }
-  ]
-}
+# {
+#   "client": {
+#     "fullName": "Sony",
+#     "dni": 45874545,
+#     "address": "Rambla 33",
+#     "city": "Barcelona",
+#     "phone": "5492616828403",
+#     "email": "marpotichkin@gmail.com"
+#   },
+#   "products": [
+#     {
+#       "product_name": "TV",
+#       "product_category": "Electrodométicos",
+#       "brand": "LG",
+#       "model": "LGA484754",
+#       "serial_number": "AZERTYUIOPLKJH",
+#       "detail": "No mira el televisor por favor",
+#       "issue_detail": "El tv no tiene volumen",
+#       "revision_cost": 50,
+#       "warranty_date": "2024-05-01",
+#       "warranty_invoice_number": "R01-458454"
+#     },
+#     {
+#       "product_name": "Radio",
+#       "product_category": "Electrodométicos",
+#       "brand": "SONY",
+#       "model": "SNY484754",
+#       "serial_number": "AZEFTYUIOPLKJH",
+#       "detail": "No mira el televisor por favor",
+#       "issue_detail": "Sin sonido",
+#       "revision_cost": 40,
+#       "warranty_date": "2024-05-01",
+#       "warranty_invoice_number": "R02-458454"
+#     }
+#   ]
+# }
 
 #### GET REPARATION
 GET http://localhost:8080/api/reparation/09087aab-5844-4326-933e-d4bd3095d8ac
@@ -204,7 +218,7 @@ GET http://localhost:8080/api/reparation/pdf/00000001
 GET http://localhost:8080/api/reparation/sendPdf/00000001
 
 #### OBTERNER URI MP Y SEND POR EMAIL Y WHATSAPP
-GET https://s14-36-t-node-react.onrender.com/api/product/chekout/6403b4fc-6501-4aaa-bc28-6ebb0d4b6e87
+GET https://s14-36-t-node-react.onrender.com/api/product/chekout/85b50c1f-c519-49d9-8b5a-ad177314b2c0
 
 ### credenciales de pago:
 
