@@ -68,9 +68,9 @@ export class ReparationController {
 				where: {
 					id: req.params.id,
 				},
-				include: [Client, Product, User],
+				//include: [Client, Product, User],
 			})
-			res.status(HttpCodes.SUCCESS).json(result)
+			res.status(HttpCodes.SUCCESS).json(result?.dataValues)
 		} catch (error: any) {
 			next(error)
 		}
@@ -95,19 +95,26 @@ export class ReparationController {
 			}
 			const reparation = await Reparation.create(
 				{ client_id: clientId },
-				{ include: [Client, Product, User] },
 			)
 			if (!products) {
 				throw new Error('No se registraron artefactos o productos')
 			}
-			products.forEach(async (product: any) => {
+			if(products.length === 1){
 				const newProduct = await Product.create({
 					reparation_id: reparation.id,
 					client_id: clientId,
-					...product,
+					...products,
 				})
-				await reparation.$add('products', newProduct)
-			})
+			}else{
+				products.forEach(async (product: any) => {
+					const newProduct = await Product.create({
+						reparation_id: reparation.id,
+						client_id: clientId,
+						...product,
+					})
+					await reparation.$add('products', newProduct)
+				})
+			}
 			reparation.save()
 			res.status(HttpCodes.SUCCESS_CREATED).json(reparation)
 		} catch (error: any) {

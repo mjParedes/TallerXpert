@@ -66,6 +66,6 @@ export class AuthAndSignController {
 	}
 }
 
-function getSHA256ofString(text: string) {
+export function getSHA256ofString(text: string) {
 	return crypto.createHash('sha256').update(text).digest('hex')
 }
