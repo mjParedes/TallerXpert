@@ -54,7 +54,7 @@ export const TechnicianGrid = ({ technicians }: Props) => {
 
           <SearchTechnician placeholder="Ingresa un nombre..." />
 
-          <div className="mt-4 mb-4 flex flex-col gap-4">
+          <div className="mt-4 mb-4 flex flex-col gap-4 h-[414px] overflow-auto">
             {
               technicians.length === 0 ? (
                 <h1 className="text-center">Aún no hay técnicos agregados</h1>
