@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { textLogo } from '@/config/fonts'
+import { Dashboard, Orders, Technicians, Suppliers, Statistics, Workshop } from '@/components'
 
 const sideItems = [
   {
@@ -212,8 +213,6 @@ export const Sidebar = () => {
             Taller
           </Link>
         </li>
-        {/* {sideItems.map((item, index) => (
-        ))} */}
       </ul>
 
       <div className='flex flex-col w-full items-center gap-[27px]'>

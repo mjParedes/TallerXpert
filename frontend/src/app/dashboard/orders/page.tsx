@@ -27,7 +27,7 @@ export default function OrdersPage() {
       }
     }
     dataReparation()
-  }, [session])
+  }, [session?.user])
 
   const handleDeleteOrder = async (orderId: string) => {
     try {
