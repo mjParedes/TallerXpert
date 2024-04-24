@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react"
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useMemo, useState } from "react"
 import { Button } from "../button/Button"
 import { Input } from "./Input"
 import { Products } from "@/app/dashboard/orders/interface"
@@ -12,7 +12,7 @@ interface NewItemProps {
 
 export const NewItem = ({ setProducts, selectedProduct, setSelectedProduct }: NewItemProps) => {
 
-    const initialDataProduct = {
+    const initialDataProduct =  useMemo(() => ({
         product_name: '',
         product_category: '',
         brand: '',
@@ -24,7 +24,7 @@ export const NewItem = ({ setProducts, selectedProduct, setSelectedProduct }: Ne
         warranty_date: '',
         warranty_invoice_number: '',
         revision_cost: '',
-    }
+    }), []);
 
     const [formDataItem, setFormDataItem] = useState<Products>(initialDataProduct)
 
@@ -36,7 +36,7 @@ export const NewItem = ({ setProducts, selectedProduct, setSelectedProduct }: Ne
         } else {
             setFormDataItem(initialDataProduct);
         }
-    }, [selectedProduct]);
+    }, [selectedProduct, initialDataProduct]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target

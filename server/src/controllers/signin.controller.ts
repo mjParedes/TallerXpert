@@ -1,23 +1,26 @@
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
 import { Request, Response } from 'express'
-import { User } from '../models'
+import { Profile, User } from '../models'
 
 export class AuthAndSignController {
-	static async auth(req: Request, res: Response) {
+	static async register(req: Request, res: Response) {
 		try {
-			if (!req.body.email || !req.body.fullName || !req.body.password) {
+			if (!req.body.email || !req.body.password ) {
 				return res.status(400).json({ message: 'Faltan datos' })
 			}
-			const [user] = await User.findCreateFind({
-				where: {
-					email: req.body.email,
-				},
-				defaults: {
+			const user = await User.create({			
 					...req.body,
 					password: getSHA256ofString(req.body.password),
-				},
 			})
+			if(!user){
+				return res.status(500).json({message: "Ocurrió un error"})
+			}
+			const userProfile = await Profile.create({
+				fullName: req.body.fullName,
+				userId: user.id
+			})
+			await userProfile.save()
 			const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string)
 			res.status(201).json({
 				...user.dataValues,
@@ -25,7 +28,7 @@ export class AuthAndSignController {
 			})
 		} catch (error: any) {
 			res.status(500).json({
-				message: error.message,
+				message:  error.message,
 			})
 		}
 	}
@@ -57,6 +60,7 @@ export class AuthAndSignController {
 		}
 	}
 }
+
 function getSHA256ofString(text: string) {
 	return crypto.createHash('sha256').update(text).digest('hex')
 }

@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript'
-import { User } from '../models'
+import { Client, Profile, Reparation, User, Workshop, Product, Order, Supplier} from '../models'
 import { DATABASE_URL } from '../constants'
 
 export const sequelize = new Sequelize(DATABASE_URL, {
@@ -11,5 +11,5 @@ export const sequelize = new Sequelize(DATABASE_URL, {
 			rejectUnauthorized: false,
 		},
 	},
-  models: [User],
+	models: [User, Profile, Workshop, Client, Reparation, Product, Order, Supplier],
 })

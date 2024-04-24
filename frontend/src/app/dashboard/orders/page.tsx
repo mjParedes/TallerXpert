@@ -8,10 +8,9 @@ import { useEffect, useState } from "react";
 import { deleteReparation, getAllReparation } from "./orderRequest";
 import { Products, Reparation } from "./interface";
 
-
 export default function OrdersPage() {
 
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [reparations, setReparations] = useState<Reparation[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState("")
@@ -19,7 +18,7 @@ export default function OrdersPage() {
   useEffect(() => {
     const dataReparation = async () => {
       try {
-        const initialData = await getAllReparation(session)
+        const initialData = await getAllReparation()
         setReparations(initialData)
         setLoading(false)
       } catch (error) {
@@ -33,7 +32,7 @@ export default function OrdersPage() {
   const handleDeleteOrder = async (orderId: string) => {
     try {
       await deleteReparation(orderId, session);
-      const updateData = await getAllReparation(session)
+      const updateData = await getAllReparation()
       setReparations(updateData)
     } catch (error) {
       console.error("Error al eliminar la orden: ", error)
