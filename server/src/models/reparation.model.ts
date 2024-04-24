@@ -20,7 +20,6 @@ export class Reparation extends Model {
     })
     id!: string
 
-    @Unique(true)
     @Column({
         type: DataType.STRING
     })
