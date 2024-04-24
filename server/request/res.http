@@ -218,7 +218,7 @@ GET http://localhost:8080/api/reparation/pdf/00000001
 GET http://localhost:8080/api/reparation/sendPdf/00000001
 
 #### OBTERNER URI MP Y SEND POR EMAIL Y WHATSAPP
-GET https://s14-36-t-node-react.onrender.com/api/product/chekout/85b50c1f-c519-49d9-8b5a-ad177314b2c0
+GET https://s14-36-t-node-react.onrender.com/api/product/chekout/e68065af-5621-4dfd-bd36-5833ada5469a
 
 ### credenciales de pago:
 
@@ -236,4 +236,4 @@ GET https://s14-36-t-node-react.onrender.com/api/product/chekout/85b50c1f-c519-4
 # [1]   data: null,
 # [1]   errors: { phone: [ 'Contact already exists' ] },
 # [1]   error_code: 400
-# [1] } fucking contacto
+# [1] }
