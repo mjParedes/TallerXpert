@@ -223,7 +223,7 @@ export class ReparationController {
 				await sendEmailWithAttachment({
 					text: 'Hola 👋 te adjunto el PDF solicitado 🚀 desde nuestra App TallerXpert.',
 					subject: `Reparacion OT-${otNumber}-Review Pdf`,
-					to: 'tallerxpert@gmail.com',
+					to: 'rograff17@gmail.com',
 					attachments: [
 						{
 							filename: `Reparacion OT-${otNumber}.pdf`, // Nombre del archivo adjunto
