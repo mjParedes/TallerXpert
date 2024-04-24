@@ -14,7 +14,7 @@ export const CardsDashboard = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-8">
         <Link href={'/dashboard/orders'} className={`bg-[#F1CC5B] w-[215px] h-[170px] flex flex-col gap-4 rounded p-4 text-white cursor-pointer`}>
 
           <div>
