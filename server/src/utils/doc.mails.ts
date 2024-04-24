@@ -22,25 +22,26 @@ const transporter = nodemailer.createTransport({
 // 		},
 // 	],
 // }
-export async function sendEmailWithAttachment(content: any) {
+export async function sendEmailWithAttachment({
+	text,
+	subject,
+  to,
+  attachments
+}:{
+  text: string
+  subject: string
+  to: string
+  attachments?: any
+}) {
 	try {
 		// Enviar el correo electrónico
 		transporter.sendMail(
 			{
 				from: 'tallerxpert@gmail.com',
-				to: 'melcabo954@gmail.com', // Dirección de correo electrónico de la entidad "admin"
-				subject: 'PDF Review',
-				text: 'Adjunto encontrarás el PDF solicitado.',
-				attachments: [
-					{
-						filename: 'documento.pdf', // Nombre del archivo adjunto
-						// path: '/ruta/al/archivo/documento.pdf', // Ruta al archivo PDF en tu sistema
-						contentType: 'application/pdf', // Tipo MIME del archivo adjunto
-            content, // Aquí pasamos el contenido binario en base64
-            encoding: 'base64',
-            contentDisposition: 'attachment',
-					},
-				],
+				to, // Dirección de correo electrónico de la entidad "admin"
+				subject,
+				text,
+				attachments,
 			},
 			(error, info) => {
 				if (error) {

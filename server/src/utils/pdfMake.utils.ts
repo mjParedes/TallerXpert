@@ -1,5 +1,6 @@
 import { format, parse } from '@formkit/tempo'
 import { ErrorMessage } from './errorMessage.utils'
+import { Product, Reparation } from '../models'
 
 export const fontsPdf = {
 	Roboto: {
@@ -14,7 +15,7 @@ export const font_size = 8.5
 // definimos el tamaño de hoja
 export const page_size = 'A4'
 
-const tableGenerate1 = (data: any) => ({
+const tableGenerate1 = (data: Product) => ({
 	headerRows: 1, // esto es para que se repita la cabecera
 	// auto: es de acuerdo al ancho original, //* es para ocupe lo restante
 	widths: ['*', '*', '*', '*', '*', '*'],
@@ -48,34 +49,34 @@ const tableGenerate1 = (data: any) => ({
 		// data detalle y sus valores
 		[
 			{
-				text: data.articuloId,
+				text: data?.id?.substring(0, 13) || ' ',
 				style: 'tableBody',
 			},
 			{
-				text: data.articulo,
+				text: data?.product_name || ' ',
 				style: 'tableBody',
 			},
 			{
-				text: data.marca,
+				text: data?.brand || ' ',
 				style: 'tableBody',
 			},
 			{
-				text: data.modelo,
+				text: data?.model || ' ',
 				style: 'tableBody',
 			},
 			{
-				text: data.serie,
+				text: data?.serial_number || ' ',
 				style: 'tableBody',
 			},
 			{
-				text: data.fechaIngreso,
+				text: data?.entry_date?.toISOString().substring(0, 10) || ' ',
 				style: 'tableBody',
 			},
 		],
 	],
 })
 
-const tableGenerate2 = (data: any) => ({
+const tableGenerate2 = (data: Product[]) => ({
 	headerRows: 1,
 	widths: ['*', '*'],
 	body: [
@@ -88,7 +89,10 @@ const tableGenerate2 = (data: any) => ({
 				margin: [10, 5, 0, 5],
 			},
 			{
-				text: '$ 500.00',
+				text: data?.reduce(
+					(acc: number, curr: Product) => acc + (curr?.total_cost ?? 0),
+					0,
+				),
 				style: 'tableBody',
 				alignment: 'right',
 				bold: true,
@@ -99,8 +103,8 @@ const tableGenerate2 = (data: any) => ({
 	],
 })
 
-const renderArticles = (data: any) =>
-	data.detalle.map((item: any) => {
+const renderArticles = (data: Product[]) =>
+	data.map((item) => {
 		return [
 			{
 				// propiedades de las lineas de la tabla
@@ -151,7 +155,7 @@ const renderArticles = (data: any) =>
 								bold: true,
 							},
 							{
-								text: `${format(new Date(), 'DD-MM-YYYY', 'es')}`,
+								text: item?.exit_date?.toISOString().substring(0, 10) || ' ',
 								style: 'text',
 							},
 						],
@@ -164,7 +168,7 @@ const renderArticles = (data: any) =>
 								bold: true,
 							},
 							{
-								text: `${Math.floor(Math.random() * 1000000)}`,
+								text: item?.warranty_invoice_number || ' ',
 								style: 'text',
 							},
 						],
@@ -180,7 +184,7 @@ const renderArticles = (data: any) =>
 				margin: [0, 0, 0, 3],
 			},
 			{
-				text: item.motivoIngreso,
+				text: item?.issue_detail || ' ',
 				bold: false,
 				style: 'text',
 				margin: [0, 0, 0, 0],
@@ -192,30 +196,30 @@ const renderArticles = (data: any) =>
 				margin: [0, 0, 0, 3],
 			},
 			{
-				text: item.diagnostico,
+				text: item?.diagnostic || ' ',
 				bold: false,
 				style: 'text',
 				margin: [0, 0, 0, 0],
 			},
-			{
-				text: '\nOBSERVACIONES:',
-				style: 'subheader',
-				bold: true,
-				margin: [0, 0, 0, 3],
-			},
-			{
-				text: item.observaciones,
-				bold: false,
-				style: 'text',
-				margin: [0, 0, 0, 0],
-			},
+			// {
+			// 	text: '\nOBSERVACIONES:',
+			// 	style: 'subheader',
+			// 	bold: true,
+			// 	margin: [0, 0, 0, 3],
+			// },
+			// {
+			// 	text: | ' ',
+			// 	bold: false,
+			// 	style: 'text',
+			// 	margin: [0, 0, 0, 0],
+			// },
 			{
 				text: ' ',
 			},
 		]
 	})
 // funcion para crear el pdf
-export const pdfCreate = async (data: any) => {
+export const pdfCreate = async (data: Reparation) => {
 	try {
 		return {
 			pageSize: page_size,
@@ -285,7 +289,7 @@ export const pdfCreate = async (data: any) => {
 									bold: true,
 								},
 								{
-									text: `couit`,
+									text: `2024-ABCD-123456`,
 									style: 'text',
 								},
 								{
@@ -295,7 +299,7 @@ export const pdfCreate = async (data: any) => {
 									bold: true,
 								},
 								{
-									text: `telefono`,
+									text: `+54 9 343 514-3871`,
 									style: 'text',
 								},
 							],
@@ -316,7 +320,7 @@ export const pdfCreate = async (data: any) => {
 									bold: true,
 								},
 								{
-									text: `direccion fiscal del taller`,
+									text: `Avenida de Mayo 1234 Buenos Aires`,
 									style: 'text',
 								},
 								{
@@ -326,7 +330,7 @@ export const pdfCreate = async (data: any) => {
 									bold: true,
 								},
 								{
-									text: `miTaller@email.com`,
+									text: `tallerxpert@gmail.com`,
 									style: 'text',
 								},
 							],
@@ -345,7 +349,7 @@ export const pdfCreate = async (data: any) => {
 									bold: true,
 								},
 								{
-									text: '\nNOMBRE DEL CLIENTE',
+									text: `\n${data.client.fullName}`,
 									fontSize: font_size + 2,
 									style: 'header',
 								},
@@ -356,7 +360,7 @@ export const pdfCreate = async (data: any) => {
 									bold: true,
 								},
 								{
-									text: `direccion del cliente`,
+									text: `${data.client.address}, ${data.client.city}`,
 									style: 'text',
 								},
 								{
@@ -366,7 +370,7 @@ export const pdfCreate = async (data: any) => {
 									bold: true,
 								},
 								{
-									text: `+54 343 5467457`,
+									text: data.client.phone,
 									style: 'text',
 								},
 							],
@@ -380,7 +384,7 @@ export const pdfCreate = async (data: any) => {
 									bold: true,
 								},
 								{
-									text: '12345678',
+									text: data.client.dni,
 									style: 'text',
 								},
 								{
@@ -390,7 +394,7 @@ export const pdfCreate = async (data: any) => {
 									bold: true,
 								},
 								{
-									text: `cliente@email.com`,
+									text: data.client.email,
 									style: 'text',
 								},
 							],
@@ -404,119 +408,7 @@ export const pdfCreate = async (data: any) => {
 					fontSize: font_size + 2,
 					margin: [0, 0, 0, 5],
 				},
-				///////////////
-				// {
-				// 	// propiedades de las lineas de la tabla
-				// 	layout: {
-				// 		hLineWidth: function (i: any, node: any) {
-				// 			// if (i === 0) {
-				// 			// 	return 0
-				// 			// }
-				// 			return 1
-				// 		},
-				// 		vLineWidth: function (i: any, node: any) {
-				// 			if (i === 0 || i === node.table.widths.length) {
-				// 				return 1
-				// 			}
-				// 			return 0
-				// 		},
-				// 		hLineColor: function (i: any, node: any) {
-				// 			// return i === 1 ||
-				// 			// 	i === node.table.body.length - 1 ||
-				// 			// 	i === node.table.body.length
-				// 			// 	? 'black'
-				// 			// 	: 'white'
-				// 			return 'black'
-				// 		},
-				// 		// paddingLeft: function (i: any) {
-				// 		// 	return i === 0 ? 0 : 5
-				// 		// },
-				// 		// paddingRight: function (i: any, node: any) {
-				// 		// 	return i === node.table.widths.length - 1 ? 0 : 5
-				// 		// },
-				// 	},
-				// 	fontSize: font_size,
-				// 	table: tableGenerate1(data),
-				// },
-				// {
-				// 	text: '\nDATOS DE GARANTÍA:',
-				// 	style: 'subheader',
-				// 	bold: true,
-				// 	margin: [0, 0, 0, 3],
-				// },
-				// {
-				// 	columns: [
-				// 		{
-				// 			text: [
-				// 				{
-				// 					text: `FECHA DE COMPRA:   `,
-				// 					style: 'subheader',
-				// 					bold: true,
-				// 				},
-				// 				{
-				// 					text: `${format(new Date(), 'DD-MM-YYYY', 'es')}`,
-				// 					style: 'text',
-				// 				},
-				// 			],
-				// 		},
-				// 		{
-				// 			text: [
-				// 				{
-				// 					text: `FACTURA:   `,
-				// 					style: 'subheader',
-				// 					bold: true,
-				// 				},
-				// 				{
-				// 					text: `${Math.floor(Math.random() * 1000000)}`,
-				// 					style: 'text',
-				// 				},
-				// 			],
-				// 		},
-				// 	],
-
-				// 	margin: [0, 0, 0, 0],
-				// },
-				// {
-				// 	text: '\nMOTIVO DE INGRESO:',
-				// 	style: 'subheader',
-				// 	bold: true,
-				// 	margin: [0, 0, 0, 3],
-				// },
-				// {
-				// 	text: `Motivo 1`,
-				// 	bold: false,
-				// 	style: 'text',
-				// 	margin: [0, 0, 0, 0],
-				// },
-				// {
-				// 	text: '\nDIAGNOSTICO:',
-				// 	style: 'subheader',
-				// 	bold: true,
-				// 	margin: [0, 0, 0, 3],
-				// },
-				// {
-				// 	text: `Diagnostico 1`,
-				// 	bold: false,
-				// 	style: 'text',
-				// 	margin: [0, 0, 0, 0],
-				// },
-				// {
-				// 	text: '\nOBSERVACIONES:',
-				// 	style: 'subheader',
-				// 	bold: true,
-				// 	margin: [0, 0, 0, 3],
-				// },
-				// {
-				// 	text: `Observacion 1`,
-				// 	bold: false,
-				// 	style: 'text',
-				// 	margin: [0, 0, 0, 0],
-				// },
-				// {
-				// 	text: ' ',
-				// },
-				...renderArticles(data),
-				///////////////
+				...renderArticles(data.products),
 				{
 					// propiedades de las lineas de la tabla
 					layout: {
@@ -548,7 +440,7 @@ export const pdfCreate = async (data: any) => {
 						// },
 					},
 					fontSize: font_size,
-					table: tableGenerate2(data),
+					table: tableGenerate2(data.products),
 				},
 			],
 			styles: {

@@ -163,7 +163,7 @@ export class ReparationController {
 			const pdf_make = new Pdfmake(fontsPdf)
 
 			// creamos las opciones del pdf a partir de la respuesta con la funcion del helper
-			const data_pdf = await pdfCreate(dataHarcodeada)
+			const data_pdf = await pdfCreate(reparation)
 
 			// creamos el pdf
 			const pdf_doc = pdf_make.createPdfKitDocument(data_pdf as any)
@@ -202,12 +202,13 @@ export class ReparationController {
 			const pdf_make = new Pdfmake(fontsPdf)
 
 			// creamos las opciones del pdf a partir de la respuesta con la funcion del helper
-			const data_pdf = await pdfCreate(dataHarcodeada)
+			const data_pdf = await pdfCreate(reparation)
 
 			// creamos el pdf
 			// const pdf_doc = pdf_make.createPdfKitDocument(data_pdf as any)
 			const pdf_doc = pdf_make.createPdfKitDocument(data_pdf as any)
 
+			// creamos el pdf como binario
 			const base64Stream = pdf_doc.pipe(new Base64Encode())
 			pdf_doc.end()
 
@@ -217,8 +218,23 @@ export class ReparationController {
 				tempFileBase64 += buffer.toString()
 			})
 
+			// funcionalidad para enviar el pdf por correo
 			base64Stream.on('end', async function () {
-				await sendEmailWithAttachment(tempFileBase64)
+				await sendEmailWithAttachment({
+					text: 'Hola 👋 te adjunto el PDF solicitado 🚀 desde nuestra App TallerXpert.',
+					subject: `Reparacion OT-${otNumber}-Review Pdf`,
+					to: 'tallerxpert@gmail.com',
+					attachments: [
+						{
+							filename: `Reparacion OT-${otNumber}.pdf`, // Nombre del archivo adjunto
+							// path: '/ruta/al/archivo/documento.pdf', // Ruta al archivo PDF en tu sistema
+							contentType: 'application/pdf', // Tipo MIME del archivo adjunto
+							content: tempFileBase64, // Aquí pasamos el contenido binario en base64
+							encoding: 'base64',
+							contentDisposition: 'attachment',
+						},
+					],
+				})
 			})
 
 			//========= funcionalidad para enviar x whatsapp =========
@@ -244,12 +260,18 @@ export class ReparationController {
 			const { access_token } = await fetchApiToken.json()
 
 			// const { message, phone } = req.body
-			const phone = '+573224849822'
-			// const phone = '+51980459218'
+			// const phone = '+573224849822'
+			// CAMBIAR LUIS NUMERO DEL ADMIN O QUE VA HACER ELVIDEO
+			// const phone = '51932052849'
+			const phone = '5492996261033'
 
-			//-------------- nuevo contacto whatsapp ----------------
-			const fetchApiNewContact = await fetch(
-				'https://api.sendpulse.com/whatsapp/contacts',
+			// mensaje por whatsapp para contacto ya suscrito
+			const url = `${req.protocol}://${req.hostname}`
+
+			const message = `Hola Administrador de TallerXpert, este es tu orden con OT-${otNumber}: ${url}/api/reparation/pdf/${otNumber}`
+
+			const fetchApi = await fetch(
+				'https://api.sendpulse.com/whatsapp/contacts/sendByPhone',
 				{
 					method: 'POST',
 					headers: {
@@ -257,61 +279,22 @@ export class ReparationController {
 						'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({
-						phone,
-						name: 'contacto 4',
-						bot_id: '6622e56efa831206cc04c055', // esto lo saque de la aplicacion sino caballero dela api whatsapp
-						tags: ['contacto ncountry'],
-						variables: [
-							{
-								name: 'image',
-								value: 'https://ui-avatars.com/api/?name=John+Doe',
-							},
-						],
-					}),
-				},
-			)
-
-			const responseNewContact = await fetchApiNewContact.json()
-
-			// habilitar contacto
-
-			await fetch('https://api.sendpulse.com/whatsapp/contacts/enable', {
-				method: 'POST',
-				headers: {
-					Authorization: `Bearer ${access_token}`,
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					contact_id: responseNewContact.id,
-				}),
-			})
-			// enviar plantilla
-
-			await fetch(
-				'https://api.sendpulse.com/whatsapp/contacts/sendTemplateByPhone',
-				{
-					method: 'POST',
-					headers: {
-						Authorization: `Bearer ${access_token}`,
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
+						// contact_id: "662303ff3e6468c75a032936",
 						bot_id: '6622e56efa831206cc04c055',
 						phone,
-						template: {
-							name: 'taller_xpert_2',
-							components: [],
-							language: {
-								policy: 'deterministic',
-								code: 'es',
+						message: {
+							type: 'text',
+							text: {
+								body: message,
 							},
 						},
 					}),
 				},
 			)
-
+			const response = await fetchApi.json()
 			return res.status(200).send({
-				message: 'Nuevo contacto whatsapp enviado correctamente.',
+				message: 'WhatsApp enviado correctamente.',
+				response,
 			})
 		} catch (error) {
 			next(error)
@@ -338,11 +321,9 @@ export class ReparationController {
 					} = {},
 					service = '',
 					title = '',
-					contact: { id: contact_id = '' } = {},
+					contact: { id: contact_id = '', phone = '' } = {},
 				},
 			] = req.body
-
-			console.log(title, 'tipo', payload, 'payload')
 
 			if (
 				service === 'whatsapp' &&
@@ -369,8 +350,24 @@ export class ReparationController {
 
 				const { access_token } = await fetchApiToken.json()
 
-				const message =
-					'Este es tu pdf: https://cvl.bdigital.uncu.edu.ar/objetos_digitales/15657/monedas-virtuales-y-su-impacto-en-el-comercio-electr.pdf'
+				const client = await Client.findOne({
+					where: { phone },
+					include: Product,
+				})
+
+				if (!client) {
+					throw new Error('El cliente no existe en la base de datos')
+				}
+
+				// revisar codigo porque no esta bien esto siempre traera un producto pero para la demo day esta bien xd
+
+				const product = client?.products.find((p) => p.uriMercadoPago)
+
+				if (!product) {
+					throw new Error('El producto no existe en la base de datos')
+				}
+
+				const message = `Hola👋 usuario ${client.fullName} te escribimos desde TallerXpert. Para enviarte el pago que hemos generado la siguiente URL de Mercado Pago: ${product.uriMercadoPago || 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1526098788-f3d0ff67-7565-4bda-aa8c-9f017b115da3'}. Realiza el pago para el despacho de tu equipo ${product.product_name} ${product.brand}. El costo total es de $${product.total_cost || '$200'}. Además, si necesitas alguna asistencia adicional o tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por tu colaboración!`
 
 				//-------------- mensaje whatsapp ----------------
 				// esto es para enviar el mensaje por whatsapp

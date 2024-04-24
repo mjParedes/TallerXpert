@@ -101,6 +101,14 @@ Content-Type: application/json
 GET http://localhost:8080/api/reparation
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
 
+#### GET REPARATION
+GET http://localhost:8080/api/reparation/4fdc9d19-ef76-4fc6-8a3f-22682dced982
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
+
+#### GET CLIENT
+GET http://localhost:8080/api/client/530c11ef-24e2-4fb1-805f-7445833100e9
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
 
 #### POST REPARATION
 POST http://localhost:8080/api/reparation
@@ -109,16 +117,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhL
 
 {
   "client": {
-    "fullName": "David 1",
-    "dni": 45874545,
-    "address": "Rambla 33",
-    "city": "Barcelona",
-    "phone": "+573224849822",
-    "email": "dcastiblanco14@gmail.com"
+    "fullName": "Luis Angel 2",
+    "dni": 45874546,
+    "address": "Rambla 334",
+    "city": "Barcelona 1",
+    "phone": "5492996261033",
+    "email": "melcabo953@gmail.com"
   },
   "products": [
     {
-      "product_name": "TV2",
+      "product_name": "TV",
       "product_category": "Electrodométicos",
       "brand": "LG",
       "model": "LGA484754",
@@ -128,21 +136,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhL
       "revision_cost": 50,
       "warranty_date": "2024-05-01",
       "warranty_invoice_number": "R01-458454"
-    },
-    {
-      "product_name": "Radio2",
-      "product_category": "Electrodométicos",
-      "brand": "SONY",
-      "model": "SNY484754",
-      "serial_number": "AZEFTYUIOPLKJH",
-      "detail": "No mira el televisor por favor",
-      "issue_detail": "Sin sonido",
-      "revision_cost": 40,
-      "warranty_date": "2024-05-01",
-      "warranty_invoice_number": "R02-458454"
     }
   ]
 }
+
+#### GET REPARATION
+GET http://localhost:8080/api/reparation/09087aab-5844-4326-933e-d4bd3095d8ac
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5MGJiZmVhLWEzOTctNGUwNy1hNmRkLTFiMzVkZGNhMThlZiIsImlhdCI6MTcxMzc0ODM1OH0.vNGAkFkrU24Y0t91wRPuMDKMisbb6TxNKOteTBgp7ZU
 
 #### GET REPARATION
 GET http://localhost:8080/api/reparation/pdf/00000001
@@ -150,3 +150,23 @@ GET http://localhost:8080/api/reparation/pdf/00000001
 #### SEND PDF REPARATION x correo and whatsapp
 GET http://localhost:8080/api/reparation/sendPdf/00000001
 
+#### OBTERNER URI MP Y SEND POR EMAIL Y WHATSAPP
+GET http://localhost:8080/api/product/chekout/6403b4fc-6501-4aaa-bc28-6ebb0d4b6e87
+
+### credenciales de pago:
+
+# 5031 7557 3453 0604
+# 123
+# 11/25
+# 12345678
+# comprador: TESTUSER1744467970@testuser.com
+
+# vendedor: TESTUSER2018947212
+# fBvUrp2xi2
+
+##[1] {
+# [1]   success: false,
+# [1]   data: null,
+# [1]   errors: { phone: [ 'Contact already exists' ] },
+# [1]   error_code: 400
+# [1] } fucking contacto
