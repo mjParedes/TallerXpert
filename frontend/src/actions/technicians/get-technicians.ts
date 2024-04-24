@@ -27,7 +27,7 @@ export const getTechnicians = async (query: string): Promise<TechnicianResponse>
 
     const technicians = await response.json();
 
-    const filteredTechnicians = technicians.filter((technician: Technician) => technician.fullName.toLowerCase().includes(query.toLowerCase()))
+    const filteredTechnicians = technicians.filter((technician: Technician) => technician.fullName.toLowerCase().includes(query.toLowerCase()) && technician.rol === 'technician' && technician.is_active)
 
     return { ok: true, technicians: filteredTechnicians }
   } catch (error) {
