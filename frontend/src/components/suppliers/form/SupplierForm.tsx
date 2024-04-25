@@ -186,7 +186,7 @@ export const SupplierForm = ({ isEditSupplier, supplier }: Props) => {
                 />
               </div>
               {errors.city?.type === 'required' && (
-                <span className='text-red-500'>* La ciudad es requerida</span>
+                <span className='text-red-500'>* La Ciudad es requerida</span>
               )}
             </div>
           </div>
@@ -207,7 +207,7 @@ export const SupplierForm = ({ isEditSupplier, supplier }: Props) => {
                 />
               </div>
               {errors.cuit?.type === 'required' && (
-                <span className='text-red-500'>* El nombre completo del usuario es requerido</span>
+                <span className='text-red-500'>* El CUIT del proveedor es requerido</span>
               )}
             </div>
           </div>
@@ -228,7 +228,7 @@ export const SupplierForm = ({ isEditSupplier, supplier }: Props) => {
                 />
               </div>
               {errors.email?.type === 'required' && (
-                <span className='text-red-500'>* El nombre completo del usuario es requerido</span>
+                <span className='text-red-500'>* El E-Mail del proveedor es requerido</span>
               )}
             </div>
           </div>
@@ -249,7 +249,7 @@ export const SupplierForm = ({ isEditSupplier, supplier }: Props) => {
                 />
               </div>
               {errors.seller_name?.type === 'required' && (
-                <span className='text-red-500'>* El nombre completo del usuario es requerido</span>
+                <span className='text-red-500'>* El nombre del vendedor es requerido</span>
               )}
             </div>
           </div>
@@ -269,7 +269,7 @@ export const SupplierForm = ({ isEditSupplier, supplier }: Props) => {
                 />
               </div>
               {errors.categories?.type === 'required' && (
-                <span className='text-red-500'>* El nombre completo del usuario es requerido</span>
+                <span className='text-red-500'>* La descripción del vendedor es requerida</span>
               )}
             </div>
           </div>

@@ -11,12 +11,11 @@ export default function SuppliersPage() {
   const { data: session, status } = useSession()
   const [suppliers, setSuppliers] = useState<Supplier[]>([])
   const [loading, setLoading] = useState(true)
-  const [filter, setFilter] = useState('')
 
   useEffect(() => {
     const dataSupplier = async () => {
       try {
-        const initialData = await getAllSuppliers(session)
+        const initialData = await getAllSuppliers()
         setSuppliers(initialData)
         setLoading(false)
       } catch (error) {
@@ -27,22 +26,15 @@ export default function SuppliersPage() {
     dataSupplier()
   }, [session])
 
-  const handleDeleteOrder = async (orderId: string) => {
+  const handleDeleteSupplier = async (supplierId: string) => {
     try {
-      await deleteSupplier(orderId, session)
-      const updateData = await getAllSuppliers(session)
+      await deleteSupplier(supplierId)
+      const updateData = await getAllSuppliers()
       setSuppliers(updateData)
     } catch (error) {
       console.error('Error al eliminar la orden: ', error)
     }
   }
-
-  // const filterReparations = suppliers.filter(supplier => {
-  //   return (
-  //     supplier.ot_number.includes(filter) ||
-  //     supplier.client.fullName.toLowerCase().includes(filter.toLocaleLowerCase())
-  //   )
-  // })
 
   return (
     <section>
@@ -93,7 +85,7 @@ export default function SuppliersPage() {
         </div>
 
         {suppliers.map((supplier, index) => (
-          <SupplierAccordion key='index' supplier={supplier} />
+          <SupplierAccordion key={index} supplier={supplier} onDelete={handleDeleteSupplier} />
         ))}
       </div>
     </section>
