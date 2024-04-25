@@ -357,7 +357,7 @@ export class ProductController {
 					await sendEmailWithAttachment({
 						text: message,
 						subject: `PAGO TALLERXPERT - Usuario ${product.client.fullName} - Equipo ${product.product_name} ${product.brand} - APROBADO`,
-						to: 'mjparedes2505@gmail.com',
+						to: 'mjparedes2505@gmail.com, melcabo954@gmail.com',
 					})
 
 					// enviar mensaje de confirmación de pago al admin
@@ -408,6 +408,34 @@ export class ProductController {
 							}),
 						},
 					)
+
+          					// CAMBIAR LUIS NUMERO DEL ADMIN O QUE VA HACER ELVIDEO
+					const phone2 = '51932052849'
+					// const phone = '5492996261033'
+					// const phone2 = '5491124611071'
+
+					await fetch(
+						'https://api.sendpulse.com/whatsapp/contacts/sendByPhone',
+						{
+							method: 'POST',
+							headers: {
+								Authorization: `Bearer ${access_token}`,
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({
+								// contact_id: "662303ff3e6468c75a032936",
+								bot_id: '6622e56efa831206cc04c055',
+								phone: phone2,
+								message: {
+									type: 'text',
+									text: {
+										body: message,
+									},
+								},
+							}),
+						},
+					)
+
 					return res.status(200).json({ ok: true })
 				}
 			}

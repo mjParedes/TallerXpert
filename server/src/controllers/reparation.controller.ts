@@ -93,19 +93,17 @@ export class ReparationController {
 				const newClient = await Client.create({ ...client })
 				clientId = newClient.id
 			}
-			const reparation = await Reparation.create(
-				{ client_id: clientId },
-			)
+			const reparation = await Reparation.create({ client_id: clientId })
 			if (!products) {
 				throw new Error('No se registraron artefactos o productos')
 			}
-			if(products.length === 1){
+			if (products.length === 1) {
 				const newProduct = await Product.create({
 					reparation_id: reparation.id,
 					client_id: clientId,
 					...products,
 				})
-			}else{
+			} else {
 				products.forEach(async (product: any) => {
 					const newProduct = await Product.create({
 						reparation_id: reparation.id,
@@ -230,7 +228,7 @@ export class ReparationController {
 				await sendEmailWithAttachment({
 					text: 'Hola 👋 te adjunto el PDF solicitado 🚀 desde nuestra App TallerXpert.',
 					subject: `Reparacion OT-${otNumber}-Review Pdf`,
-					to: 'mjparedes2505@gmail.com',
+					to: 'mjparedes2505@gmail.com, melcabo954@gmail.com',
 					attachments: [
 						{
 							filename: `Reparacion OT-${otNumber}.pdf`, // Nombre del archivo adjunto
@@ -269,8 +267,8 @@ export class ReparationController {
 			// const { message, phone } = req.body
 			// const phone = '+573224849822'
 			// CAMBIAR LUIS NUMERO DEL ADMIN O QUE VA HACER ELVIDEO
-			// const phone = '51932052849'
 			const phone = '5491124611071'
+			const phone2 = '51932052849'
 
 			// mensaje por whatsapp para contacto ya suscrito
 			const url = `${req.protocol}://${req.hostname}`
@@ -298,6 +296,26 @@ export class ReparationController {
 					}),
 				},
 			)
+
+			await fetch('https://api.sendpulse.com/whatsapp/contacts/sendByPhone', {
+				method: 'POST',
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					// contact_id: "662303ff3e6468c75a032936",
+					bot_id: '6622e56efa831206cc04c055',
+					phone: phone2,
+					message: {
+						type: 'text',
+						text: {
+							body: message,
+						},
+					},
+				}),
+			})
+
 			const response = await fetchApi.json()
 			return res.status(200).send({
 				message: 'WhatsApp enviado correctamente.',
