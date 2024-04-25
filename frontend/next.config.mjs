@@ -18,7 +18,7 @@ const nextConfig = {
       }
     ]
   },
-  trailingSlash: false
+  trailingSlash: false,
   // webpack(webpackConfig) {
   //   return {
   //     ...webpackConfig,

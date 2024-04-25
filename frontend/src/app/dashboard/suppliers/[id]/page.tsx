@@ -68,11 +68,11 @@ export default function SupplierDetail({ params }: { params: { id: string } }) {
         </h2>
       </div>
 
-      <div className='grid w-full grid-cols-2 gap'>
+      <div className='grid w-full grid-cols-1 lg:grid-cols-2 gap'>
         <div className='col-span-1'>
           <SupplierForm isEditSupplier={true} supplier={supplier} />
         </div>
-        <div className='col-span-1'>
+        <div className='hidden lg:block col-span-1'>
           <div
             style={{
               position: 'relative',

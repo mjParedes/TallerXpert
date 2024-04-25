@@ -81,6 +81,7 @@ export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, isEditTe
     if (technician && isEditTechnician) {
       // server action
       const rta = await editTechnician(data, technician.id)
+
       if (!rta.ok) {
         setErrorMessage('No se pudo editar usuario')
         setIsSubmitting(false)
