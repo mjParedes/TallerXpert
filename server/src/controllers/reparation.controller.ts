@@ -99,22 +99,22 @@ export class ReparationController {
 			if (!products) {
 				throw new Error('No se registraron artefactos o productos')
 			}
-			if(products.length === 1){
+			/*if(products.length === 1){
 				const newProduct = await Product.create({
 					reparation_id: reparation.id,
 					client_id: clientId,
 					...products,
 				})
-			}else{
-				products.forEach(async (product: any) => {
-					const newProduct = await Product.create({
-						reparation_id: reparation.id,
-						client_id: clientId,
-						...product,
-					})
-					await reparation.$add('products', newProduct)
+			}else{*/
+			products.forEach(async (product: any) => {
+				const newProduct = await Product.create({
+					reparation_id: reparation.id,
+					client_id: clientId,
+					...product,
 				})
-			}
+				await reparation.$add('products', newProduct)
+			})
+			//}
 			reparation.save()
 			res.status(HttpCodes.SUCCESS_CREATED).json(reparation)
 		} catch (error: any) {
