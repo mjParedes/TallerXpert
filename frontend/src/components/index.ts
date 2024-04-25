@@ -14,6 +14,9 @@ export * from './ui/title/Title'
 export * from './sidebar/Sidebar'
 export * from './ui/modal/Modal'
 
+// buttons
+export { LoginButton } from './auth/LoginButton'
+
 // footer
 export * from './footer/Footer'
 
