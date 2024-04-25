@@ -176,7 +176,7 @@ export const TopMenu = () => {
   const currentRouteConfig = routeConfig[pathName as keyof typeof routeConfig] || {};
   const { icon, title } = currentRouteConfig;
 
-  const userName = "Admin";
+  const userName = session?.user.fullName || "Admin";
   const userImage = "/avatar.png";
 
   if (status === "loading") {
@@ -204,12 +204,12 @@ export const TopMenu = () => {
           </button>
         </div>
         <div className='flex'>
+          <h2 className='text-base font-semibold text-gray-900'>{userName}</h2>
           <button type='button'>
             <svg width='20' height='20' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>
               <polygon points='50,70 20,30 80,30' fill='black' />
             </svg>
           </button>
-          <h2 className='text-base font-semibold text-gray-900'>{userName}</h2>
         </div>
         <Image
           src={userImage}
