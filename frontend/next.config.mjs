@@ -19,7 +19,6 @@ const nextConfig = {
     ]
   },
   trailingSlash: false,
-  output: "standalone",
   distDir: 'dist'
   // webpack(webpackConfig) {
   //   return {
