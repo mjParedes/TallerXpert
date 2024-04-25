@@ -30,11 +30,11 @@ export default function SuppliersCreatePage() {
         <h2 className='flex items-center gap-2 text-2xl font-bold mb-7'>Nuevo Proveedor</h2>
       </div>
 
-      <div className='grid w-full grid-cols-2 gap'>
+      <div className='grid w-full grid-cols-1 lg:grid-cols-2 gap'>
         <div className='col-span-1'>
           <SupplierForm isEditSupplier={true} />
         </div>
-        <div className='col-span-1'>
+        <div className='hidden lg:block col-span-1'>
           <div
             style={{
               position: 'relative',

@@ -1,12 +1,16 @@
 import { getUserSessionServer } from '@/actions'
 
-export const getAllSuppliers = async (session: any) => {
+export const getAllSuppliers = async () => {
+  const user = await getUserSessionServer()
+
+  if (!user) return { ok: false, orders: [] }
+
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/supplier`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${session?.user?.token}`
+        Authorization: `Bearer ${user.token}`
       }
     })
     const data = await response.json()
@@ -26,7 +30,7 @@ export const getSupplierById = async (session: any, id: string) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${session?.user?.token}`
+        Authorization: `Bearer ${user.token}`
       }
     })
     const data = await response.json()
@@ -41,8 +45,6 @@ export const createSupplier = async (session: any, supplier: any) => {
     const user = await getUserSessionServer()
 
     if (!user) return { ok: false, orders: [] }
-
-    console.log(user)
 
     await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/supplier`, {
       method: 'POST',
@@ -73,7 +75,7 @@ export const createSupplier = async (session: any, supplier: any) => {
   }
 }
 
-export const deleteSupplier = async (id: string, session: any) => {
+export const deleteSupplier = async (id: string) => {
   try {
     const user = await getUserSessionServer()
 
@@ -83,7 +85,7 @@ export const deleteSupplier = async (id: string, session: any) => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${session?.user?.token}`
+        Authorization: `Bearer ${user.token}`
       }
     })
   } catch (error) {
