@@ -11,7 +11,7 @@ import { Products, Reparation } from "./interface";
 export default function OrdersPage() {
 
   const { data: session } = useSession();
-  const [reparations, setReparations] = useState<Reparation[]>([])
+  const [reparations, setReparations] = useState<Reparation[] | null>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState("")
 
