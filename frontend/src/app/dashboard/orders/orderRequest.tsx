@@ -130,6 +130,8 @@ export const getProduct = async (productId: string) => {
 
 export const updateProduct = async (product: Product) => {
 
+  console.log(product, "product modificado")
+
   const user = await getUserSessionServer()
   if (!user) return []
   try {
@@ -142,13 +144,13 @@ export const updateProduct = async (product: Product) => {
           Authorization: `Bearer ${user.token}`,
         },
         body: JSON.stringify({
-          product: product
+          ...product
         })
       }
     );
     const data = await response.json();
-  console.log("data", data);
-  
+    console.log("data", data);
+      
     return data
   } catch (error) {
     console.error(error)
