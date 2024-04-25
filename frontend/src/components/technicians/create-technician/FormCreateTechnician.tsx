@@ -72,6 +72,8 @@ export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, isEditTe
 
       if (!rta.ok) {
         setErrorMessage('No se pudo crear usuario')
+        setIsSubmitting(false)
+        setIsFormAviable(true)
         return
       }
     }
@@ -81,6 +83,8 @@ export const FormCreateTechnician = ({ isFormAviable, setIsFormAviable, isEditTe
       const rta = await editTechnician(data, technician.id)
       if (!rta.ok) {
         setErrorMessage('No se pudo editar usuario')
+        setIsSubmitting(false)
+        setIsFormAviable(true)
         return
       }
 

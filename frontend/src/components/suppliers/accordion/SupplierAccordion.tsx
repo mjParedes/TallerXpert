@@ -3,21 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 
-interface Props {
-  supplier: {
-    id: string
-    company: string
-    seller: string
-    address: string
-    city: string
-    description: string
-    phone: string
-    email: string
-    cuit: string
-  }
-}
-
-export const SupplierAccordion = ({ supplier }: Props) => {
+export const SupplierAccordion = ({ supplier }: any) => {
   const [collapsed, setCollapsed] = useState(true)
 
   const editSupplier = () => {
@@ -36,12 +22,12 @@ export const SupplierAccordion = ({ supplier }: Props) => {
           ${collapsed ? 'bg-secondary' : 'bg-[#CACCFF]'}
           `}
       >
-        <div className='text-black text-sm col-span-1 break-all'>{supplier.id}</div>
-        <div className='text-black text-sm col-span-1 break-all'>{supplier.company}</div>
-        <div className='text-black text-sm col-span-1 break-all'>{supplier.seller}</div>
-        <div className='text-black text-sm col-span-1 break-all'>{supplier.phone}</div>
-        <div className='text-black text-sm col-span-1 break-all'>{supplier.email}</div>
-        <span className='col-span-1 break-all flex relative'>
+        <div className='col-span-1 text-sm text-black break-all'>{supplier.id}</div>
+        <div className='col-span-1 text-sm text-black break-all'>{supplier.name}</div>
+        <div className='col-span-1 text-sm text-black break-all'>{supplier.seller_name}</div>
+        <div className='col-span-1 text-sm text-black break-all'>{supplier.phone}</div>
+        <div className='col-span-1 text-sm text-black break-all'>{supplier.email}</div>
+        <span className='relative flex col-span-1 break-all'>
           <Link href={`/dashboard/suppliers/${supplier.id}`}>
             <svg
               width='25'
@@ -106,7 +92,7 @@ export const SupplierAccordion = ({ supplier }: Props) => {
       >
         <div className=''>
           <p className='mb-4'>
-            <strong>Empresa:</strong> {supplier.company}
+            <strong>Empresa:</strong> {supplier.name}
           </p>
           <p className='mb-4'>
             <strong>Dirección:</strong> {supplier.address}
@@ -118,12 +104,12 @@ export const SupplierAccordion = ({ supplier }: Props) => {
             <strong>E-mail:</strong> {supplier.email}
           </p>
           <p>
-            <strong>Descripción:</strong> {supplier.description}
+            <strong>Categoria:</strong> {supplier.categories}
           </p>
         </div>
         <div className=''>
           <p className='mb-4'>
-            <strong>Vendedor:</strong> {supplier.seller}
+            <strong>Vendedor:</strong> {supplier.seller_name}
           </p>
           <p className='mb-4'>
             <strong>Teléfono:</strong> {supplier.phone}
