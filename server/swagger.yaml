@@ -1206,7 +1206,7 @@ paths:
                 properties:
                   error:
                     type: string
-    put:
+    patch:
       summary: Update product by ID
       tags:
         - Products

@@ -99,22 +99,22 @@ export class ReparationController {
 			if (!products) {
 				throw new Error('No se registraron artefactos o productos')
 			}
-			if(products.length === 1){
+			/*if(products.length === 1){
 				const newProduct = await Product.create({
 					reparation_id: reparation.id,
 					client_id: clientId,
 					...products,
 				})
-			}else{
-				products.forEach(async (product: any) => {
-					const newProduct = await Product.create({
-						reparation_id: reparation.id,
-						client_id: clientId,
-						...product,
-					})
-					await reparation.$add('products', newProduct)
+			}else{*/
+			products.forEach(async (product: any) => {
+				const newProduct = await Product.create({
+					reparation_id: reparation.id,
+					client_id: clientId,
+					...product,
 				})
-			}
+				await reparation.$add('products', newProduct)
+			})
+			//}
 			reparation.save()
 			res.status(HttpCodes.SUCCESS_CREATED).json(reparation)
 		} catch (error: any) {
@@ -374,7 +374,7 @@ export class ReparationController {
 					throw new Error('El producto no existe en la base de datos')
 				}
 
-				const message = `Hola👋 usuario ${client.fullName} te escribimos desde TallerXpert. Para enviarte el pago que hemos generado la siguiente URL de Mercado Pago: ${product.uriMercadoPago || 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1526098788-f3d0ff67-7565-4bda-aa8c-9f017b115da3'}. Realiza el pago para el despacho de tu equipo ${product.product_name} ${product.brand}. El costo total es de $${product.total_cost || '$200'}. Además, si necesitas alguna asistencia adicional o tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por tu colaboración!`
+				const message = `Hola👋 ${client.fullName} te escribimos desde TallerXpert. Para enviarte el pago que hemos generado la siguiente URL de Mercado Pago: ${product.uriMercadoPago || 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1526098788-f3d0ff67-7565-4bda-aa8c-9f017b115da3'}. Realiza el pago para el despacho de tu equipo ${product.product_name} ${product.brand}. El costo total es de $${product.total_cost || '$200'}. Además, si necesitas alguna asistencia adicional o tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por tu colaboración!`
 
 				//-------------- mensaje whatsapp ----------------
 				// esto es para enviar el mensaje por whatsapp
