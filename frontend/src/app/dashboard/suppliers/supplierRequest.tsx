@@ -1,3 +1,5 @@
+import { getUserSessionServer } from '@/actions'
+
 export const getAllSuppliers = async (session: any) => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/supplier`, {
@@ -16,6 +18,10 @@ export const getAllSuppliers = async (session: any) => {
 
 export const getSupplierById = async (session: any, id: string) => {
   try {
+    const user = await getUserSessionServer()
+
+    if (!user) return { ok: false, orders: [] }
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/supplier/${id}`, {
       method: 'GET',
       headers: {
@@ -32,11 +38,17 @@ export const getSupplierById = async (session: any, id: string) => {
 
 export const createSupplier = async (session: any, supplier: any) => {
   try {
+    const user = await getUserSessionServer()
+
+    if (!user) return { ok: false, orders: [] }
+
+    console.log(user)
+
     await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/supplier`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${session?.user?.token}`
+        Authorization: `Bearer ${user.token}`
       },
       body: JSON.stringify({
         name: supplier.name,
@@ -63,6 +75,10 @@ export const createSupplier = async (session: any, supplier: any) => {
 
 export const deleteSupplier = async (id: string, session: any) => {
   try {
+    const user = await getUserSessionServer()
+
+    if (!user) return { ok: false, orders: [] }
+
     await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/supplier/${id}`, {
       method: 'DELETE',
       headers: {
@@ -77,6 +93,10 @@ export const deleteSupplier = async (id: string, session: any) => {
 
 export const editSupplier = async (supplier: any, id: string, session: any) => {
   try {
+    const user = await getUserSessionServer()
+
+    if (!user) return { ok: false, orders: [] }
+
     await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/supplier/${id}`, {
       method: 'PATCH',
       headers: {

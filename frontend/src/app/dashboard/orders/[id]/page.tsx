@@ -13,6 +13,7 @@ export default function OrderId({ params }: { params: { id: string } }) {
   const { data: session } = useSession();
 
   useEffect(() => {
+    setLoading(true);
     const dataOrder = async () => {
       try {
         const initialData = await getOrder(params.id)
@@ -25,6 +26,8 @@ export default function OrderId({ params }: { params: { id: string } }) {
     }
     dataOrder()
   }, [params.id, session]);
+
+  console.log(dataResponse)
 
   if (loading) {
     return (
@@ -40,7 +43,7 @@ export default function OrderId({ params }: { params: { id: string } }) {
         <div className="flex items-center justify-between">
           <h2 className="font-bold  text-2xl flex gap-2 items-center">
             <Image src="/user.svg" alt="users" width={32} height={32} />
-            Cliente: {dataResponse.client.fullName}
+            Cliente: {dataResponse?.client?.fullName}
             <span className="text-xl font-normal">(ID:{dataResponse.ot_number})</span>
           </h2>
           <p>
@@ -63,12 +66,7 @@ export default function OrderId({ params }: { params: { id: string } }) {
             <Image src="/email.svg" alt="email" width={24} height={24} />
             {dataResponse?.client?.email}
           </p>
-          <Image
-            src="/human.svg"
-            alt="human"
-            className="absolute bottom-0 right-0 max-lg:hidden"
-            width={200} height={200}
-          />
+          <Image src="/human.svg" alt="human" className="absolute bottom-0 right-0 max-lg:hidden" width={200} height={200} />
         </div>
       </div>
       <div className="flex flex-col gap-4">
@@ -88,8 +86,8 @@ export default function OrderId({ params }: { params: { id: string } }) {
                 name={item.product_name}
                 mark={item.brand}
                 model={item.model}
-                state={item.state || "PENDIENTE"}
-                is_paid={item.is_paid || "PENDIENTE"}
+                state={item.state}
+                is_paid={item.is_paid}
                 id={item.id}
                 key={item.id}
                 entryDate={getDateFormat(item.entry_date)}
@@ -101,10 +99,7 @@ export default function OrderId({ params }: { params: { id: string } }) {
         </div>
       </div>
       <div className="max-lg:flex max-lg:justify-center">
-        <Link
-          href={"/dashboard/orders"}
-          className="bg-primary text-white p-8 pt-2 pb-2 rounded-lg hover:opacity-70"
-        >
+        <Link href={"/dashboard/orders"} className="bg-primary text-white p-8 pt-2 pb-2 rounded-lg hover:opacity-70">
           Volver
         </Link>
       </div>
@@ -136,24 +131,26 @@ function TemplateOrdersArticles({
   idReparationProduct: string;
 }) {
   return (
-    <div className='flex justify-between bg-[#DBDCF7] rounded-lg p-4 shadow-[0px_4px_4px_0px_#00000040] max-lg:flex-col max-lg:items-center max-lg:justify-center max-lg:gap-2 max-lg:text-center text-[#2E353A]'>
+    <div className='flex justify-between items-center bg-[#DBDCF7] rounded-lg p-4 shadow-[0px_4px_4px_0px_#00000040] max-lg:flex-col max-lg:items-center max-lg:justify-center max-lg:gap-2 max-lg:text-center text-[#2E353A]'>
       <p className='w-[15%] max-lg:w-full'>{name}</p>
       <p className='w-[15%] max-lg:w-full'>{mark}</p>
       <p className='w-[15%] max-lg:w-full'>{model}</p>
       <div className=' w-[15%] max-lg:w-full max-lg:flex max-lg:justify-center max-lg:items-center'>
-        <p
-          className={`${is_paid == 'Pendiente'
-              ? 'bg-[#F1CC5B]'
-              : is_paid == 'REPAIRED'
-                ? 'bg-[#34A853]'
-                : 'bg-[#EB6196]'
-            } pr-4 pl-4 rounded-lg text-white  w-max `}>
-          {state.toUpperCase()}
+        <p className={`text-center py-1 w-32 font-semibold rounded-full uppercase
+        ${
+          state === 'Pendiente' ? 'bg-[#F1CC5B]  text-black' : 
+          state === 'En espera' ? 'bg-[#B9B8B8] text-black' : 
+          state === 'Reparado' ? 'bg-[#34A853] text-white' :
+          state === 'Entregado' ? 'bg-[#EB6196] text-white' :
+          state === 'Devuelto' ? 'bg-[#2E353A] text-white' : ''
+        }
+      `} >
+          {state}
         </p>
       </div>
       <div className=' w-[15%] max-lg:w-full max-lg:flex max-lg:justify-center max-lg:items-center'>
-        <p className={`bg-[#35878C] pr-4 pl-4 rounded-lg text-white w-max `}>
-          {is_paid}
+        <p className={`text-center py-1 w-32 font-semibold rounded-full uppercase bg-[#35878C] pr-4 pl-4 text-white `}>
+          {is_paid ? 'Pagado' :  'Pendiente'}
         </p>
       </div>
       <p className='w-[15%] max-lg:w-full'>{entryDate}</p>
