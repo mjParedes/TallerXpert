@@ -19,7 +19,6 @@ const nextConfig = {
     ]
   },
   trailingSlash: false,
-  distDir: 'dist'
   // webpack(webpackConfig) {
   //   return {
   //     ...webpackConfig,
