@@ -45,8 +45,8 @@ export const CardItem = ({ product, onDelete, onEdit }: { product: Products, onD
             <p className="text-sm ">{product.product_name}</p>
             <p className="text-sm bg-[#F1CC5B] w-28 py-1 text-center rounded-full">PENDIENTE</p>
             <div className="flex flex-row gap-6 justify-center">
-                <button className="h-6">
-                    <Edit width={24} height={24} onClick={handleEdit}/>
+                <button className="h-6" onClick={handleEdit}>
+                    <Edit width={24} height={24}/>
                 </button>
                 <button className="h-6" onClick={handleDelete}>
                     <Delete width={24} height={24} />
