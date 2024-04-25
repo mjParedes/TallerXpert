@@ -154,3 +154,49 @@ export const updateProduct = async (product: Product) => {
     console.error(error)
   }
 }
+
+export const getCountSuppliers = async () => {
+  try {
+    const user = await getUserSessionServer();
+    if (!user) return { ok: false, suppliers: [] };
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/supplier`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+
+    const suppliers = await response.json();
+    return suppliers.length;
+  } catch (error) {
+    return { ok: false, suppliers: [] };
+  }
+};
+
+export const getCountProducts = async () => {
+  try {
+    const user = await getUserSessionServer();
+    if (!user) return { ok: false, products: [] };
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/product`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+
+    const products = await response.json();
+    return products.length;
+  } catch (error) {
+    return { ok: false, products: [] };
+  }
+};
