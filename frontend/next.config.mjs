@@ -18,7 +18,9 @@ const nextConfig = {
       }
     ]
   },
-  trailingSlash: false
+  trailingSlash: false,
+  target: 'serverless',
+  distDir: 'dist'
   // webpack(webpackConfig) {
   //   return {
   //     ...webpackConfig,
