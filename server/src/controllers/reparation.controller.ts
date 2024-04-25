@@ -374,7 +374,7 @@ export class ReparationController {
 					throw new Error('El producto no existe en la base de datos')
 				}
 
-				const message = `Hola👋 usuario ${client.fullName} te escribimos desde TallerXpert. Para enviarte el pago que hemos generado la siguiente URL de Mercado Pago: ${product.uriMercadoPago || 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1526098788-f3d0ff67-7565-4bda-aa8c-9f017b115da3'}. Realiza el pago para el despacho de tu equipo ${product.product_name} ${product.brand}. El costo total es de $${product.total_cost || '$200'}. Además, si necesitas alguna asistencia adicional o tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por tu colaboración!`
+				const message = `Hola👋 ${client.fullName} te escribimos desde TallerXpert. Para enviarte el pago que hemos generado la siguiente URL de Mercado Pago: ${product.uriMercadoPago || 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1526098788-f3d0ff67-7565-4bda-aa8c-9f017b115da3'}. Realiza el pago para el despacho de tu equipo ${product.product_name} ${product.brand}. El costo total es de $${product.total_cost || '$200'}. Además, si necesitas alguna asistencia adicional o tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por tu colaboración!`
 
 				//-------------- mensaje whatsapp ----------------
 				// esto es para enviar el mensaje por whatsapp

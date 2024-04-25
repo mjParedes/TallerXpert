@@ -155,7 +155,7 @@ export class ProductController {
 			)
 
 			// mensaje para el usuario usando nodemailer y whatsapp sendpulse
-			const message = `Hola👋 usuario ${product.client.fullName} te escribimos desde TallerXpert. Para enviarte el pago, hemos generado la siguiente URL de Mercado Pago: ${response.init_point}. Realiza el pago para el despacho de tu equipo ${product.product_name} ${product.brand}. El costo total es de ${product.total_cost || '$200'}. Además, si necesitas alguna asistencia adicional o tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por tu colaboración!`
+			const message = `Hola👋 ${product.client.fullName} te escribimos desde TallerXpert. Para enviarte el pago, hemos generado la siguiente URL de Mercado Pago: ${response.init_point}. Realiza el pago para el despacho de tu equipo ${product.product_name} ${product.brand}. El costo total es de ${product.total_cost || '$200'}. Además, si necesitas alguna asistencia adicional o tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por tu colaboración!`
 
 			// enviar correo con la url del pago al cliente
 			//====== NODEMAILER ======
@@ -349,7 +349,7 @@ export class ProductController {
 					)
 
 					// mensaje para el usuario usando nodemailer y whatsapp sendpulse
-					const message = `Hola👋 desde la App TallerXpert el usuario ${product.product_name} realizo el pago para el despacho de su equipo ${product.product_name} ${product.brand} con serial ${product.serial_number}. El costo total fue de ${product.total_cost || '$200'}. ¡Nos vemos pronto! 🚀`
+					const message = `Hola👋 desde la App TallerXpert, el usuario ${product.client.fullName} realizo el pago para el despacho de su equipo ${product.product_name} ${product.brand} con serial ${product.serial_number}. El costo total fue de ${product.total_cost || '$200'}. ¡Nos vemos pronto! 🚀`
 
 					// enviar correo con la url del pago al cliente
 					//====== NODEMAILER ======
