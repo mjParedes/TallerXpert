@@ -32,7 +32,7 @@ export class UserController {
 		try {
 			const {...updateFields} = req.body;
 			const profileValues = ['phone', 'address', 'photo_url'];
-			const checkUser = await User.findByPk(res.locals.token.id) as User;
+			const checkUser = await User.findByPk(res.locals.params.id) as User;
 			//const checkAllKeys = profileValues.some((i) => Object.prototype.hasOwnProperty.call(updateFields, i));
 			const checkAllKeys = profileValues.some((prop) => prop in updateFields);
 			//const updatedPassword = getSHA256ofString(req.body.password)(req.body.password)
