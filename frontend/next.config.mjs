@@ -19,7 +19,7 @@ const nextConfig = {
     ]
   },
   trailingSlash: false,
-  target: 'serverless',
+  output: "standalone",
   distDir: 'dist'
   // webpack(webpackConfig) {
   //   return {
