@@ -15,6 +15,7 @@ export default function ReparateId({ params }: { params: { id: string; idProduct
   const [loading, setLoading] = useState<boolean>(false);
   const [methodPayment, setMethodPayment] = useState(false);
 
+  console.log(dataResponse)
   useEffect(() => {
     setLoading(true);
     const dataOrder = async () => {
@@ -52,7 +53,7 @@ export default function ReparateId({ params }: { params: { id: string; idProduct
     event.preventDefault();
   }
 
-  const guardarProducto = async () => {    
+  const guardarProducto = async () => {
     try {
       await updateProduct(dataResponse)
 
@@ -77,7 +78,7 @@ export default function ReparateId({ params }: { params: { id: string; idProduct
     }
   }
 
-  const notificarCliente = async() => {
+  const notificarCliente = async () => {
     try {
       await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/product/chekout/${params.idProduct}`)
       Swal.fire({
@@ -167,7 +168,7 @@ export default function ReparateId({ params }: { params: { id: string; idProduct
                 <input className="ml-2" type="radio" name="state" id="wait" value="En espera" checked={dataResponse.state === "En espera"} onChange={handleChange} />
                 <label htmlFor="wait" className="ml-2">En Espera</label>
                 <input className="ml-2" type="radio" name="state" id="reparate" value="Reparado" checked={dataResponse.state === "Reparado"} onChange={handleChange} />
-                <label htmlFor="reparado" className="ml-2">Reparado</label>              
+                <label htmlFor="reparado" className="ml-2">Reparado</label>
               </div>
             </div>
             <div className="">
@@ -201,10 +202,12 @@ export default function ReparateId({ params }: { params: { id: string; idProduct
                   </p>
                   <input
                     type="number"
-                    value={(
-                      (dataResponse.reparation_cost | 0) -
-                      (dataResponse.revision_cost | 0)
-                    ).toFixed(2)}
+                    value={
+                      dataResponse.reparation_cost === null ||
+                        dataResponse.reparation_cost <= 0 
+                        ? 0
+                        : (dataResponse.reparation_cost - dataResponse.revision_cost).toFixed(2)
+                    }
                     className="bg-[#F4F4F4] rounded-md border-[1px] border-[#B9B8B8] w-[200px] p-2"
                     disabled
                   />
