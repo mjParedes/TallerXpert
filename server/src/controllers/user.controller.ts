@@ -32,40 +32,45 @@ export class UserController {
 		try {
 			const {...updateFields} = req.body;
 			const profileValues = ['phone', 'address', 'photo_url'];
-			const checkUser = await User.findByPk(res.params.id) as User;
+			const checkUser = await User.findByPk(req.params.id) as User;
 			//const checkAllKeys = profileValues.some((i) => Object.prototype.hasOwnProperty.call(updateFields, i));
 			const checkAllKeys = profileValues.some((prop) => prop in updateFields);
-			//const updatedPassword = getSHA256ofString(req.body.password)(req.body.password)
-			if(checkAllKeys && checkUser){
-				if(checkUser.rol == 'technician'){
-					await checkUser.update({
+			const updatedPassword = getSHA256ofString(req.body.password)
+			if(!checkUser){
+				res.status(401).json({
+					message: 'No Actualizado',
+					update: false,
+				})
+			}
+			if(checkAllKeys){
+				await checkUser.update({
 						fullName: req.body.fullName || checkUser.fullName,
-						email: req.body.email || checkUser.email
+						email: req.body.email || checkUser.email,
+						password: updatedPassword || checkUser.password
 					})
-					const profile = await Profile.update({
-							...req.body,
+				await Profile.update({
+					...req.body,
+					},
+					{
+						where: {
+							userId: req.params.id,
 						},
-						{
-							where: {
-								userId: req.params.id,
-							},
-						},
-					)
-					return res.status(201).json({
-						message: 'Actualizado',
-						update: true,
-					})
-				}else{
-					throw new Error("El usuario no se encuentra registrado")
-				}
+					},
+				)
+				return res.status(201).json({
+					message: 'Actualizado',
+					update: true,
+				})
 			}
 			const user = await User.update(
 				{
-					rol: req.body.rol,
+					fullName: req.body.fullName || checkUser.fullName,
+					email: req.body.email || checkUser.email,
+					password: updatedPassword || checkUser.password
 				},
 				{
 					where: {
-						id: res.locals.token.id,
+						id: req.params.id,
 					},
 				},
 			)
@@ -75,10 +80,6 @@ export class UserController {
 					update: true,
 				})
 			}
-			res.status(401).json({
-				message: 'No Actualizado',
-				update: false,
-			})
 		} catch (error: any) {
 			res.status(500).json({
 				message: error.message,
