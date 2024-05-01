@@ -124,6 +124,25 @@ export class ReparationController {
 
 	static async update(req: Request, res: Response, next: NextFunction) {
 		try {
+			const result = await Reparation.update(
+				{
+					...req.body,
+				},
+				{
+					where: {
+						id: req.params.id,
+					},
+				},
+			)
+			res.status(HttpCodes.SUCCESS).json(result)
+		} catch (error: any) {
+			next(error)
+		}
+
+	}
+
+	static async updateFull(req: Request, res: Response, next: NextFunction) {
+		try {
 
 			/*const reparation = await Reparation.findByPk(req.params.id,{
 				include: [Client, Product]
