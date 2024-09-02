@@ -42,7 +42,7 @@ export const SectionSearch = () => {
       <section className="flex flex-col lg:flex-row py-[110px] px-[72px] justify-center gap-x-24 bg-primary">
         <div className="lg:mb-0 mb-8  lg:w-2/4">
           <div className="relative h-80" >
-            <Image src={'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'} alt="" fill priority style={{ objectFit: "cover" }} />
+            <Image src={'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'} alt="" fill sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw" priority style={{ objectFit: "cover" }} />
           </div>
         </div>
         <div className="lg:w-2/4 flex flex-col items-center">
